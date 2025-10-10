@@ -4,9 +4,11 @@ import logo from "@/assets/logo.png";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const ProfileForm = dynamic(() => import("../../components/ProfileForm"), {
-  ssr: false,
-});
+const ProfileForm = dynamic(
+  () => import("../../components/perfil/ProfileForm"),
+  { ssr: false }
+);
+
 const ProfessorDashboard = () => {
   const [activeTab, setActiveTab] = useState("duvidas");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -273,65 +275,75 @@ const ProfessorDashboard = () => {
             <ProfileForm />
           ) : (
             <>{/* ...aqui fica sua lista de Dúvidas... */}</>
+            /* Tem que mudar o state das duvidas, ela mantem aparecendo no perfil (teste pull request) */
           )}
         </div>
 
         {/* Lista de Dúvidas */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Dúvidas dos Alunos
-          </h2>
+        {activeTab === "duvidas" && (
+          <>
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                Dúvidas dos Alunos
+              </h2>
 
-          {duvidas.map((duvida) => (
-            <div key={duvida.id} className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {duvida.titulo}
-                </h3>
-                <div className="flex space-x-2">
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      duvida.status === "Nova mensagem"
-                        ? "bg-blue-100 text-blue-800"
-                        : duvida.status === "Respondido"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    {duvida.status}
-                  </span>
-                  <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded-full">
-                    {duvida.materia}
-                  </span>
+              {duvidas.map((duvida) => (
+                <div
+                  key={duvida.id}
+                  className="bg-white p-6 rounded-lg shadow-sm"
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {duvida.titulo}
+                    </h3>
+                    <div className="flex space-x-2">
+                      <span
+                        className={`px-2 py-1 text-xs rounded-full ${
+                          duvida.status === "Nova mensagem"
+                            ? "bg-blue-100 text-blue-800"
+                            : duvida.status === "Respondido"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
+                        {duvida.status}
+                      </span>
+                      <span className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded-full">
+                        {duvida.materia}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-600 mb-4">{duvida.conteudo}</p>
+
+                  <div className="flex items-center justify-between text-sm text-gray-500">
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id={`aluno-${duvida.id}`}
+                        className="rounded text-blue-600"
+                        checked={duvida.respondida}
+                        readOnly
+                      />
+                      <label htmlFor={`aluno-${duvida.id}`}>
+                        {duvida.aluno}
+                      </label>
+                    </div>
+
+                    <div className="flex space-x-4">
+                      {!duvida.respondida && !duvida.fechada && (
+                        <button className="text-blue-600 hover:text-blue-800 font-medium">
+                          Responder
+                        </button>
+                      )}
+                      <span>{duvida.tempo}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <p className="text-gray-600 mb-4">{duvida.conteudo}</p>
-
-              <div className="flex items-center justify-between text-sm text-gray-500">
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id={`aluno-${duvida.id}`}
-                    className="rounded text-blue-600"
-                    checked={duvida.respondida}
-                    readOnly
-                  />
-                  <label htmlFor={`aluno-${duvida.id}`}>{duvida.aluno}</label>
-                </div>
-
-                <div className="flex space-x-4">
-                  {!duvida.respondida && !duvida.fechada && (
-                    <button className="text-blue-600 hover:text-blue-800 font-medium">
-                      Responder
-                    </button>
-                  )}
-                  <span>{duvida.tempo}</span>
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

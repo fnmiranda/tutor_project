@@ -1,7 +1,6 @@
 "use client";
-
 import { useState } from "react";
-import AvatarUpload from "@/components/AvatarUpload";
+import AvatarUpload from "./AvatarUpload"; // mesmo diretório
 
 type FormState = {
   nome: string;
