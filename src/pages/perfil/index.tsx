@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ProfileForm from "@/components/ProfileForm";
-
+import ProfileForm from "../../components/perfil/ProfileForm";
 export default function PerfilPage() {
   const [tab, setTab] = useState<"dados" | "notificacoes">("dados");
 
