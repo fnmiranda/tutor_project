@@ -31,22 +31,19 @@ export default function PerfilTabs() {
 }
 
 function TabButton(props: {
-  id: Tab;
-  current: Tab;
-  onClick: (t: Tab) => void;
+  id: "estatisticas" | "dados" | "portfolio";
+  current: "estatisticas" | "dados" | "portfolio";
+  onClick: (t: "estatisticas" | "dados" | "portfolio") => void;
   children: React.ReactNode;
 }) {
   const active = props.current === props.id;
   return (
     <button
       type="button"
+      role="tab"
+      aria-selected={active}
       onClick={() => props.onClick(props.id)}
-      className={[
-        "px-3 py-2 text-sm rounded-t-md",
-        active
-          ? "bg-slate-100 font-medium border border-b-transparent border-slate-200"
-          : "text-slate-600 hover:text-slate-800",
-      ].join(" ")}
+      className="transition-colors" // <- opcional
     >
       {props.children}
     </button>

@@ -66,7 +66,7 @@ export default function ProfileForm() {
               value={form.nome}
               disabled
               onChange={(e) => set("nome", e.target.value)}
-              className="rounded-md border px-3 py-2 outline-none ring-blue-200 focus:ring-2 bg-gray-100 px-3 py-2 text-gray-600"
+              className="rounded-md border px-3 py-2 outline-none ring-blue-200 focus:ring-2 bg-gray-100 text-gray-600"
               placeholder="Seu nome" /*Poder editar ou não o nome depois do cadastro, se sim tirar o disabled */
             />
           </label>
