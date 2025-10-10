@@ -4,8 +4,13 @@ import logo from "@/assets/logo.png";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
+/*Trazendo components para a Aba PERFIL */
 const ProfileForm = dynamic(
   () => import("../../components/perfil/ProfileForm"),
+  { ssr: false }
+);
+const ProfileSection = dynamic(
+  () => import("../../components/perfil/PerfilTabs"),
   { ssr: false }
 );
 
@@ -236,14 +241,20 @@ const ProfessorDashboard = () => {
         </header> */}
 
         {/* Estatísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 ">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
-              <p className="text-4xl font-bold text-blue-600">{stat.value}</p>
-              <p className="text-gray-600">{stat.label}</p>
+        {activeTab === "duvidas" && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 ">
+              {stats.map((stat, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                  <p className="text-4xl font-bold text-blue-600">
+                    {stat.value}
+                  </p>
+                  <p className="text-gray-600">{stat.label}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
 
         {/* Abas */}
         <div className="mb-6 border-b border-gray-200">
@@ -272,10 +283,9 @@ const ProfessorDashboard = () => {
         </div>
         <div className="mt-6">
           {activeTab === "perfil" ? (
-            <ProfileForm />
+            ((<ProfileForm />), (<ProfileSection />))
           ) : (
             <>{/* ...aqui fica sua lista de Dúvidas... */}</>
-            /* Tem que mudar o state das duvidas, ela mantem aparecendo no perfil (teste pull request) */
           )}
         </div>
 

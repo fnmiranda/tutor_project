@@ -1,10 +1,13 @@
+/* Tailwind v4 */
 @import "tailwindcss";
 
+/* Paleta via CSS vars (opcional) */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* Tokens do Tailwind v4 */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,6 +15,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark mode por preferência do SO (opcional) */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +23,41 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Base global do app */
+@layer base {
+  html,
+  body,
+  #__next {
+    height: 100%;
+  }
+
+  body {
+    /* mantém tuas cores + baseline do app */
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+    /* fundo claro padrão do app */
+    /* se quiser sempre claro, deixa; se preferir só pelo var, remove a linha abaixo */
+    @apply bg-gray-50 text-slate-900;
+  }
+
+  /* Legibilidade dos formulários e títulos */
+  input,
+  textarea,
+  select {
+    @apply text-slate-800 placeholder-slate-500;
+  }
+  h1 {
+    @apply text-slate-900;
+  }
+  h2,
+  h3 {
+    @apply text-slate-800;
+  }
 }
+
+/* ❌ Remover estas linhas no v4:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
