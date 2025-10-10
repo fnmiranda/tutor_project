@@ -273,6 +273,7 @@ const ProfessorDashboard = () => {
             <ProfileForm />
           ) : (
             <>{/* ...aqui fica sua lista de Dúvidas... */}</>
+            /* Tem que mudar o state das duvidas, ela mantem aparecendo no perfil (teste pull request) */
           )}
         </div>
 
