@@ -2,7 +2,11 @@
 import { useState } from "react";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
+const ProfileForm = dynamic(() => import("../../components/ProfileForm"), {
+  ssr: false,
+});
 const ProfessorDashboard = () => {
   const [activeTab, setActiveTab] = useState("duvidas");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -263,6 +267,13 @@ const ProfessorDashboard = () => {
               Perfil
             </button>
           </nav>
+        </div>
+        <div className="mt-6">
+          {activeTab === "perfil" ? (
+            <ProfileForm />
+          ) : (
+            <>{/* ...aqui fica sua lista de Dúvidas... */}</>
+          )}
         </div>
 
         {/* Lista de Dúvidas */}
