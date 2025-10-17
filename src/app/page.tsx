@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LoginPage from '../pages/Autenticação/autenticacao';
+import LoginPage from '../pages/Autenticação/Cadastro/cadastro';
 
 export default function Home() {
   return (
