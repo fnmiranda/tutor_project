@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+import { use, useState } from "react";
 
 type Tab = "perfil" | "conta" | "carteira";
 
