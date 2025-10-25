@@ -1,7 +1,6 @@
 "use client";
-
 import { useState } from "react";
-import AvatarUpload from "@/components/AvatarUpload";
+import AvatarUpload from "./AvatarUpload"; // mesmo diretório
 
 type FormState = {
   nome: string;
@@ -19,7 +18,7 @@ export default function ProfileForm() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   const [form, setForm] = useState<FormState>({
-    nome: "Professor Silva",
+    nome: "Silva", // mock: bloqueado como se viesse do Auth
     email: "prof.silva@escola.com", // mock: bloqueado como se viesse do Auth
     bio: "",
     materias: "",
@@ -39,7 +38,7 @@ export default function ProfileForm() {
     // mock de salvamento
     await new Promise((r) => setTimeout(r, 600));
     setSaving(false);
-    setSavedMsg("Perfil salvo (mock).");
+    setSavedMsg("Perfil salvo (mock). De uma olhada no console!");
     console.log("Dados enviados (mock):", { ...form, avatarFile });
   }
 
@@ -65,9 +64,10 @@ export default function ProfileForm() {
             <input
               required
               value={form.nome}
+              disabled
               onChange={(e) => set("nome", e.target.value)}
-              className="rounded-md border px-3 py-2 outline-none ring-blue-200 focus:ring-2"
-              placeholder="Seu nome"
+              className="rounded-md border px-3 py-2 outline-none ring-blue-200 focus:ring-2 bg-gray-100 text-gray-600"
+              placeholder="Seu nome" /*Poder editar ou não o nome depois do cadastro, se sim tirar o disabled */
             />
           </label>
 

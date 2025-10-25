@@ -6,10 +6,9 @@ export default function Home() {
     <div className="font-sans ">
       <main className="flex flex-col">
         <ProfessorDashboard/>
+ 
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-       
-      </footer>
+      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
     </div>
   );
 }

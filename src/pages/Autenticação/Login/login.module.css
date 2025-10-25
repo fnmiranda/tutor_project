@@ -1,0 +1,15 @@
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.errorText {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  text-align: left;
+}

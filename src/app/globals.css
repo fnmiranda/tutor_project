@@ -1,26 +1,80 @@
+/* Tailwind v4 */
 @import "tailwindcss";
 
+/* Paleta via CSS vars (sem @theme) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* equivalente a bg-gray-50 e text-slate-900 */
+  --background: #f9fafb;
+  --foreground: #0f172a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #e5e7eb;
   }
+}
+
+/* Base global (sem @apply) */
+html,
+body,
+#__next {
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Legibilidade dos formulários e títulos (cores equivalentes às classes do Tailwind) */
+input,
+textarea,
+select {
+  color: rgb(30 41 59);
+} /* slate-800 */
+input::placeholder,
+textarea::placeholder {
+  color: rgb(94, 66, 107);
+  opacity: 1;
+} /* slate-500 */
+
+h1 {
+  color: rgb(15 23 42);
+} /* slate-900 */
+h2,
+h3 {
+  color: rgb(30 41 59);
+} /* slate-800 */
+/* -------- Tabs (globais) -------- */
+[role="tablist"] {
+  border-bottom: 1px solid #e5e7eb; /* slate-200 */
+}
+
+/* estilo base do botão de aba */
+[role="tab"] {
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.25rem;
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  border-radius: 0.375rem 0.375rem 0 0; /* rounded-t-md */
+  color: #475569; /* slate-600 */
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+/* hover quando não está ativa */
+[role="tab"]:not([aria-selected="true"]):hover {
+  color: #1f2937; /* slate-800 */
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+/* ABA ATIVA: negrito + fundo cinza + borda */
+[role="tab"][aria-selected="true"] {
+  font-weight: 600; /* semibold */
+  color: #0f172a; /* slate-900 */
+  background-color: #728cc0; /* gray-200 */
+  border-color: #36485c; /* slate-300 */
+  border-bottom-color: transparent;
 }
