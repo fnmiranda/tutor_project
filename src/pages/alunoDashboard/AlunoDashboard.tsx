@@ -1,51 +1,42 @@
-"use client"; // Diretiva necessária porque este componente utiliza estado (useState).
+"use client";
 
-import * as React from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 
-// Importa os componentes que compõem a página.
+import styles from "./aluno.module.css";
+
 import CabecalhoAluno from "../../components/alunoDashboard/CabecalhoAluno";
 import DuvidaCard from "../../components/alunoDashboard/DuvidaCard";
 import AvaliacaoCard from "../../components/alunoDashboard/AvaliacaoCard";
 
-// O ProfileForm é importado de forma dinâmica para otimizar o carregamento inicial.
-// Assume-se que este ficheiro existe em: components/perfil/ProfileForm.tsx
 const ProfileForm = dynamic(
   () => import("../../components/perfil/ProfileForm"),
   { ssr: false }
 );
 
-// Define as interfaces para a tipagem dos dados.
 interface Duvida {
-    id: number;
-    titulo: string;
-    materia: string;
-    status: string;
-    conteudo: string;
-    respondidoPor?: string | null;
-    tempo: string;
+  id: number;
+  titulo: string;
+  materia: string;
+  status: string;
+  conteudo: string;
+  respondidoPor?: string | null;
+  tempo: string;
 }
 
 interface Avaliacao {
-    id: number;
-    avaliado: string;
-    nota: number;
-    comentario: string;
-    data: string;
+  id: number;
+  avaliado: string;
+  nota: number;
+  comentario: string;
+  data: string;
 }
 
-/**
- * Componente principal da página do dashboard do aluno.
- * Orquestra o estado e a renderização dos componentes de cabeçalho e conteúdo.
- */
 const AlunoDashboard = () => {
-  // Estado para controlar qual aba ("duvidas" ou "perfil") está visível.
-  const [activeTab, setActiveTab] = React.useState<"duvidas" | "perfil">("duvidas");
-  // Estado para controlar a visibilidade do menu em dispositivos móveis.
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [activeTab, setActiveTab] = useState<"duvidas" | "perfil">("duvidas");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // --- DADOS DE EXEMPLO ---
-  // Numa aplicação real, estes dados viriam de uma chamada de API (ex: useEffect).
   const stats = [
     { value: 12, label: "Dúvidas Enviadas" },
     { value: 9, label: "Dúvidas Resolvidas" },
@@ -65,7 +56,7 @@ const AlunoDashboard = () => {
   ];
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className={styles.dashboardContainer}>
       <CabecalhoAluno
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -73,23 +64,22 @@ const AlunoDashboard = () => {
         setMobileMenuOpen={setMobileMenuOpen}
       />
 
-      <main className="max-w-6xl mx-auto p-6 space-y-8">
-        {/* Renderização condicional do conteúdo com base na aba ativa */}
+      <main className={styles.mainContent}>
         {activeTab === "duvidas" && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className={styles.statsGrid}>
               {stats.map((stat) => (
-                <div key={stat.label} className="bg-white p-6 rounded-lg shadow-sm">
-                  <p className="text-4xl font-bold text-blue-600">{stat.value}</p>
-                  <p className="text-gray-600">{stat.label}</p>
+                <div key={stat.label} className={styles.card}>
+                  <p className={styles.statValue}>{stat.value}</p>
+                  <p className={styles.statLabel}>{stat.label}</p>
                 </div>
               ))}
             </div>
 
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold text-gray-800">Minhas Dúvidas</h2>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium shadow-sm transition-colors">
+            <div className={styles.duvidasSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>Minhas Dúvidas</h2>
+                <button className={styles.primaryButton}>
                   + Nova Dúvida
                 </button>
               </div>
@@ -101,19 +91,19 @@ const AlunoDashboard = () => {
         )}
 
         {activeTab === "perfil" && (
-          <div className="space-y-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-800 mb-6">
+          <div className={styles.perfilContainer}>
+            <div className={styles.card}>
+              <h2 className={`${styles.sectionTitle} ${styles.sectionTitleMargin}`}>
                 Informações do Perfil
               </h2>
               <ProfileForm />
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-800 mb-6">
+            <div className={styles.card}>
+              <h2 className={`${styles.sectionTitle} ${styles.sectionTitleMargin}`}>
                 Minhas Avaliações Enviadas
               </h2>
-              <div className="space-y-4">
+              <div className={styles.listContainer}>
                 {avaliacoesEnviadas.map((avaliacao) => (
                   <AvaliacaoCard key={avaliacao.id} avaliacao={avaliacao} />
                 ))}
