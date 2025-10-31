@@ -38,7 +38,7 @@ const maskCEP = (s: string) => {
   return `${d.slice(0, 5)}-${d.slice(5)}`;
 };
 
-export default function PersonalDataForm({ initial, onSaved }: Props) {
+export default function PersonalForms({ initial, onSaved }: Props) {
   const [form, setForm] = useState<PersonalData>({
     nome: "",
     email: "",
@@ -51,7 +51,6 @@ export default function PersonalDataForm({ initial, onSaved }: Props) {
     uf: "",
     ...initial,
   });
-
   const [errors, setErrors] = useState<
     Partial<Record<keyof PersonalData, string>>
   >({});
@@ -294,7 +293,7 @@ export default function PersonalDataForm({ initial, onSaved }: Props) {
           <div>
             <Input
               id="pd-cpf"
-              label="CPF (opcional)"
+              label="CPF"
               value={form.cpf ?? ""}
               onChange={handleChange("cpf")}
               placeholder="Somente números"
