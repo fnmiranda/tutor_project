@@ -1,0 +1,21 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 0.8rem;
+}
+
+.form-group select {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  color: #333;
+  appearance: none; /* Remove seta padrão do dropdown */
+  cursor: pointer;
+}
+
+select:hover {
+  border-color: #666;
+}

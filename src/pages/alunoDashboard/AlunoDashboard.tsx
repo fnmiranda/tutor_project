@@ -9,11 +9,13 @@ import CabecalhoAluno from "../../components/alunoDashboard/CabecalhoAluno";
 import DuvidaCard from "../../components/alunoDashboard/DuvidaCard";
 import AvaliacaoCard from "../../components/alunoDashboard/AvaliacaoCard";
 import NovaDuvida from "../../components/alunoDashboard/NovaDuvida";
+import FiltroCards from "../../components/alunoDashboard/FiltreCards";
 
 const ProfileForm = dynamic(
   () => import("../../components/perfil/ProfileForm"),
   { ssr: false }
 );
+
 
 interface Duvida {
   id: number;
@@ -61,6 +63,12 @@ const dados: Dados ={
 const AlunoDashboard = () => {
   const [activeTab, setActiveTab] = useState<"duvidas" | "perfil">("duvidas");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [filtro, setFiltro] = useState('Todas');
+
+const handleFiltroChange = (evento: React.ChangeEvent<HTMLSelectElement>) => {
+    const novoValor = evento.target.value;
+    setFiltro(novoValor);
+  };
 
   let duvidasEnviadas=0, duvidasResolvidas=0, duvidasAberto=0;
   for(let c=0;c<dados.duvidas.length;c++){
@@ -99,9 +107,18 @@ const AlunoDashboard = () => {
             <div className={styles.duvidasSection}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Minhas Dúvidas</h2>
+                <FiltroCards
+                  valorSelecionado={filtro}
+                  aoMudarValor={handleFiltroChange}
+                />
                 <NovaDuvida/>
               </div>
-              {dados.duvidas.map((duvida) => (
+              {dados.duvidas.filter((duvida)=>{
+                if(duvida.status === filtro || 'Todas' === filtro){
+                  return true;
+                }
+              })
+              .map((duvida) => (
                 <DuvidaCard key={duvida.id} duvida={duvida} />
               ))}
             </div>
