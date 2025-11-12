@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import "./professorCSS.css";
+import { useRouter } from "next/navigation";
 
 type Doubt = {
   id: string;
@@ -16,10 +17,17 @@ interface DoubtCardProps {
 }
 
 export default function DoubtCard({ doubt }: DoubtCardProps) {
+  const router = useRouter();
+  
   const statusMap = {
     new: { text: "Nova", className: "new" },
     in_progress: { text: "Em Progresso", className: "in_progress" },
     answered: { text: "Respondida", className: "answered" },
+  };
+
+  const handleVerDetalhes = () => {
+    // Navega para a tela de detalhe passando o ID
+    router.push(`/professorDashboard/duvida/${doubt.id}`);
   };
 
   return (
@@ -33,7 +41,11 @@ export default function DoubtCard({ doubt }: DoubtCardProps) {
           {statusMap[doubt.status].text}
         </span>
       </div>
-      <button className="btn-primary" style={{ marginTop: "16px" }}>
+      <button 
+        className="btn-primary" 
+        style={{ marginTop: "16px" }}
+        onClick={handleVerDetalhes}
+      >
         Ver Detalhes
       </button>
     </div>

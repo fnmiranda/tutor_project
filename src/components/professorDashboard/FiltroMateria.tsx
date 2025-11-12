@@ -1,12 +1,24 @@
-"use client";
-import React, { useState } from "react";
-import "../../components/professorDashboard/professorCSS.css"; // importa estilos globais
+// src/components/professorDashboard/FiltroMateria.tsx
 
-export function FiltroMateria() {
-  const [materia, setMateria] = useState("");
+"use client";
+import React from "react";
+import "./professorCSS.css"; // (Caminho do seu CSS)
+
+// 1. Definimos a interface de props que o componente espera
+interface FiltroMateriaProps {
+  materiaSelecionada: string;
+  onChange: (novaMateria: string) => void;
+}
+
+// 2. Recebemos as props 'materiaSelecionada' e 'onChange'
+export function FiltroMateria({ materiaSelecionada, onChange }: FiltroMateriaProps) {
+  
+  // 3. O useState local foi REMOVIDO מכאן
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setMateria(event.target.value);
+    // 4. Em vez de atualizar um estado local,
+    // chamamos a função 'onChange' que veio do componente "pai"
+    onChange(event.target.value);
   };
 
   return (
@@ -17,16 +29,17 @@ export function FiltroMateria() {
 
       <select
         id="materia-select"
-        value={materia}
+        value={materiaSelecionada} // 5. O valor é controlado pelo "pai"
         onChange={handleChange}
         className="filter-select"
       >
+        {/* O valor "Todas" agora é uma string vazia "" para facilitar a lógica de filtro */}
         <option value="">Todas</option>
         <option value="Cálculo I">Cálculo I</option>
         <option value="Física I">Física I</option>
+        <option value="Física II">Física II</option>
         <option value="Álgebra Linear">Álgebra Linear</option>
-        <option value="Geometria Analítica">Geometria Analítica</option>
-        <option value="Programação I">Programação I</option>
+        {/* Adicione outras matérias se necessário */}
       </select>
     </div>
   );
