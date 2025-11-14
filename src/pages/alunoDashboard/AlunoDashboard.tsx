@@ -11,7 +11,7 @@ import NovaDuvida from "../../components/alunoDashboard/NovaDuvida";
 import FiltroCards from "../../components/alunoDashboard/FiltroCards";
 
 const ProfileForm = dynamic(
-  () => import("../../components/perfil/ProfileForm"),
+  () => import("../../components/perfil_professor/ProfileForm"),
   { ssr: false }
 );
 
