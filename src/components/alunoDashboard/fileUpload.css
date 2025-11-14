@@ -1,0 +1,127 @@
+/* --- Referência de Cores do Tailwind ---*/
+:root {
+    --gray-50: #f9fafb;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --blue-600: #2563eb;
+    --blue-700: #1d4ed8;
+}
+
+/* Contêiner principal (flex items-center gap-4) */
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 16px */
+  padding: 1rem;
+}
+
+.file-preview-wrapper {
+  height: 6rem; /* 96px */
+  width: 10rem; /* 160px */
+  
+  border: 2px dashed #d1d5db; /* border-gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
+  background-color: #f9fafb; /* bg-gray-50 */
+  
+  /* Para centralizar o conteúdo (imagem ou placeholder) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  overflow: hidden; /* Garante que a imagem não vaze */
+}
+
+/* Imagem de preview (era .avatar-image) */
+.file-preview-image {
+  max-height: 10rem;
+  max-width: 100%;
+  object-fit: contain; /* 'contain' é mais seguro que 'cover' para arquivos genéricos */
+  border-radius: 0.25rem;
+}
+
+/* Placeholder de "Nenhum arquivo" (era .avatar-placeholder) */
+.file-placeholder {
+  display: flex;
+  flex-direction: column; /* Empilha o ícone e o texto */
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* text-gray-500 */
+}
+
+.file-placeholder svg {
+  font-size: 1.5rem; /* Tamanho do ícone FaUpload */
+}
+
+
+/* MUDANÇA: Novo estilo para o placeholder do PDF (ou outro arquivo) */
+.file-placeholder-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  color: #374151; /* text-gray-700 */
+}
+
+.file-placeholder-icon svg {
+  font-size: 2.5rem; /* Tamanho do ícone FaFilePdf */
+  color: #e53e3e; /* Cor vermelha para o PDF */
+}
+
+.file-placeholder-icon span {
+  font-size: 0.75rem; /* Texto pequeno para o nome do arquivo */
+  font-weight: 500;
+  word-break: break-all; /* Quebra o nome do arquivo se for muito longo */
+  max-width: 100%;
+}
+
+/* Grupo de botões (flex items-center gap-2) */
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px */
+}
+
+/* Input de arquivo (hidden) */
+.hidden-input {
+  display: none;
+}
+
+/* --- Estilos de Botão --- */
+
+/* Estilo base (rounded-md px-3 py-2 text-sm font-medium) */
+.btn {
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  cursor: pointer;
+  border: 1px solid transparent; /* Para manter o alinhamento entre botões */
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Botão primário (bg-blue-600 text-white hover:bg-blue-700) */
+.btn-primary {
+  background-color: #2563eb; /* bg-blue-600 */
+  color: #ffffff; /* text-white */
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8; /* hover:bg-blue-700 */
+}
+
+/* Botão secundário (border text-gray-700 hover:bg-gray-50) */
+.btn-secondary {
+  background-color: #ffffff;
+  color: #374151; /* text-gray-700 */
+  border-color: #d1d5db; /* border (padrão gray-300) */
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb; /* hover:bg-gray-50 */
+}
