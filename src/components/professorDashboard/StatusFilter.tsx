@@ -1,22 +1,22 @@
 "use client";
 import React from "react";
-import "./professorCSS.css"; // Usa o mesmo CSS
+import "./professorCSS.css";
 
-// Define os tipos de status que o filtro pode ter
-type StatusOption = 'all' | 'new' | 'in_progress' | 'answered';
+// ATUALIZADO: O tipo 'all' foi removido
+type StatusOption = 'new' | 'em_proposta' | 'in_progress' | 'answered';
 
 interface StatusFilterProps {
   activeStatus: StatusOption;
   onChange: (status: StatusOption) => void;
 }
 
-// Define os botões que queremos renderizar
+// ATUALIZADO: O objeto { label: "Tudo", value: 'all' } foi removido
 const filterOptions = [
-  { label: "Tudo", value: 'all' },
   { label: "Novas", value: 'new' },
+  { label: "Em Proposta", value: 'em_proposta' },
   { label: "Pendentes", value: 'in_progress' },
   { label: "Concluídas", value: 'answered' },
-] as const; // 'as const' é uma boa prática em TypeScript
+] as const; 
 
 export function StatusFilter({ activeStatus, onChange }: StatusFilterProps) {
   return (
@@ -24,7 +24,6 @@ export function StatusFilter({ activeStatus, onChange }: StatusFilterProps) {
       {filterOptions.map(option => (
         <button
           key={option.value}
-          // Aplica a classe 'active' se o 'value' do botão for o mesmo do estado 'activeStatus'
           className={`filter-pill ${activeStatus === option.value ? 'active' : ''}`}
           onClick={() => onChange(option.value)}
         >

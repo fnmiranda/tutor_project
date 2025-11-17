@@ -2,9 +2,10 @@
 import React, { useState } from "react"; 
 import "../../components/professorDashboard/professorCSS.css";
 import DoubtCard from "../../components/professorDashboard/DoubtCard"; 
-// import { FiltroMateria } from "../../components/professorDashboard/FiltroMateria"; // REMOVIDO
-import { StatusFilter } from "../../components/professorDashboard/StatusFilter"; // ADICIONADO
+import { StatusFilter } from "../../components/professorDashboard/StatusFilter";
 import StatsCard from "../../components/professorDashboard/StatsCard";
+// 1. IMPORTANDO A TOPBAR
+import TopBar from "../../components/professorDashboard/TopBar";
 
 type Doubt = {
   id: string;
@@ -12,16 +13,21 @@ type Doubt = {
   studentName: string;
   subject: string;
   date: string;
-  status: "new" | "in_progress" | "answered";
-  priority?: 'high' | 'medium' | 'low';
+  status: "new" | "em_proposta" | "in_progress" | "answered";
+  price: number;
 };
 
 const mockDoubts: Doubt[] = [
-  { id: "1", title: "Como resolver equações diferenciais?", studentName: "Ana Silva", subject: "Cálculo I", date: "20/10/2025", status: "new", priority: 'medium' },
-  { id: "2", title: "Dúvida sobre leis de Newton", studentName: "Pedro Santos", subject: "Física I", date: "19/10/2025", status: "in_progress" },
-  { id: "3", title: "Problema com vetores no R³", studentName: "Carlos Oliveira", subject: "Álgebra Linear", date: "18/10/2025", status: "answered", priority: 'high' },
-  { id: "4", title: "Aplicação de integrais duplas", studentName: "Marina Costa", subject: "Cálculo I", date: "21/10/2025", status: "new", priority: 'high' },
-  { id: "5", title: "Ondulatória - princípio de Huygens", studentName: "João Mendes", subject: "Física II", date: "17/10/2025", status: "answered" },
+  { id: "1", title: "Como resolver equações diferenciais?", studentName: "Ana Silva", subject: "Cálculo I", date: "20/10/2025", status: "new" , price: 50},
+  { id: "2", title: "Dúvida sobre leis de Newton", studentName: "Pedro Santos", subject: "Física I", date: "19/10/2025", status: "em_proposta", price: 70 },
+  { id: "3", title: "Problema com vetores no R³", studentName: "Carlos Oliveira", subject: "Álgebra Linear", date: "18/10/2025", status: "in_progress", price: 60 },
+  { id: "4", title: "Aplicação de integrais duplas", studentName: "Marina Costa", subject: "Cálculo I", date: "21/10/2025", status: "new", price: 80 },
+  { id: "5", title: "Ondulatória - princípio de Huygens", studentName: "João Mendes", subject: "Física II", date: "17/10/2025", status: "answered", price: 90 },
+  { id: "6", title: "Transformações lineares", studentName: "Luiza Ferreira", subject: "Álgebra Linear", date: "16/10/2025", status: "in_progress", price: 55 },
+  { id: "7", title: "Cálculo de limites", studentName: "Rafael Gomes", subject: "Cálculo I", date: "15/10/2025", status: "answered" , price: 65},
+  { id: "8", title: "Leis de conservação em física", studentName: "Beatriz Almeida", subject: "Física I", date: "14/10/2025", status: "em_proposta", price: 75 },
+  { id: "9", title: "Autovalores e autovetores", studentName: "Felipe Rocha", subject: "Álgebra Linear", date: "13/10/2025", status: "new", price: 85 },
+  { id: "10", title: "Teorema de Green", studentName: "Camila Nunes", subject: "Cálculo I", date: "12/10/2025", status: "answered" , price: 95 },
 ];
 
 const parseDate = (dateString: string): Date => {
@@ -31,41 +37,24 @@ const parseDate = (dateString: string): Date => {
 
 const statusPriority = {
   'new': 1,
-  'in_progress': 2,
-  'answered': 3
+  'em_proposta': 2,
+  'in_progress': 3,
+  'answered': 4
 };
 
 export default function ProfessorDashboardPage() {
   
-  // MODIFICADO: Trocamos o filtro de matéria pelo filtro de status
-  // const [filtroMateria, setFiltroMateria] = useState(""); // REMOVIDO
-  const [statusFilter, setStatusFilter] = useState<'all' | 'new' | 'in_progress' | 'answered'>('all'); // ADICIONADO
+  // 2. ESTADO PARA O SALDO (Começa com R$ 150,00)
+  const [saldo, setSaldo] = useState(150.00);
+
+  const [statusFilter, setStatusFilter] = useState<'new' | 'em_proposta' | 'in_progress' | 'answered'>('new'); 
   
-  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
-  const [priorityFilter, setPriorityFilter] = useState<'all' | 'high'>('all');
-
-  const toggleSortOrder = () => {
-    setSortOrder(prevOrder => (prevOrder === 'desc' ? 'asc' : 'desc'));
-  };
-
-  const togglePriorityFilter = () => {
-    setPriorityFilter(prevFilter => (prevFilter === 'all' ? 'high' : 'all'));
-  };
-
-  // MODIFICADO: Lógica de filtragem agora usa 'statusFilter'
+  // Lógica de filtragem
   const duvidasFiltradas = mockDoubts.filter(duvida => {
-    // 1. Checa o Status (NOVO)
-    const statusMatch = (statusFilter === 'all') || (duvida.status === statusFilter);
-
-    // 2. Checa a Prioridade (igual a antes)
-    const priorityMatch = (priorityFilter === 'all') || (duvida.priority === 'high');
-
-    return statusMatch && priorityMatch;
+    return duvida.status === statusFilter;
   });
 
-  // Lógica de ordenação (Funciona perfeitamente como estava)
-  // Se 'statusFilter' for 'all', ele ordena por status.
-  // Se 'statusFilter' for 'new', ele pula para a ordenação por data.
+  // Lógica de ordenação
   const duvidasOrdenadas = [...duvidasFiltradas].sort((a, b) => {
     const priorityA = statusPriority[a.status];
     const priorityB = statusPriority[b.status];
@@ -76,10 +65,10 @@ export default function ProfessorDashboardPage() {
 
     const dateA = parseDate(a.date).getTime();
     const dateB = parseDate(b.date).getTime();
-    return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+    return dateB - dateA; 
   });
 
-  // --- Lógica de Estatísticas (continua a mesma) ---
+  // --- Lógica de Estatísticas ---
   const totalDoubts = mockDoubts.length;
   const totalAnswered = mockDoubts.filter(d => d.status === 'answered').length;
   const responseRate = Math.round((totalAnswered / totalDoubts) * 100);
@@ -89,61 +78,62 @@ export default function ProfessorDashboardPage() {
   // ---
 
   return (
-    <main className="page">
-      <div className="container">
-        
-        {/* === SEÇÃO DO CABEÇALHO === */}
-        <header className="page-header">
-          {/* ... (cabeçalho completo) ... */}
-          <div className="header-content">
-            <h1 className="page-title">Dashboard do Professor</h1>
-            <p className="page-subtitle">
-              Gerencie dúvidas, acompanhe métricas e ajude seus alunos
-            </p>
-          </div>
-          <div className="header-actions">
-            <button className="btn-secondary">Botton2</button>
-            <button className="btn-primary">Botton1</button>
-          </div>
-        </header>
+    // Removemos padding aqui para a barra encostar no topo
+    <main style={{ padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
+      
+      {/* 3. INSERINDO A TOP BAR COM O SALDO */}
+      <TopBar saldo={saldo} nomeProfessor="Lucas Quiuqui" />
 
-        {/* === SEÇÃO DE ESTATÍSTICAS === */}
-        <section className="stats-grid">
-           {/* ... (StatsCards completos) ... */}
-          <StatsCard title="Dúvidas Totais" value={totalDoubts} description="Este mês" trend={{ value: 12, isPositive: true }} />
-          <StatsCard title="Taxa de Resposta" value={`${responseRate}%`} description="Dúvidas respondidas" trend={{ value: 5, isPositive: true }} />
-          <StatsCard title="Matéria com Mais Dúvidas" value={materiaComMaisDuvidas} description={`${totalDuvidasMateria} dúvidas`} trend={{ value: 15, isPositive: false }} />
-          <StatsCard title="Alunos Atendidos" value={totalAlunos} description="Este mês" />
-        </section>
-
-        {/* === SEÇÃO DE FILTROS (MODIFICADA) === */}
-        <section className="filter-section">
-          {/* SUBSTITUÍDO: O <FiltroMateria> saiu e o <StatusFilter> entrou */}
-          <StatusFilter 
-            activeStatus={statusFilter}
-            onChange={setStatusFilter}
-          />
+      {/* O conteúdo da página fica dentro desta div com padding */}
+      <div className="page" style={{ paddingTop: '24px' }}>
+        <div className="container">
           
-          <div className="filter-actions">
-            <button className="btn-outline" onClick={toggleSortOrder}>
-              Ordenar por Data ({sortOrder === 'desc' ? 'Mais Novas' : 'Mais Antigas'})
-            </button>
-            <button className="btn-outline" onClick={togglePriorityFilter}>
-              Filtrar: {priorityFilter === 'all' ? 'Todas' : 'Prioridade Alta'}
-            </button>
-          </div>
-        </section>
+          {/* === SEÇÃO DO CABEÇALHO === */}
+          <header className="page-header">
+            <div className="header-content">
+              <h1 className="page-title">Visão Geral</h1>
+              <p className="page-subtitle">
+                Bem-vindo de volta, Professor!
+              </p>
+            </div>
+            <div className="header-actions">
+              {/* Botão para testar o aumento do saldo na TopBar */}
+              <button 
+                className="btn-primary"
+                onClick={() => setSaldo(saldo + 50)}
+              >
+                + Simular Depósito (R$ 50)
+              </button>
+            </div>
+          </header>
 
-        {/* === SEÇÃO DO DASHBOARD (LISTA ÚNICA) === */}
-        <section className="dashboard-section">
-          <h2 className="section-title">Gerenciamento de Dúvidas</h2>
-          
-          <div className="cards-grid-layout">
-            {duvidasOrdenadas.map((doubt) => (
-              <DoubtCard key={doubt.id} doubt={doubt} />
-            ))}
-          </div>
-        </section>
+          {/* === SEÇÃO DE ESTATÍSTICAS === */}
+          <section className="stats-grid">
+            <StatsCard title="Dúvidas Totais" value={totalDoubts} description="Este mês" trend={{ value: 12, isPositive: true }} />
+            <StatsCard title="Taxa de Resposta" value={`${responseRate}%`} description="Dúvidas respondidas" trend={{ value: 5, isPositive: true }} />
+            <StatsCard title="Matéria com Mais Dúvidas" value={materiaComMaisDuvidas} description={`${totalDuvidasMateria} dúvidas`} trend={{ value: 15, isPositive: false }} />
+            <StatsCard title="Alunos Atendidos" value={totalAlunos} description="Este mês" />
+          </section>
+
+          {/* === SEÇÃO DE FILTROS === */}
+          <section className="filter-section">
+            <StatusFilter 
+              activeStatus={statusFilter}
+              onChange={setStatusFilter}
+            />
+          </section>
+
+          {/* === SEÇÃO DO DASHBOARD === */}
+          <section className="dashboard-section">
+            <h2 className="section-title">Gerenciamento de Dúvidas</h2>
+            
+            <div className="cards-grid-layout">
+              {duvidasOrdenadas.map((doubt) => (
+                <DoubtCard key={doubt.id} doubt={doubt} />
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     </main>
   );
