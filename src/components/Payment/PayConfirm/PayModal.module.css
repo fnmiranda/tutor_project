@@ -221,6 +221,7 @@
 .footerText {
   font-size: 14px;
   color: var(--muted);
+  margin-bottom:20px;
 }
 
 /* Acessibilidade: foco visível em botões (se adicionar) */

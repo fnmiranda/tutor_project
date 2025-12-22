@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./PayModal.module.css";
 import { GoBook } from "react-icons/go";
 import { FaCalendarAlt } from "react-icons/fa";
+import Button from "@/components/botao/botao";
 
 type Question = {
   id: string;
@@ -131,6 +132,7 @@ const PayModal: React.FC = () => {
           Professor X irá responder sua pergunta<br />
           Formado em Matemática — Álgebra
         </p>
+        <Button type="submit"> Confirmar</Button>
       </footer>
     </div>
   );
