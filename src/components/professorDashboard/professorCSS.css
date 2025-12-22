@@ -1,52 +1,70 @@
 /* ============================================= */
-/* VARIÁVEIS GLOBAIS (THEME)                     */
+/* 1. VARIÁVEIS GLOBAIS (THEME)                  */
+/* Onde atua: Todo o projeto                     */
 /* ============================================= */
 :root {
-  /* Cores */
-  --color-background: #f4f4f4;
-  --color-background-secondary: #f9fafb;
+  /* Cores do Sistema */
+  --color-background: #f8fafc;
+  --color-background-secondary: #f1f5f9;
   --color-surface: #ffffff;
+  --color-surface-hover: #f8fafc;
   --color-primary: #2563eb;
-  --color-primary-hover: #1e40af;
-  --color-text-primary: #1e293b;
+  --color-primary-hover: #1d4ed8;
+  --color-secondary: #64748b;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  
+  /* Texto */
+  --color-text-primary: #0f172a;
   --color-text-secondary: #334155;
-  --color-text-muted: #6b7280;
-  --color-border: #e5e7eb;
-
-  /* Tipografia */
-  --font-family-base: "Inter", sans-serif;
+  --color-text-muted: #64748b;
+  --color-text-on-primary: #ffffff;
 
   /* Bordas e Sombras */
-  --border-radius-medium: 8px;
-  --border-radius-large: 12px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
+
+  /* Espaçamentos (Sistema de 4px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  
+  /* Layout */
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --column-min-width: 320px;
 }
 
 /* ============================================= */
-/* BASE & RESET                                  */
+/* 2. RESET E BASE                               */
+/* Onde atua: Todo o projeto                     */
 /* ============================================= */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
-  font-family: var(--font-family-base);
+  font-family: "Inter", "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
 }
 
 /* ============================================= */
-/* ESTRUTURA E LAYOUT                            */
+/* 3. ESTRUTURA DE PÁGINA                        */
+/* Onde atua: ProfessorDashboard.tsx, DuvidaDetalhe.tsx */
 /* ============================================= */
 .page {
-  min-height: 100vh;
-  padding: 40px 24px;
+  padding: var(--space-8) var(--space-6);
 }
 
 .container {
@@ -54,177 +72,262 @@ body {
   margin: 0 auto;
 }
 
+/* Cabeçalho das Páginas (Título + Ações) */
 .page-header {
-  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* Ajuste para alinhar título e badge na esquerda (DuvidaDetalhe) */
+.page-header .header-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .page-title {
   font-size: 2rem;
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2);
+  margin-top: 0;
 }
 
 .page-subtitle {
+  font-size: 1rem;
   color: var(--color-text-muted);
+  margin: 0;
 }
 
-.dashboard-grid {
+.header-actions {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  gap: var(--space-3);
+  min-width: 50px; /* Mantém layout mesmo vazio */
 }
 
-@media (min-width: 1024px) {
-  .dashboard-grid {
-    flex-direction: row;
-  }
+/* Seções Gerais */
+.dashboard-section {
+  margin-top: var(--space-8);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--space-6);
 }
 
 /* ============================================= */
-/* COMPONENTES                                   */
+/* 4. BOTÕES (UI KIT)                            */
+/* Onde atua: Todo o projeto                     */
 /* ============================================= */
-
-/* ====== Botão ====== */
 .btn-primary {
-  display: block;
-  width: 100%;
   background-color: var(--color-primary);
-  color: var(--color-surface);
-  font-weight: 500;
-  padding: 10px;
+  color: var(--color-text-on-primary);
   border: none;
-  border-radius: var(--border-radius-medium);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
   cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s;
 }
+.btn-primary:hover { background-color: var(--color-primary-hover); }
 
-.btn-primary:hover {
-  background-color: var(--color-primary-hover);
-}
-
-/* ====== Filtro ====== */
-.filter-bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  background: var(--color-surface);
+.btn-secondary {
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-large);
-  padding: 12px 16px;
-  margin-bottom: 24px;
+  color: var(--color-text-primary);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background-color: var(--color-background-secondary); }
+
+.btn-success {
+  background-color: var(--color-success);
+  color: white;
+  border: none;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  cursor: pointer;
+}
+.btn-success:hover { background-color: #15803d; }
+
+/* Botão Voltar com Ícone (Usado em DuvidaDetalhe) */
+.btn-back-styled {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-background-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  margin-bottom: var(--space-4);
+  transition: all 0.2s;
+}
+.btn-back-styled:hover {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-border-hover);
+}
+
+/* Botão de Anexo (Clips) */
+.btn-anexo {
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* ============================================= */
+/* 5. FILTROS (TABS)                             */
+/* Onde atua: StatusFilter.tsx                   */
+/* ============================================= */
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-6);
+}
+
+.filter-pills-container {
+  display: flex;
+  gap: 10px;
+  background-color: var(--color-background-secondary);
+  border-radius: 9999px;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+}
+
+.filter-pill {
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-pill.active {
+  background-color: var(--color-primary);
+  color: white;
   box-shadow: var(--shadow-sm);
 }
 
-.filter-label {
+/* ============================================= */
+/* 6. STATS CARDS                                */
+/* Onde atua: StatsCard.tsx                      */
+/* ============================================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.stats-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.stats-title { font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.stats-value { font-size: 2rem; font-weight: 700; color: var(--color-text-primary); margin: 0 0 var(--space-1) 0; }
+.stats-description { font-size: 0.875rem; color: var(--color-text-secondary); margin: 0; }
+
+.stats-trend {
+  font-size: 0.75rem;
   font-weight: 600;
-  font-size: 14px;
-  color: var(--color-text-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: var(--space-2);
+}
+.stats-trend.positive { background: #dcfce7; color: var(--color-success); }
+.stats-trend.negative { background: #fee2e2; color: var(--color-error); }
+
+/* ============================================= */
+/* 7. CARD DE DÚVIDA (LISTAGEM)                  */
+/* Onde atua: DoubtCard.tsx (Dashboard)          */
+/* ============================================= */
+.cards-grid-layout {
+  display: grid;
+  
+  grid-template-columns: repeat(auto-fit, minmax(var(--column-min-width), 390px));
+  gap: 15px;
+  align-items: start;
 }
 
-.filter-btn {
-  background-color: #e5e7eb;
-  border: none;
-  color: #374151;
-  padding: 6px 12px;
-  border-radius: 9999px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
-}
-
-.filter-btn:hover {
-  background-color: #d1d5db;
-}
-
-/* ====== Colunas do Dashboard ====== */
-.column {
-  flex: 1;
-  background-color: var(--color-background-secondary);
-  border-radius: var(--border-radius-large);
-  padding: 16px;
-  min-width: 0; /* Correção importante para o flexbox */
-}
-
-.column-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-text-secondary);
-  margin-bottom: 12px;
-}
-
-.column-count {
-  color: var(--color-text-muted);
-  font-weight: 500;
-}
-
-.column-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* ====== Card de Dúvida ====== */
 .card {
   background-color: var(--color-surface);
-  border-radius: var(--border-radius-large);
-  padding: 16px;
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-4);
   box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  height: 280px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 400px;
 }
-
 .card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
 .card-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  margin: 0;
   color: var(--color-text-primary);
-  margin-bottom: 8px;
 }
 
 .card-text {
   font-size: 0.9rem;
-  color: #4b5563;
-  margin-bottom: 4px;
+  color: var(--color-text-secondary);
+  margin: 4px 0;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
+  margin-top: var(--space-3);
 }
 
 .card-date {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 
-/* ====== Badges de Status ====== */
+/* ============================================= */
+/* 8. LABELS DE STATUS                           */
+/* Onde atua: DoubtCard.tsx e DuvidaDetalhe.tsx  */
+/* ============================================= */
 .status {
   padding: 4px 10px;
   border-radius: 9999px;
   font-size: 0.8rem;
   font-weight: 600;
 }
-
-.status.new {
-  background-color: #dbeafe;
-  color: #1e40af;
-}
-
-.status.in_progress {
-  background-color: #fef9c3;
-  color: #92400e;
-}
-
-.status.answered {
-  background-color: #dcfce7;
-  color: #166534;
-}
+.status.new { background: #dbeafe; color: #1e40af; }
+.status.em_proposta { background: #fef3c7; color: #92400e; }
+.status.in_progress { background: #fef9c3; color: #92400e; }
+.status.answered { background: #dcfce7; color: #166534; }

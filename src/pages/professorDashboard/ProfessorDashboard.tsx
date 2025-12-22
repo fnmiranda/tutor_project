@@ -1,140 +1,138 @@
 "use client";
-import React from "react";
-import "../../components/professorDashboard/professorCSS.css"; // Certifique-se que o caminho está correto
+import React, { useState } from "react"; 
+import "../../components/professorDashboard/professorCSS.css";
+import DoubtCard from "../../components/professorDashboard/DoubtCard"; 
+import { StatusFilter } from "../../components/professorDashboard/StatusFilter";
+import StatsCard from "../../components/professorDashboard/StatsCard";
+// 1. IMPORTANDO A TOPBAR
+import TopBar from "../../components/professorDashboard/TopBar";
 
-// Definindo o tipo para os dados, uma boa prática com TypeScript
 type Doubt = {
-  id: number;
-  aluno: string;
-  materia: string;
-  status: 'new' | 'in_progress' | 'answered'; // Status padronizados
-  data: string; // Formato "DD/MM/YYYY"
+  id: string;
+  title: string;
+  studentName: string;
+  subject: string;
+  date: string;
+  status: "new" | "em_proposta" | "in_progress" | "answered";
+  price: number;
 };
 
-// Objeto para mapear o status para texto e classe CSS
-const statusMap = {
-  new: { text: 'Nova', className: 'new' },
-  in_progress: { text: 'Em Progresso', className: 'in_progress' },
-  answered: { text: 'Respondida', className: 'answered' },
-};
+const mockDoubts: Doubt[] = [
+  { id: "1", title: "Como resolver equações diferenciais?", studentName: "Ana Silva", subject: "Cálculo I", date: "20/10/2025", status: "new" , price: 50},
+  { id: "2", title: "Dúvida sobre leis de Newton", studentName: "Pedro Santos", subject: "Física I", date: "19/10/2025", status: "em_proposta", price: 70 },
+  { id: "3", title: "Problema com vetores no R³", studentName: "Carlos Oliveira", subject: "Álgebra Linear", date: "18/10/2025", status: "in_progress", price: 60 },
+  { id: "4", title: "Aplicação de integrais duplas", studentName: "Marina Costa", subject: "Cálculo I", date: "21/10/2025", status: "new", price: 80 },
+  { id: "5", title: "Ondulatória - princípio de Huygens", studentName: "João Mendes", subject: "Física II", date: "17/10/2025", status: "answered", price: 90 },
+  { id: "6", title: "Transformações lineares", studentName: "Luiza Ferreira", subject: "Álgebra Linear", date: "16/10/2025", status: "in_progress", price: 55 },
+  { id: "7", title: "Cálculo de limites", studentName: "Rafael Gomes", subject: "Cálculo I", date: "15/10/2025", status: "answered" , price: 65},
+  { id: "8", title: "Leis de conservação em física", studentName: "Beatriz Almeida", subject: "Física I", date: "14/10/2025", status: "em_proposta", price: 75 },
+  { id: "9", title: "Autovalores e autovetores", studentName: "Felipe Rocha", subject: "Álgebra Linear", date: "13/10/2025", status: "new", price: 85 },
+  { id: "10", title: "Teorema de Green", studentName: "Camila Nunes", subject: "Cálculo I", date: "12/10/2025", status: "answered" , price: 95 },
+];
 
-// Função para converter a data string em um objeto Date para ordenação
 const parseDate = (dateString: string): Date => {
     const [day, month, year] = dateString.split('/').map(Number);
-    // O mês no objeto Date é baseado em zero (0 = Janeiro, 11 = Dezembro)
     return new Date(year, month - 1, day);
 };
 
-export default function ProfessorDashboard() {
-  // Dados mockados com datas diferentes para testar a ordenação
-  const duvidasMock: Doubt[] = [
-    { id: 1, aluno: "Ana", materia: "Cálculo I", status: "new", data: "19/10/2025" },
-    { id: 2, aluno: "Pedro", materia: "Física I", status: "answered", data: "18/10/2025" },
-    { id: 3, aluno: "Marina", materia: "Álgebra Linear", status: "in_progress", data: "17/10/2025" },
-    { id: 4, aluno: "Vitor", materia: "React Avançado", status: "new", data: "18/10/2025" },
-    { id: 5, aluno: "José", materia: "Banco de Dados", status: "new", data: "20/10/2025" },
-  ];
+const statusPriority = {
+  'new': 1,
+  'em_proposta': 2,
+  'in_progress': 3,
+  'answered': 4
+};
 
-  // Filtra e depois ordena cada lista por data, da mais nova para a mais antiga
-  const newDoubts = duvidasMock
-    .filter((d) => d.status === 'new')
-    .sort((a, b) => parseDate(b.data).getTime() - parseDate(a.data).getTime());
+export default function ProfessorDashboardPage() {
+  
+  // 2. ESTADO PARA O SALDO (Começa com R$ 150,00)
+  const [saldo, setSaldo] = useState(150.00);
 
-  const inProgressDoubts = duvidasMock
-    .filter((d) => d.status === 'in_progress')
-    .sort((a, b) => parseDate(b.data).getTime() - parseDate(a.data).getTime());
+  const [statusFilter, setStatusFilter] = useState<'new' | 'em_proposta' | 'in_progress' | 'answered'>('new'); 
+  
+  // Lógica de filtragem
+  const duvidasFiltradas = mockDoubts.filter(duvida => {
+    return duvida.status === statusFilter;
+  });
 
-  const answeredDoubts = duvidasMock
-    .filter((d) => d.status === 'answered')
-    .sort((a, b) => parseDate(b.data).getTime() - parseDate(a.data).getTime());
+  // Lógica de ordenação
+  const duvidasOrdenadas = [...duvidasFiltradas].sort((a, b) => {
+    const priorityA = statusPriority[a.status];
+    const priorityB = statusPriority[b.status];
+
+    if (priorityA !== priorityB) {
+      return priorityA - priorityB;
+    }
+
+    const dateA = parseDate(a.date).getTime();
+    const dateB = parseDate(b.date).getTime();
+    return dateB - dateA; 
+  });
+
+  // --- Lógica de Estatísticas ---
+  const totalDoubts = mockDoubts.length;
+  const totalAnswered = mockDoubts.filter(d => d.status === 'answered').length;
+  const responseRate = Math.round((totalAnswered / totalDoubts) * 100);
+  const materiaComMaisDuvidas = "Cálculo I";
+  const totalDuvidasMateria = mockDoubts.filter(d => d.subject === 'Cálculo I').length;
+  const totalAlunos = new Set(mockDoubts.map(d => d.studentName)).size;
+  // ---
 
   return (
-    <main className="page">
-      <div className="container">
-        {/* Cabeçalho */}
-        <header className="page-header">
-          <h1 className="page-title">Dashboard do Professor</h1>
-          <p className="page-subtitle">
-            Acompanhe, gerencie e responda dúvidas enviadas pelos alunos.
-          </p>
-        </header>
+    // Removemos padding aqui para a barra encostar no topo
+    <main style={{ padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
+      
+      {/* 3. INSERINDO A TOP BAR COM O SALDO */}
+      <TopBar saldo={saldo} nomeProfessor="Lucas Quiuqui" />
 
-        {/* Filtro de Matéria */}
-        <div className="filter-bar">
-            <label className="filter-label">Filtrar por Matéria:</label>
-            <button className="filter-btn">Todas</button>
-            <button className="filter-btn">Cálculo I</button>
-            <button className="filter-btn">Física I</button>
-        </div>
+      {/* O conteúdo da página fica dentro desta div com padding */}
+      <div className="page" style={{ paddingTop: '24px' }}>
+        <div className="container">
+          
+          {/* === SEÇÃO DO CABEÇALHO === */}
+          <header className="page-header">
+            <div className="header-content">
+              <h1 className="page-title">Visão Geral</h1>
+              <p className="page-subtitle">
+                Bem-vindo de volta, Professor!
+              </p>
+            </div>
+            <div className="header-actions">
+              {/* Botão para testar o aumento do saldo na TopBar */}
+              <button 
+                className="btn-primary"
+                onClick={() => setSaldo(saldo + 50)}
+              >
+                + Simular Depósito (R$ 50)
+              </button>
+            </div>
+          </header>
 
-        {/* Grid que organiza as colunas */}
-        <div className="dashboard-grid">
+          {/* === SEÇÃO DE ESTATÍSTICAS === */}
+          <section className="stats-grid">
+            <StatsCard title="Dúvidas Totais" value={totalDoubts} description="Este mês" trend={{ value: 12, isPositive: true }} />
+            <StatsCard title="Taxa de Resposta" value={`${responseRate}%`} description="Dúvidas respondidas" trend={{ value: 5, isPositive: true }} />
+            <StatsCard title="Matéria com Mais Dúvidas" value={materiaComMaisDuvidas} description={`${totalDuvidasMateria} dúvidas`} trend={{ value: 15, isPositive: false }} />
+            <StatsCard title="Alunos Atendidos" value={totalAlunos} description="Este mês" />
+          </section>
 
-          {/* Coluna 1: Novas Dúvidas (Ordenada) */}
-          <div className="column">
-            <h2 className="column-title">
-              Novas Dúvidas <span className="column-count">{newDoubts.length}</span>
-            </h2>
-            <div className="column-content">
-              {newDoubts.map((duvida) => (
-                <div key={duvida.id} className="card">
-                  <h3 className="card-title">{duvida.materia}</h3>
-                  <p className="card-text">Aluno: {duvida.aluno}</p>
-                  <div className="card-footer">
-                    <span className="card-date">{duvida.data}</span>
-                    <span className={`status ${statusMap[duvida.status].className}`}>
-                      {statusMap[duvida.status].text}
-                    </span>
-                  </div>
-                  <button className="btn-primary" style={{ marginTop: '16px' }}>Ver Detalhes</button>
-                </div>
+          {/* === SEÇÃO DE FILTROS === */}
+          <section className="filter-section">
+            <StatusFilter 
+              activeStatus={statusFilter}
+              onChange={setStatusFilter}
+            />
+          </section>
+
+          {/* === SEÇÃO DO DASHBOARD === */}
+          <section className="dashboard-section">
+            <h2 className="section-title">Gerenciamento de Dúvidas</h2>
+            
+            <div className="cards-grid-layout">
+              {duvidasOrdenadas.map((doubt) => (
+                <DoubtCard key={doubt.id} doubt={doubt} />
               ))}
             </div>
-          </div>
-
-          {/* Coluna 2: Em Progresso */}
-          <div className="column">
-            <h2 className="column-title">
-              Em Progresso <span className="column-count">{inProgressDoubts.length}</span>
-            </h2>
-            <div className="column-content">
-              {inProgressDoubts.map((duvida) => (
-                <div key={duvida.id} className="card">
-                  <h3 className="card-title">{duvida.materia}</h3>
-                  <p className="card-text">Aluno: {duvida.aluno}</p>
-                  <div className="card-footer">
-                    <span className="card-date">{duvida.data}</span>
-                    <span className={`status ${statusMap[duvida.status].className}`}>
-                      {statusMap[duvida.status].text}
-                    </span>
-                  </div>
-                  <button className="btn-primary" style={{ marginTop: '16px' }}>Ver Detalhes</button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Coluna 3: Respondidas */}
-          <div className="column">
-            <h2 className="column-title">
-              Respondidas <span className="column-count">{answeredDoubts.length}</span>
-            </h2>
-            <div className="column-content">
-              {answeredDoubts.map((duvida) => (
-                <div key={duvida.id} className="card">
-                  <h3 className="card-title">{duvida.materia}</h3>
-                  <p className="card-text">Aluno: {duvida.aluno}</p>
-                  <div className="card-footer">
-                    <span className="card-date">{duvida.data}</span>
-                    <span className={`status ${statusMap[duvida.status].className}`}>
-                      {statusMap[duvida.status].text}
-                    </span>
-                  </div>
-                  <button className="btn-primary" style={{ marginTop: '16px' }}>Ver Detalhes</button>
-                </div>
-              ))}
-            </div>
-          </div>
+          </section>
         </div>
       </div>
     </main>
