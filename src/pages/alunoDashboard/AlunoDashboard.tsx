@@ -5,6 +5,10 @@ import dynamic from "next/dynamic";
 
 import styles from "./aluno.module.css";
 
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { useAuth } from '@/context/authContext';
+import { routes } from '@/routes/routes';
+
 import CabecalhoAluno from "../../components/alunoDashboard/CabecalhoAluno";
 import DuvidaCard from "../../components/alunoDashboard/DuvidaCard";
 import NovaDuvida from "../../components/alunoDashboard/NovaDuvida";
@@ -221,9 +225,8 @@ const dados: Dados = {
 
 const AlunoDashboard = () => {
   const [activeTab, setActiveTab] = useState<"duvidas" | "perfil">("duvidas");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [filtro, setFiltro] = useState("Todas"); 
-  
+  const [filtro, setFiltro] = useState("Todas");
+
   const handleFiltroChange = (evento: React.ChangeEvent<HTMLInputElement>) => {
     const novoValor = evento.target.value;
     setFiltro(novoValor);
@@ -234,7 +237,7 @@ const AlunoDashboard = () => {
     duvidasAberto = 0;
 
   for (const duvida of dados.duvidas) {
-    duvidasEnviadas++; 
+    duvidasEnviadas++;
     if (duvida.status === "Respondida" || duvida.status === "Fechada") {
       duvidasResolvidas++;
     } else if (duvida.status === "Aguardando Monitor") {
@@ -251,83 +254,102 @@ const AlunoDashboard = () => {
     {
       value: duvidasResolvidas,
       label: "Resolvidas",
-      filterValue: "Resolvidas", 
+      filterValue: "Resolvidas",
     },
     {
       value: duvidasAberto,
       label: "Em Aberto",
-      filterValue: "Aguardando Monitor", 
+      filterValue: "Aguardando Monitor",
     },
   ];
 
+  const { logout } = useAuth();
+  const handleNavigation = (tab: "duvidas" | "perfil") => {
+    setActiveTab(tab);
+    if (tab === "perfil") {
+      routes.navigateTo.alunoPerfil();
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <div className={styles.dashboardContainer}>
-      <CabecalhoAluno
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-        dados={dados}
-      />
+    <ProtectedRoute requiredUserType="aluno">
 
-      <main className={styles.mainContent}>
-        {activeTab === "duvidas" && (
-          <>
-            <div className={styles.statsGrid}>
-              {stats.map((stat) => (
-                <div key={stat.label} className={styles.card}>
-                  <p className={styles.statValue}>{stat.value}</p>
-                  <p className={styles.statLabel}>{stat.filterValue === "Todas" ? "Dúvidas Enviadas" : `Dúvidas ${stat.label}`}</p>
+      <main style={{ padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
+        <div className={styles.dashboardContainer}>
+
+
+
+          <CabecalhoAluno
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            dados={dados}
+          />
+
+          <main className={styles.mainContent}>
+            {activeTab === "duvidas" && (
+              <>
+                <div className={styles.statsGrid}>
+                  {stats.map((stat) => (
+                    <div key={stat.label} className={styles.card}>
+                      <p className={styles.statValue}>{stat.value}</p>
+                      <p className={styles.statLabel}>{stat.filterValue === "Todas" ? "Dúvidas Enviadas" : `Dúvidas ${stat.label}`}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div className={styles.duvidasSection}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Minhas Dúvidas</h2>
-                <NovaDuvida />
+                <div className={styles.duvidasSection}>
+                  <div className={styles.sectionHeader}>
+                    <h2 className={styles.sectionTitle}>Minhas Dúvidas</h2>
+                    <NovaDuvida />
+                  </div>
+
+                  <FiltroCards
+                    valorSelecionado={filtro}
+                    aoMudarValor={handleFiltroChange}
+                    stats={stats}
+                  />
+
+                  {dados.duvidas
+                    .filter((duvida) => {
+                      if (filtro === "Todas") {
+                        return true;
+                      }
+                      if (filtro === "Resolvidas") {
+                        return (
+                          duvida.status === "Respondida" ||
+                          duvida.status === "Fechada"
+                        );
+                      }
+                      return duvida.status === filtro;
+                    })
+                    .map((duvida) => (
+                      <DuvidaCard key={duvida.id} duvida={duvida} />
+                    ))}
+                </div>
+              </>
+            )}
+
+            {activeTab === "perfil" && (
+              <div className={styles.perfilContainer}>
+                <div className={styles.card}>
+                  <h2
+                    className={`${styles.sectionTitle} ${styles.sectionTitleMargin}`}
+                  >
+                    Informações do Perfil
+                  </h2>
+                  <ProfileForm />
+                </div>
               </div>
-
-              <FiltroCards
-                valorSelecionado={filtro}
-                aoMudarValor={handleFiltroChange}
-                stats={stats}
-              />
-
-              {dados.duvidas
-                .filter((duvida) => {
-                  if (filtro === "Todas") {
-                    return true;
-                  }
-                  if (filtro === "Resolvidas") {
-                    return (
-                      duvida.status === "Respondida" ||
-                      duvida.status === "Fechada"
-                    );
-                  }
-                  return duvida.status === filtro;
-                })
-                .map((duvida) => (
-                  <DuvidaCard key={duvida.id} duvida={duvida} />
-                ))}
-            </div>
-          </>
-        )}
-
-        {activeTab === "perfil" && (
-          <div className={styles.perfilContainer}>
-            <div className={styles.card}>
-              <h2
-                className={`${styles.sectionTitle} ${styles.sectionTitleMargin}`}
-              >
-                Informações do Perfil
-              </h2>
-              <ProfileForm />
-            </div>
-          </div>
-        )}
+            )}
+          </main>
+        </div>
       </main>
-    </div>
+    </ProtectedRoute>
+
   );
 };
 

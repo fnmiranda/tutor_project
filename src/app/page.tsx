@@ -1,33 +1,23 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/authContext';
+import { routes } from '@/routes/routes';
 
 export default function HomePage() {
-  const { user } = useAuth();
-  const router = useRouter();
-
   useEffect(() => {
     // Simula verificação de autenticação
-    const savedUser = localStorage.getItem('user');
-    const savedRole = localStorage.getItem('role');
+    const isLoggedIn = localStorage.getItem('isAuthenticated') === 'true';
 
-    if (savedUser && savedRole) {
-      console.log('Usuário encontrado no localStorage, redirecionando...');
-      router.push(`/${savedRole}/dashboard`);
+    if (isLoggedIn) {
+      routes.navigateTo.alunoDashboard();
     } else {
-      console.log('Nenhum usuário logado, redirecionando para login');
-      router.push('/login');
+      routes.navigateTo.login();
     }
-  }, [router]);
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4">Carregando...</h1>
-        <p className="text-gray-600">Redirecionando para a página correta</p>
-      </div>
+      <p>Redirecionando...</p>
     </div>
   );
 }

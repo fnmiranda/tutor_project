@@ -9,7 +9,7 @@ import ProfileForm from "@/components/perfil_professor/ProfileForm";
 import NotificationPrefs from "@/components/settings/NotificationPrefs";
 import SecurityPrefs from "@/components/settings/SecurityPrefs";
 
-export default function PageProfessor() {
+export default function PageProfessorPerfil() {
   // Estado dos modais
   const [editOpen, setEditOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
