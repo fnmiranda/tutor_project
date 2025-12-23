@@ -36,7 +36,7 @@ interface Dados {
 }
 
 // --- DADOS DE EXEMPLO ---
-const dados: Dados = {
+export const dados: Dados = {
   nome: "Silva",
   email: "aluno.silva@gmail.com",
   duvidas: [
@@ -278,7 +278,7 @@ const AlunoDashboard = () => {
   return (
     <ProtectedRoute requiredUserType="aluno">
 
-      <main style={{ padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
+      <main style={{ flex: 1, padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
         <div className={styles.dashboardContainer}>
 
 

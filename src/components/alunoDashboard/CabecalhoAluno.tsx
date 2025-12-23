@@ -45,7 +45,7 @@ const CabecalhoAluno = ({ activeTab, setActiveTab, dados }: CabecalhoAlunoProps)
 
                     <nav className="topbar-nav">
                         <Link href="/student/dashboard" className="nav-link active">Home</Link>
-                        <Link href="/student/Perfil" className="nav-link">Perfil</Link>
+                        <Link href="/student/perfil" className="nav-link">Perfil</Link>
                     </nav>
                 </div>
 

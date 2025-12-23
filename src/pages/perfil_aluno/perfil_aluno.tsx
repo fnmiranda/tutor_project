@@ -12,6 +12,8 @@ import AlunoProfileForm from "@/components/perfil_aluno/AlunoProfileForm";
 import NotificationPrefs from "@/components/settings/NotificationPrefs";
 import SecurityPrefs from "@/components/settings/SecurityPrefs";
 
+import CabecalhoAluno from "../../components/alunoDashboard/CabecalhoAluno";
+import { dados } from "../alunoDashboard/AlunoDashboard"
 export default function PagePerfilAluno() {
   // estados dos modais (aluno)  
   const { logout } = useAuth();
@@ -67,10 +69,22 @@ export default function PagePerfilAluno() {
   };
 
 
+  const [activeTab, setActiveTab] = useState<"duvidas" | "perfil">("perfil");
+
   return (
     <ProtectedRoute requiredUserType="aluno">
-      <main className="mx-auto max-w-5xl p-6 space-y-6">
+
+      <main className="flex  flex-col">
         {/* Cabeçalho do perfil (aluno) */}
+        <div className='fixed top-6 left-6 items-start'>
+
+          <CabecalhoAluno
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+
+            dados={dados}
+          />
+        </div>
         <Card className="p-4">
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-4 min-w-0">
