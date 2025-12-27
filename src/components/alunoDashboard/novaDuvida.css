@@ -88,7 +88,7 @@
     width: 80px;
     height: 80px;
     border: 2px dashed #ccc;
-    border-radius: 50%;
+    border-radius:50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,7 +110,11 @@
 .photo-actions button:hover {
     background: #ddd;
 }
-
+.form-grid{
+    display:flex;
+    width:100%;
+    flex-direction:column;
+}
 .photo-actions p {
     font-size: 0.8rem;
     color: #777;
@@ -118,9 +122,9 @@
 }
 
 .form-group {
-    display: flex;
     flex-direction: column;
     gap: 4px;
+    align-items:center;
     margin-bottom: 0.8rem;
 }
 
@@ -132,19 +136,18 @@
     font-size: 0.95rem;
     background-color: #fff;
     color: #333;
-    appearance: none;
     /* Remove seta padrão do dropdown */
     cursor: pointer;
 }
 
 /* Modificador para campos que ocupam a largura total */
 .form-group.full-width {
-    grid-column: span 2;
+    width:100%;
     margin-bottom: 1.2rem;
 }
 
 label {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.95rem;
 }
 

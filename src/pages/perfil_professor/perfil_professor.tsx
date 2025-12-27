@@ -60,10 +60,9 @@ export default function PageProfessorPerfil() {
   };
 
   return (
-    <ProtectedRoute requiredUserType="professor">
+    <ProtectedRoute requiredUserType="tutor">
       <main className="flex flex-col space-y-6" style={{ minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
 
-        <TopBar saldo={10} nomeProfessor="Lucas Quiuqui" />
         {/* Cabeçalho do perfil */}
         <Card className="p-4">
           <div className="flex flex-wrap items-center gap-4">
@@ -134,7 +133,7 @@ export default function PageProfessorPerfil() {
 
         {/* MODAL: Edição */}
         {editOpen && (
-          <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4">
+          <div className="fixed inset-0 z-50 mt-10 flex items-start sm:items-center justify-center p-2 sm:p-4">
             <div
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={() => setEditOpen(false)}
@@ -150,9 +149,11 @@ export default function PageProfessorPerfil() {
             >
               <header className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 border-b bg-white">
                 <h2 className="text-lg font-semibold">Perfil</h2>
-                <Button data-autofocus onClick={() => setEditOpen(false)}>
-                  Voltar
-                </Button>
+                <div className="w-30">
+                  <Button data-autofocus onClick={() => setEditOpen(false)}>
+                    Voltar
+                  </Button>
+                </div>
               </header>
 
               <div className="p-5 space-y-5">
@@ -171,7 +172,7 @@ export default function PageProfessorPerfil() {
 
         {/* MODAL: Preferências (Notificações + Segurança) */}
         {prefsOpen && (
-          <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4">
+          <div className="fixed inset-0 z-50 mt-10 flex items-start sm:items-center justify-center p-2 sm:p-4">
             <div
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={() => setPrefsOpen(false)}
@@ -187,9 +188,12 @@ export default function PageProfessorPerfil() {
             >
               <header className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 border-b bg-white">
                 <h2 className="text-lg font-semibold">Preferências</h2>
-                <Button data-autofocus onClick={() => setPrefsOpen(false)}>
-                  Fechar
-                </Button>
+
+                <div className="w-30 items-center justify-center">
+                  <Button data-autofocus onClick={() => setPrefsOpen(false)}>
+                    Fechar
+                  </Button>
+                </div>
               </header>
 
               <div className="p-5 space-y-6">

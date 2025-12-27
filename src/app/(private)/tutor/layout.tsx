@@ -22,7 +22,7 @@ export default function TeacherLayout({
         <TopBar saldo={saldo} nomeProfessor="Lucas Quiuqui" />
 
         {/* Conteúdo Principal */}
-        <main className="flex p-2">
+        <main className="flex-1 p-2 mt-10">
           {children}
         </main>
 

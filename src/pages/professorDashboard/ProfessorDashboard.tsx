@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import "../../components/professorDashboard/professorCSS.css";
+import "./ProfessorDashboardTeste.css";
 import DoubtCard from "../../components/professorDashboard/DoubtCard";
 import { StatusFilter } from "../../components/professorDashboard/StatusFilter";
 import StatsCard from "../../components/professorDashboard/StatsCard";

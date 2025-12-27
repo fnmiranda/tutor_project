@@ -20,9 +20,8 @@ export default function Switch({
 }: Props) {
   return (
     <label
-      className={`inline-flex items-center gap-3 cursor-pointer ${
-        disabled ? "opacity-60 cursor-not-allowed" : ""
-      } ${className ?? ""}`}
+      className={`flex items-center justify-between gap-3 cursor-pointer ${disabled ? "opacity-60 cursor-not-allowed" : ""
+        } ${className ?? ""}`}
     >
       {label && <span className="text-sm">{label}</span>}
       <span className="relative inline-flex items-center">
@@ -38,9 +37,8 @@ export default function Switch({
         />
         <span
           aria-hidden
-          className={`h-6 w-11 rounded-full transition-colors ${
-            checked ? "bg-blue-600" : "bg-gray-300"
-          }`}
+          className={`h-6 w-11 rounded-full transition-colors ${checked ? "bg-blue-600" : "bg-gray-300"
+            }`}
         />
         <span
           aria-hidden

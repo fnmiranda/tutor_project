@@ -8,6 +8,8 @@
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   width:100%;
+  justify-content:center;
+  align-items:center;
 }
 
 .customButton:hover {

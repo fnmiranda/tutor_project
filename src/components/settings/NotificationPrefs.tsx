@@ -35,22 +35,23 @@ export default function NotificationPrefs({ onSaved }: Props) {
     <div className="space-y-5">
       <Card title="Notificações">
         <div className="space-y-4">
-          <Switch
-            label="Receber e-mail quando alguém me mencionar"
-            checked={state.emailMentions}
-            onChange={(v) => set((s) => ({ ...s, emailMentions: v }))}
-          />
-          <Switch
-            label="Receber push para novas mensagens"
-            checked={state.pushNewMessages}
-            onChange={(v) => set((s) => ({ ...s, pushNewMessages: v }))}
-          />
-          <Switch
-            label="SMS para alertas críticos (segurança, acesso)"
-            checked={state.smsCritical}
-            onChange={(v) => set((s) => ({ ...s, smsCritical: v }))}
-          />
-
+          <div className="flex flex-col gap-4">
+            <Switch
+              label="Receber e-mail quando alguém me mencionar"
+              checked={state.emailMentions}
+              onChange={(v) => set((s) => ({ ...s, emailMentions: v }))}
+            />
+            <Switch
+              label="Receber push para novas mensagens"
+              checked={state.pushNewMessages}
+              onChange={(v) => set((s) => ({ ...s, pushNewMessages: v }))}
+            />
+            <Switch
+              label="SMS para alertas críticos (segurança, acesso)"
+              checked={state.smsCritical}
+              onChange={(v) => set((s) => ({ ...s, smsCritical: v }))}
+            />
+          </div>
           <div className="pt-2">
             <div className="text-sm font-medium mb-2">
               Frequência do resumo por e-mail
