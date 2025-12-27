@@ -25,9 +25,9 @@ export default function TopBar({ saldo, nomeProfessor }: TopBarProps) {
           <div className="brand-logo">🎓 Tunno</div>
 
           <nav className="topbar-nav">
-            <Link href="/teacher/dashboard" className="nav-link active">Home</Link>
-            <Link href="/teacher/finances" className="nav-link">Financeiro</Link>
-            <Link href="/teacher/students" className="nav-link">Meus Alunos</Link>
+            <Link href="/tutor/dashboard" className="nav-link active">Home</Link>
+            <Link href="/tutor/finances" className="nav-link">Financeiro</Link>
+            <Link href="/tutor/students" className="nav-link">Meus Alunos</Link>
           </nav>
         </div>
 
@@ -47,7 +47,7 @@ export default function TopBar({ saldo, nomeProfessor }: TopBarProps) {
           <div className="user-profile">
             <div className="user-info">
               <span className="user-name">{nomeProfessor}</span>
-              <Link href="/teacher/perfil" className="user-settings-link">Configurações</Link>
+              <Link href="/tutor/perfil" className="user-settings-link">Configurações</Link>
             </div>
             {/* Avatar (Círculo com inicial) */}
             <div className="user-avatar" onClick={handleLogout}>

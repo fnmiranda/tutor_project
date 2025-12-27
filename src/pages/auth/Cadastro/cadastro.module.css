@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  min-width: 100vh;
 }
 
 .spinner {
@@ -14,6 +15,19 @@
   border-left-color: #007bff;
   animation: spin 1s ease infinite;
 }
+.pageContainer{
+  width:40%;
+}
+
+.passwordInt{
+  display: grid;
+  font-size:12px;
+  margin-left:10px;
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr;    
+  height: 60px;     
+}
+
 
 @keyframes spin {
   0% {

@@ -1,24 +1,25 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { routes } from '@/routes/routes';
 import { useAuth } from '@/context/authContext';
 
 export function useNavigation() {
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
 
   const navigateTo = (path: string) => {
     if (routes.isProtectedRoute(path) && !isAuthenticated) {
-      routes.navigateTo.login();
-      return false;
+      router.push(routes.login);
+      return;
     }
-    window.location.href = path;
-    return true;
+    router.push(path);
   };
 
   return {
     navigateTo,
-    goToDashboard: () => navigateTo(routes.aluno.dashboard),
-    goToProfile: () => navigateTo(routes.aluno.perfil),
-    goToLogin: () => navigateTo(routes.login),
+    goToDashboard: (type: 'aluno' | 'tutor') => navigateTo(routes[type].dashboard),
+    goToProfile: (type: 'aluno' | 'tutor') => navigateTo(routes[type].perfil),
+    goToLogin: () => router.push(routes.login),
   };
 }

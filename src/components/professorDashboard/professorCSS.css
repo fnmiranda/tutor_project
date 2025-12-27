@@ -52,6 +52,10 @@
 }
 
 body {
+  display:flex;
+  flex:1;
+  justify-content:center;
+  align-items: flex-start;
   background-color: var(--color-background);
   color: var(--color-text-primary);
   font-family: "Inter", "Segoe UI", sans-serif;
@@ -64,11 +68,18 @@ body {
 /* Onde atua: ProfessorDashboard.tsx, DuvidaDetalhe.tsx */
 /* ============================================= */
 .page {
-  padding: var(--space-8) var(--space-6);
+  padding: var(--space-2) var(--space-6);
 }
 
 .container {
-  max-width: 1200px;
+  align-items:center;
+  justify-content:center;
+  padding-top: 0px;
+  max-width: 1600px;
+  width: 1500px;
+  min-width:600;
+  min-height: 120vh;
+  max-height: 100%;
   margin: 0 auto;
 }
 
@@ -77,7 +88,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--space-8);
   flex-wrap: wrap;
   gap: var(--space-4);
 }
@@ -102,6 +112,7 @@ body {
   font-size: 1rem;
   color: var(--color-text-muted);
   margin: 0;
+  margin-bottom: 10px;
 }
 
 .header-actions {
@@ -273,6 +284,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(var(--column-min-width), 390px));
   gap: 15px;
   align-items: start;
+  justify-content: center;
 }
 
 .card {

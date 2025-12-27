@@ -3,7 +3,9 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  min-width: 100vh;
   background-color: #f0f2f5;
+  width:100%;
 }
 
 .errorText {
@@ -13,3 +15,4 @@
   margin-bottom: 12px;
   text-align: left;
 }
+

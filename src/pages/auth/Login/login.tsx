@@ -5,6 +5,7 @@ import Input from '../../../components/input/input';
 import Button from '../../../components/botao/botao';
 import styles from './login.module.css';
 import { useAuth } from '@/context/authContext';
+import Link from 'next/link';
 
 // Interface para definir a forma do nosso objeto de erros
 interface LoginErrors {
@@ -16,7 +17,7 @@ const LoginPage: React.FC = () => {
   // 1. Estados para os valores dos inputs
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState<'aluno' | 'professor'>('aluno');
+  const [userType, setUserType] = useState<'aluno' | 'tutor'>('aluno');
   const { login } = useAuth();
 
   // 2. Estado para as mensagens de erro de validação
@@ -47,7 +48,7 @@ const LoginPage: React.FC = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      login(email, password, userType);
+      login(email, userType);
     }
   };
 
@@ -83,13 +84,13 @@ const LoginPage: React.FC = () => {
             type="button"
             style={{
               padding: '0.5rem 1rem',
-              background: userType === 'professor' ? '#10b981' : '#e5e7eb',
-              color: userType === 'professor' ? 'white' : 'black',
+              background: userType === 'tutor' ? '#10b981' : '#e5e7eb',
+              color: userType === 'tutor' ? 'white' : 'black',
               border: 'none',
               borderRadius: '0.25rem',
               cursor: 'pointer'
             }}
-            onClick={() => setUserType('professor')}
+            onClick={() => setUserType('tutor')}
           >
             Professor
           </button>
@@ -116,6 +117,9 @@ const LoginPage: React.FC = () => {
           {errors.password && <p className={styles.errorText}>{errors.password}</p>}
 
           <Button type="submit">Entrar</Button>
+          <div className='mt-2 text-center'>
+            <Link href='#'>Já possui uma conta</Link>
+          </div>
         </form>
       </Card>
     </div>

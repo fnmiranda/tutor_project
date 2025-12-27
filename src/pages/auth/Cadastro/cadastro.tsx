@@ -5,6 +5,7 @@ import Card from '../../../components/cards/cards';
 import Input from '../../../components/input/input';
 import Button from '../../../components/botao/botao';
 import styles from './cadastro.module.css';
+import Link from 'next/link';
 
 interface ErrosCadastro {
   nome?: string;
@@ -80,8 +81,18 @@ const Cadastro: React.FC = () => {
             value={confirmarSenha}
             onChange={(e) => setConfirmarSenha(e.target.value)}
           />
+          <div className={styles.passwordInt}>
+            <div className="item"> 1 letra maiúscula</div>
+            <div className="item"> 1 letra minúscula</div>
+            <div className="item">8 caracteres</div>
+            <div className="item">1 número</div>
+          </div>
           {erros.confirmarSenha && <p className={styles.errorText}>{erros.confirmarSenha}</p>}
+
           <Button type="submit">Cadastrar</Button>
+          <div className='mt-2 text-center'>
+            <Link href='#'>Já possui uma conta</Link>
+          </div>
         </form>
       </Card>
     </div>

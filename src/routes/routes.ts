@@ -1,45 +1,24 @@
 export const routes = {
-  // Rotas públicas
-  login: '/login',
+  login: '/',
   register: '/register',
 
-  // Rotas do aluno
   aluno: {
-    dashboard: '/student/dashboard',
-    perfil: '/student/perfil',
+    dashboard: '/aluno/dashboard',
+    perfil: '/aluno/perfil',
   },
 
-  // Rotas do professor
-  professor: {
-    dashboard: '/teacher/dashboard',
-    perfil: '/teacher/perfil',
+  tutor: {
+    dashboard: '/tutor/dashboard',
+    perfil: '/tutor/perfil',
   },
 
-  // Funções de navegação
-  navigateTo: {
-    login: () => window.location.href = '/login',
-    register: () => window.location.href = '/register',
-    alunoDashboard: () => window.location.href = '/student/dashboard',
-    alunoPerfil: () => window.location.href = '/student/perfil',
-    professorDashboard: () => window.location.href = '/teacher/dashboard',
-    professorPerfil: () => window.location.href = '/teacher/perfil',
-  },
-
-  // Validação de rotas protegidas
   isProtectedRoute: (path: string): boolean => {
-    const protectedRoutes = [
-      '/student/dashboard',
-      '/student/perfil',
-      '/teacher/dashboard',
-      '/teacher/perfil'
-    ];
-    return protectedRoutes.includes(path);
+    return path.startsWith('/aluno') || path.startsWith('/tutor');
   },
 
-  // Identifica tipo de usuário pela rota
-  getUserTypeFromPath: (path: string): 'aluno' | 'professor' | null => {
-    if (path.startsWith('/student')) return 'aluno';
-    if (path.startsWith('/teacher')) return 'professor';
+  getUserTypeFromPath: (path: string): 'aluno' | 'tutor' | null => {
+    if (path.startsWith('/aluno')) return 'aluno';
+    if (path.startsWith('/tutor')) return 'tutor';
     return null;
   }
 };

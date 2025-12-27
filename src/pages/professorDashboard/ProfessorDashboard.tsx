@@ -4,10 +4,6 @@ import "../../components/professorDashboard/professorCSS.css";
 import DoubtCard from "../../components/professorDashboard/DoubtCard";
 import { StatusFilter } from "../../components/professorDashboard/StatusFilter";
 import StatsCard from "../../components/professorDashboard/StatsCard";
-// 1. IMPORTANDO A TOPBAR
-import ProtectedRoute from "@/components/ProtectedRoute";
-
-import TopBar from "../../components/professorDashboard/TopBar";
 
 type Doubt = {
   id: string;
@@ -80,65 +76,54 @@ export default function ProfessorDashboardPage() {
   // ---
 
   return (
+    <div className="container">
 
-    <ProtectedRoute requiredUserType="professor">
-      <main style={{ padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
 
-        {/* 3. INSERINDO A TOP BAR COM O SALDO */}
-        <TopBar saldo={saldo} nomeProfessor="Lucas Quiuqui" />
-
-        {/* O conteúdo da página fica dentro desta div com padding */}
-        <div className="page" style={{ paddingTop: '24px' }}>
-          <div className="container">
-
-            {/* === SEÇÃO DO CABEÇALHO === */}
-            <header className="page-header">
-              <div className="header-content">
-                <h1 className="page-title">Visão Geral</h1>
-                <p className="page-subtitle">
-                  Bem-vindo de volta, Professor!
-                </p>
-              </div>
-              <div className="header-actions">
-                {/* Botão para testar o aumento do saldo na TopBar */}
-                <button
-                  className="btn-primary"
-                  onClick={() => setSaldo(saldo + 50)}
-                >
-                  + Simular Depósito (R$ 50)
-                </button>
-              </div>
-            </header>
-
-            {/* === SEÇÃO DE ESTATÍSTICAS === */}
-            <section className="stats-grid">
-              <StatsCard title="Dúvidas Totais" value={totalDoubts} description="Este mês" trend={{ value: 12, isPositive: true }} />
-              <StatsCard title="Taxa de Resposta" value={`${responseRate}%`} description="Dúvidas respondidas" trend={{ value: 5, isPositive: true }} />
-              <StatsCard title="Matéria com Mais Dúvidas" value={materiaComMaisDuvidas} description={`${totalDuvidasMateria} dúvidas`} trend={{ value: 15, isPositive: false }} />
-              <StatsCard title="Alunos Atendidos" value={totalAlunos} description="Este mês" />
-            </section>
-
-            {/* === SEÇÃO DE FILTROS === */}
-            <section className="filter-section">
-              <StatusFilter
-                activeStatus={statusFilter}
-                onChange={setStatusFilter}
-              />
-            </section>
-
-            {/* === SEÇÃO DO DASHBOARD === */}
-            <section className="dashboard-section">
-              <h2 className="section-title">Gerenciamento de Dúvidas</h2>
-
-              <div className="cards-grid-layout">
-                {duvidasOrdenadas.map((doubt) => (
-                  <DoubtCard key={doubt.id} doubt={doubt} />
-                ))}
-              </div>
-            </section>
-          </div>
+      {/* === SEÇÃO DO CABEÇALHO === */}
+      <header className="page-header">
+        <div className="header-content">
+          <h1 className="page-title">Visão Geral</h1>
+          <p className="page-subtitle">
+            Bem-vindo de volta, Professor!
+          </p>
         </div>
-      </main>
-    </ProtectedRoute>
+        <div className="header-actions">
+          {/* Botão para testar o aumento do saldo na TopBar */}
+          <button
+            className="btn-primary"
+            onClick={() => setSaldo(saldo + 50)}
+          >
+            + Simular Depósito (R$ 50)
+          </button>
+        </div>
+      </header>
+
+      {/* === SEÇÃO DE ESTATÍSTICAS === */}
+      <section className="stats-grid">
+        <StatsCard title="Dúvidas Totais" value={totalDoubts} description="Este mês" trend={{ value: 12, isPositive: true }} />
+        <StatsCard title="Taxa de Resposta" value={`${responseRate}%`} description="Dúvidas respondidas" trend={{ value: 5, isPositive: true }} />
+        <StatsCard title="Matéria com Mais Dúvidas" value={materiaComMaisDuvidas} description={`${totalDuvidasMateria} dúvidas`} trend={{ value: 15, isPositive: false }} />
+        <StatsCard title="Alunos Atendidos" value={totalAlunos} description="Este mês" />
+      </section>
+
+      {/* === SEÇÃO DE FILTROS === */}
+      <section className="filter-section">
+        <StatusFilter
+          activeStatus={statusFilter}
+          onChange={setStatusFilter}
+        />
+      </section>
+
+      {/* === SEÇÃO DO DASHBOARD === */}
+      <section className="dashboard-section">
+        <h2 className="section-title">Gerenciamento de Dúvidas</h2>
+
+        <div className="cards-grid-layout">
+          {duvidasOrdenadas.map((doubt) => (
+            <DoubtCard key={doubt.id} doubt={doubt} />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

@@ -4,39 +4,25 @@ import './cabecalhoAluno.css';
 
 import { useAuth } from '@/context/authContext';
 
-interface Duvida {
-    id: number;
-    titulo: string;
-    materia: string;
-    status: string;
-    conteudo: string;
-    respondidoPor?: string | null;
-    tempo: string;
-}
-
 // Define os tipos para as propriedades que o componente espera receber.
-type CabecalhoAlunoProps = {
-    activeTab: string;
-    setActiveTab: (tab: "duvidas" | "perfil") => void;
-    dados: { nome: string; email: string; duvidas: Duvida[] }
+interface CabecalhoAlunoProps {
+    quantidade?: number;
+    nomeAluno: string;
 };
 
 /**
  * Componente de cabeçalho para o dashboard do aluno.
  * Contém a navegação principal (abas), informações do utilizador e o menu mobile.
  */
-const CabecalhoAluno = ({ activeTab, setActiveTab, dados }: CabecalhoAlunoProps) => {
+export default function CabecalhoAluno({ quantidade = 150, nomeAluno }: CabecalhoAlunoProps) {
     const { userData, userType, logout } = useAuth();
     const handleLogout = () => {
         logout();
     };
 
-    const handleTabChange = (tab: "duvidas" | "perfil") => {
-        setActiveTab(tab);
-    };
 
     return (
-        <header className="topbar">
+        <div className="topbar">
             <div className="topbar-container">
 
                 {/* 1. LADO ESQUERDO: Logo e Menu */}
@@ -44,8 +30,8 @@ const CabecalhoAluno = ({ activeTab, setActiveTab, dados }: CabecalhoAlunoProps)
                     <div className="brand-logo">🎓 Tunno</div>
 
                     <nav className="topbar-nav">
-                        <Link href="/student/dashboard" className="nav-link active">Home</Link>
-                        <Link href="/student/perfil" className="nav-link">Perfil</Link>
+                        <Link href="/aluno/dashboard" className="nav-link active">Home</Link>
+                        <Link href="/aluno/perfil" className="nav-link">Perfil</Link>
                     </nav>
                 </div>
 
@@ -55,7 +41,7 @@ const CabecalhoAluno = ({ activeTab, setActiveTab, dados }: CabecalhoAlunoProps)
                     {/* Mostrador de Dinheiro */}
                     <div className="balance-badge">
                         <span className="balance-label">N° Dúvidas</span>
-                        <span className="balance-value">{dados.duvidas.length}</span>
+                        <span className="balance-value">{quantidade}</span>
                     </div>
 
                     {/* Divisor Vertical */}
@@ -64,20 +50,19 @@ const CabecalhoAluno = ({ activeTab, setActiveTab, dados }: CabecalhoAlunoProps)
                     {/* Área do Usuário */}
                     <div className="user-profile">
                         <div className="user-info">
-                            <span className="user-name">{dados.nome}</span>
-                            <Link href="/student/perfil" className="user-settings-link">Configurações</Link>
+                            <span className="user-name">{nomeAluno}</span>
+                            <Link href="/aluno/perfil" className="user-settings-link">Configurações</Link>
                         </div>
                         {/* Avatar (Círculo com inicial) */}
                         <div className="user-avatar" onClick={handleLogout}>
-                            {dados.nome.charAt(0)}
+                            {nomeAluno.charAt(0)}
                         </div>
                     </div>
                 </div>
 
             </div>
-        </header>
+        </div>
     );
 
 };
 
-export default CabecalhoAluno;
