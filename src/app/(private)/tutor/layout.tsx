@@ -28,7 +28,7 @@ export default function TeacherLayout({
 
         {/* Footer */}
         <footer className="bg-gray-800 text-white p-4 text-center">
-          <p>Área do Professor - Sistema Educacional © 2024</p>
+          <p>Área do Professor - Sistema Educacional Tunno © 2024</p>
         </footer>
       </div>
     </ProtectedRoute>

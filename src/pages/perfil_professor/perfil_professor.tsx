@@ -10,7 +10,6 @@ import NotificationPrefs from "@/components/settings/NotificationPrefs";
 import SecurityPrefs from "@/components/settings/SecurityPrefs";
 
 import "../../components/professorDashboard/professorCSS.css";
-import TopBar from "../../components/professorDashboard/TopBar";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function PageProfessorPerfil() {
@@ -61,7 +60,7 @@ export default function PageProfessorPerfil() {
 
   return (
     <ProtectedRoute requiredUserType="tutor">
-      <main className="flex flex-col space-y-6" style={{ minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
+      <main className="flex flex-col space-y-6" style={{ minWidth: '100vh', width: '1200px', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
 
         {/* Cabeçalho do perfil */}
         <Card className="p-4">
@@ -133,7 +132,8 @@ export default function PageProfessorPerfil() {
 
         {/* MODAL: Edição */}
         {editOpen && (
-          <div className="fixed inset-0 z-50 mt-10 flex items-start sm:items-center justify-center p-2 sm:p-4">
+          <div className="fixed inset-0 z-[1000] flex items-start sm:items-center justify-center p-2 sm:p-4">
+
             <div
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={() => setEditOpen(false)}
@@ -172,7 +172,7 @@ export default function PageProfessorPerfil() {
 
         {/* MODAL: Preferências (Notificações + Segurança) */}
         {prefsOpen && (
-          <div className="fixed inset-0 z-50 mt-10 flex items-start sm:items-center justify-center p-2 sm:p-4">
+          <div className="fixed inset-0 z-[1000] flex items-start sm:items-center justify-center p-2 sm:p-4">
             <div
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={() => setPrefsOpen(false)}

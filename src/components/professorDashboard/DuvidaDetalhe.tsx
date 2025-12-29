@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import "../../components/professorDashboard/professorCSS.css";
-import "../../components/professorDashboard/TopBar.css"; 
-import "./DuvidaDetalhe.css"; 
-import TopBar from "../../components/professorDashboard/TopBar"; 
+import "../../components/professorDashboard/TopBar.css";
+import "./DuvidaDetalhe.css";
 import { useRouter } from "next/navigation";
+
+import { FaAngleLeft } from "react-icons/fa";
 
 interface DuvidaDetalheProps {
   duvidaId?: string;
@@ -19,12 +20,12 @@ type Duvida = {
   status: "new" | "em_proposta" | "in_progress" | "answered";
   description: string;
   anexos?: string[];
-  valorPropostoAluno: number; 
+  valorPropostoAluno: number;
 };
 
 export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
   const router = useRouter();
-  const [saldo, setSaldo] = useState(150.00); 
+  const [saldo, setSaldo] = useState(150.00);
   const [contraProposta, setContraProposta] = useState("");
 
   const duvida: Duvida = {
@@ -36,12 +37,12 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
     status: "new",
     description: "Estou com dificuldade em entender como resolver equações diferenciais do tipo y' = f(x)g(y). Pode explicar o método de separação de variáveis com exemplos práticos? \n\n (Texto de exemplo para demonstrar o layout de duas colunas preenchendo a tela de forma mais agradável.)",
     anexos: ["exercicio.pdf"],
-    valorPropostoAluno: 50.00 
+    valorPropostoAluno: 50.00
   };
 
   const handleAceitarProposta = () => {
     alert(`Proposta de R$ ${duvida.valorPropostoAluno.toFixed(2)} aceita!`);
-    router.back(); 
+    router.back();
   };
 
   const handleEnviarContraProposta = () => {
@@ -56,33 +57,28 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
 
   return (
     <main style={{ padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
-      
-      <TopBar saldo={saldo} nomeProfessor="Lucas Quiuqui" />
 
-      <div className="page" style={{ paddingTop: '24px' }}>
+      <div className="page" style={{ paddingTop: '10px' }}>
         <div className="container">
-          
+
           {/* === CABEÇALHO === */}
-          <header className="page-header">
-            <button 
+          <header className="flex flex-1 items-center flex-row gap-6 mb-6" >
+            <button
               className="btn-back-styled"
               onClick={() => router.back()}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-              </svg>
-              Voltar ao Dashboard
+              <FaAngleLeft />
             </button>
-            
+
             <div className="header-content">
               <h1 className="page-title">Detalhe da Dúvida</h1>
               <span className={`status ${duvida.status}`} style={{ marginTop: '8px' }}>
-                {duvida.status === "new" ? "Nova" : 
-                 duvida.status === "em_proposta" ? "Em Proposta" : 
-                 duvida.status === "in_progress" ? "Em Progresso" : "Respondida"}
+                {duvida.status === "new" ? "Nova" :
+                  duvida.status === "em_proposta" ? "Em Proposta" :
+                    duvida.status === "in_progress" ? "Em Progresso" : "Respondida"}
               </span>
             </div>
-            
+
             <div className="header-actions">
               {/* Espaço reservado para manter alinhamento se necessário */}
             </div>
@@ -90,7 +86,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
 
           {/* === LAYOUT DE 2 COLUNAS === */}
           <div className="detalhe-layout">
-            
+
             {/* Coluna da Esquerda: Detalhes */}
             <section className="duvida-section-col">
               <div className="duvida-card">
@@ -134,7 +130,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
                     R$ {duvida.valorPropostoAluno.toFixed(2).replace('.', ',')}
                   </span>
                 </div>
-                <button 
+                <button
                   className="btn-success btn-aceitar"
                   onClick={handleAceitarProposta}
                 >
@@ -147,7 +143,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
                   <label htmlFor="contraproposta">Faça sua contra-proposta:</label>
                   <div className="input-group">
                     <span>R$</span>
-                    <input 
+                    <input
                       type="number"
                       id="contraproposta"
                       className="input-valor"
@@ -155,7 +151,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
                       value={contraProposta}
                       onChange={(e) => setContraProposta(e.target.value)}
                     />
-                    <button 
+                    <button
                       className="btn-primary"
                       onClick={handleEnviarContraProposta}
                       disabled={!contraProposta}
@@ -167,7 +163,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
               </div>
             </section>
 
-          </div> 
+          </div>
           {/* Fim do detalhe-layout */}
 
         </div>

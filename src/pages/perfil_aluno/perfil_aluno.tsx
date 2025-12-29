@@ -135,7 +135,7 @@ export default function PagePerfilAluno() {
 
         {/* MODAL: Edição */}
         {editOpen && (
-          <div className="fixed inset-0 z-50  mt-18 flex items-start sm:items-center justify-center p-2 sm:p-4">
+          <div className="fixed inset-0 z-[1000] flex items-start sm:items-center justify-center p-2 sm:p-4">
             <div
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={() => setEditOpen(false)}
@@ -175,7 +175,7 @@ export default function PagePerfilAluno() {
 
         {/* MODAL: Preferências (Notificações + Segurança) */}
         {prefsOpen && (
-          <div className="fixed inset-0 z-50 h-[92%]  mt-18 flex items-start sm:items-center justify-center p-2 sm:p-4">
+          <div className="fixed inset-0 z-[1000] h-[100%] flex items-start sm:items-center justify-center p-2 sm:p-4">
             <div
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={() => setPrefsOpen(false)}

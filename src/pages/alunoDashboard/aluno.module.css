@@ -33,7 +33,8 @@
 
 /* Conteúdo principal */
 .mainContent {
-  max-width: 72rem;
+  max-width: 92rem;
+  min-width: 52rem;
   /* max-w-6xl */
   margin-left: auto;
   margin-right: auto;
