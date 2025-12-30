@@ -1,6 +1,5 @@
 'use client';
 
-import LoginPage from "@/pages/auth/Login/login";
 import HomeScreen from "@/pages/home/home";
 
 

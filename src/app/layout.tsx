@@ -1,6 +1,13 @@
 import { AuthProvider } from '@/context/authContext';
 import './globals.css';
 
+
+export const metadata = {
+  title: 'Tunno',
+  description: 'Site educacional',
+};
+
+
 export default function RootLayout({
   children,
 }: {
@@ -8,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
+      <head>
+        <link rel="icon" href="/icons/favicon.ico" sizes="any" />
+      </head>
       <body>
         <AuthProvider>
           {children}

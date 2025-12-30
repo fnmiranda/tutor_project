@@ -158,8 +158,8 @@ export default function PagePerfilAluno() {
                 </div>
               </header>
 
-              <div className="p-5 space-y-5">
-                <Card title="Foto do Perfil" className="!p-6">
+              <div className="p-4 space-y-5">
+                <Card title="Foto do Perfil" className="!p-4">
                   <AvatarUpload />
                   <p className="mt-2 text-xs text-gray-500">
                     PNG ou JPG até 2&nbsp;MB. (Mock — sem envio ainda)
@@ -199,7 +199,7 @@ export default function PagePerfilAluno() {
                 </div>
               </header>
 
-              <div className="p-5 space-y-6">
+              <div className="p-4 space-y-6">
                 <NotificationPrefs />
                 <SecurityPrefs />
               </div>
