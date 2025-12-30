@@ -26,7 +26,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ type, onBack, onSwitchToRegister 
   // Classe de tema baseada no tipo
   const themeClass = isProfessor ? styles.professorTheme : styles.alunoTheme;
 
-
   const [errors, setErrors] = useState<LoginErrors>({});
   const validate = (): LoginErrors => {
     const newErrors: LoginErrors = {};

@@ -1,15 +1,7 @@
 import './duvidaCard.css';
-import { HiUserCircle } from "react-icons/hi"; 
+import { HiUserCircle } from "react-icons/hi";
 
-interface Duvida {
-    id: number;
-    titulo: string;
-    materia: string;
-    status: string;
-    conteudo: string;
-    respondidoPor?: string | null;
-    tempo: string;
-}
+import { Duvida } from "../../database/mockDatabase"
 
 type DuvidaCardProps = {
     duvida: Duvida;
@@ -42,23 +34,23 @@ const DuvidaCard = ({ duvida }: DuvidaCardProps) => {
                     <span className="tag tag-materia">{duvida.materia}</span>
                 </div>
             </div>
-            
-            <p className="duvida-card-conteudo">{duvida.conteudo}</p>
-            
+
+            <p className="duvida-card-conteudo">{duvida.descricao}</p>
+
             <div className="duvida-card-footer">
                 <div className="footer-info-monitor">
-                    {duvida.respondidoPor ? (
+                    {duvida.tutorId ? (
                         <>
                             <HiUserCircle className="icon-monitor" />
-                            <span>Respondido por: <strong className="monitor-nome">{duvida.respondidoPor}</strong></span>
+                            <span>Respondido por: <strong className="monitor-nome">{duvida.tutorId}</strong></span>
                         </>
                     ) : (
                         <span className="status-aguardando-texto">Aguardando uma resposta...</span>
                     )}
                 </div>
-                
+
                 <div className="footer-acoes">
-                    <span className="duvida-tempo">{duvida.tempo}</span>
+                    <span className="duvida-tempo">{duvida.deadLine}</span>
                     <button className="btn-ver-conversa">Ver Conversa</button>
                 </div>
             </div>

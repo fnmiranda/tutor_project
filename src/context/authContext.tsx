@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/routes/routes';
+import { logOut, signIn } from '@/database/mockAuth';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -10,6 +11,7 @@ interface AuthContextType {
   userData: any;
   isLoading: boolean;
   login: (email: string, type: 'aluno' | 'tutor') => void;
+  register: (name: string, email: string, type: 'aluno' | 'tutor') => void; // Adicionado
   logout: () => void;
 }
 
@@ -30,29 +32,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (savedAuth === 'true' && savedType) {
       setIsAuthenticated(true);
       setUserType(savedType as 'aluno' | 'tutor');
-      if (savedData) setUserData(JSON.parse(savedData));
+      if (savedData) {
+        setUserData(JSON.parse(savedData));
+      }
     }
     setIsLoading(false);
   }, []);
 
-  const login = (email: string, type: 'aluno' | 'tutor') => {
+  const login = async (email: string, type: 'aluno' | 'tutor') => {
     setIsLoading(true);
-    const mockData = { email, nome: type === 'aluno' ? 'João Aluno' : 'Prof. Tutor' };
+    try {
+      await signIn(email, type);
 
-    setIsAuthenticated(true);
-    setUserType(type);
-    setUserData(mockData);
+      setIsAuthenticated(true);
+      setUserType(type);
 
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('userType', type);
-    localStorage.setItem('userData', JSON.stringify(mockData));
+      const savedData = localStorage.getItem('userData');
 
-    setIsLoading(false);
-    router.push(type === 'aluno' ? routes.aluno.dashboard : routes.tutor.dashboard);
+      if (savedData) setUserData(JSON.parse(savedData));
+
+      const destination = type === 'aluno' ? routes.aluno.dashboard : routes.tutor.dashboard;
+      router.push(destination);
+
+    } catch (error) {
+      alert("Falha ao entrar. Verifique suas credenciais.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const register = (name: string, email: string, type: 'aluno' | 'tutor') => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      login(email, type);
+    }, 1000);
   };
 
   const logout = () => {
-    localStorage.clear();
+    logOut();
     setIsAuthenticated(false);
     setUserType(null);
     setUserData(null);
@@ -60,7 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userType, userData, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userType, userData, isLoading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

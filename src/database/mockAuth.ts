@@ -2,37 +2,42 @@
 
 import { routes } from "@/routes/routes";
 
-export async function registrar(name: string, email: string, type: 'aluno' | 'tutor') {
-  console.log("🛠️ [Mock Auth] Registrando:", { name, email, type });
+
+export async function registrar(email: string, type: 'aluno' | 'tutor') {
+  console.log("🛠️ [Mock Auth] Registrando:", { email, type });
   await new Promise(res => setTimeout(res, 1000));
 
   const userData = {
-    uid: crypto.randomUUID(),
-    name,
+    uid: type === "aluno" ? "user-0tt0sipbb" : "tutor-0tt0sipbb",
+    name: type === "aluno" ? "aluno-001" : "tutor-001",
     email,
-    type,
-  };
+    type
+  }
 
-  // Simulamos o salvamento no localStorage para persistência do mock
   localStorage.setItem('userData', JSON.stringify(userData));
   localStorage.setItem('isAuthenticated', 'true');
   localStorage.setItem('userType', type);
-
   return userData;
+
 }
 
 export async function signIn(email: string, type: 'aluno' | 'tutor') {
   console.log("🛠️ [Mock Auth] Fazendo Login...");
   await new Promise(res => setTimeout(res, 800));
 
-  // No mock, aceitamos qualquer login
+  const userData = {
+    uid: type === "aluno" ? "user-0tt0sipbb" : "tutor-0tt0sipbb",
+    name: type === "aluno" ? "aluno-001" : "tutor-001",
+    email,
+    type
+  }
+
   localStorage.setItem('isAuthenticated', 'true');
   localStorage.setItem('userType', type);
-
+  localStorage.setItem('userData', JSON.stringify(userData));
   return true;
 }
 
 export async function logOut() {
   localStorage.clear();
-  window.location.href = '/';
 }
