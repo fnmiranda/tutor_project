@@ -339,7 +339,6 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
 }
-.status.new { background: #dbeafe; color: #1e40af; }
-.status.em_proposta { background: #fef3c7; color: #92400e; }
-.status.in_progress { background: #fef9c3; color: #92400e; }
-.status.answered { background: #dcfce7; color: #166534; }
+.status.aberta { background: #dbeafe; color: #1e40af; }
+.status.em_andamento { background: #fef3c7; color: #92400e; }
+.status.concluida { background: #dcfce7; color: #166534; }

@@ -1,47 +1,42 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../components/professorDashboard/professorCSS.css";
 import "../../components/professorDashboard/TopBar.css";
 import "./DuvidaDetalhe.css";
 import { useRouter } from "next/navigation";
+import { Duvida, mockDB } from "@/database/mockDatabase";
+import { useAuth } from "@/context/authContext";
 
 import { FaAngleLeft } from "react-icons/fa";
+import { formatDateBrazil } from "@/helpers/converterData";
 
 interface DuvidaDetalheProps {
-  duvidaId?: string;
+  duvidaId: string;
 }
-
-type Duvida = {
-  id: string;
-  title: string;
-  studentName: string;
-  subject: string;
-  date: string;
-  status: "new" | "em_proposta" | "in_progress" | "answered";
-  description: string;
-  anexos?: string[];
-  valorPropostoAluno: number;
-};
 
 export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
   const router = useRouter();
   const [saldo, setSaldo] = useState(150.00);
   const [contraProposta, setContraProposta] = useState("");
 
-  const duvida: Duvida = {
-    id: duvidaId || "1",
-    title: "Como resolver equações diferenciais de primeira ordem?",
-    studentName: "Ana Silva",
-    subject: "Cálculo I",
-    date: "20/10/2025",
-    status: "new",
-    description: "Estou com dificuldade em entender como resolver equações diferenciais do tipo y' = f(x)g(y). Pode explicar o método de separação de variáveis com exemplos práticos? \n\n (Texto de exemplo para demonstrar o layout de duas colunas preenchendo a tela de forma mais agradável.)",
-    anexos: ["exercicio.pdf"],
-    valorPropostoAluno: 50.00
-  };
+  const [duvida, setDuvida] = useState<Duvida>();
+  const { userData, isLoading: authLoading } = useAuth();
+
+  useEffect(() => {
+    async function carregarDuvidas() {
+      try {
+        const dados = await mockDB.getDuvidaById(duvidaId);
+        setDuvida(dados);
+      } catch (error) {
+        console.error("Erro ao carregar dúvidas:", error);
+      }
+    }
+    carregarDuvidas();
+  }), [authLoading];
+
 
   const handleAceitarProposta = () => {
-    alert(`Proposta de R$ ${duvida.valorPropostoAluno.toFixed(2)} aceita!`);
+    //    alert(`Proposta de R$ ${duvida.valorPropostoAluno.toFixed(2)} aceita!`);
     router.back();
   };
 
@@ -72,10 +67,10 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
 
             <div className="header-content">
               <h1 className="page-title">Detalhe da Dúvida</h1>
-              <span className={`status ${duvida.status}`} style={{ marginTop: '8px' }}>
-                {duvida.status === "new" ? "Nova" :
-                  duvida.status === "em_proposta" ? "Em Proposta" :
-                    duvida.status === "in_progress" ? "Em Progresso" : "Respondida"}
+              <span className={`status ${duvida?.status}`} style={{ marginTop: '8px' }}>
+                {duvida && duvida.status === "aberta" ? "Aberta" :
+                  duvida && duvida.status === "em_andamento" ? "Em Andamento" : "concluida"
+                }
               </span>
             </div>
 
@@ -91,19 +86,19 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
             <section className="duvida-section-col">
               <div className="duvida-card">
                 <div className="duvida-header">
-                  <h2 className="duvida-title">{duvida.title}</h2>
+                  <h2 className="duvida-title">{duvida?.titulo}</h2>
                   <div className="duvida-meta">
-                    <span className="duvida-aluno">Aluno: {duvida.studentName}</span>
-                    <span className="duvida-materia">Matéria: {duvida.subject}</span>
-                    <span className="duvida-data">{duvida.date}</span>
+                    <span className="duvida-aluno">Aluno: {duvida?.alunoNome}</span>
+                    <span className="duvida-materia">Matéria: {duvida?.materia}</span>
+                    <span className="duvida-data">{formatDateBrazil(duvida?.deadLine)}</span>
                   </div>
                 </div>
                 <div className="duvida-content">
                   <h3>Descrição da Dúvida:</h3>
                   <p className="duvida-description" style={{ whiteSpace: 'pre-wrap' }}>
-                    {duvida.description}
+                    {duvida?.descricao}
                   </p>
-
+                  {/*
                   {duvida.anexos && duvida.anexos.length > 0 && (
                     <div className="duvida-anexos">
                       <h4>Anexos:</h4>
@@ -115,7 +110,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
                         ))}
                       </div>
                     </div>
-                  )}
+                  )}*/}
                 </div>
               </div>
             </section>
@@ -127,7 +122,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
                 <div className="proposta-aluno">
                   <span className="proposta-label">Valor oferecido:</span>
                   <span className="proposta-valor-aluno">
-                    R$ {duvida.valorPropostoAluno.toFixed(2).replace('.', ',')}
+                    R$ 100,00 {/*duvida.valorPropostoAluno.toFixed(2).replace('.', ',')*/}
                   </span>
                 </div>
                 <button

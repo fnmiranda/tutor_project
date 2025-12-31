@@ -129,7 +129,7 @@ export let mockDuvidas: Duvida[] = [
     id: "5f7d8e9a-d142-11e1-b3e4-080027620cdd",
     titulo: "Tempos verbais em Inglês",
     materia: "Inglês",
-    status: "concluida",
+    status: "em_andamento",
     descricao: "Diferença entre 'Past Simple' e 'Present Perfect'. Já entendi, obrigado!",
     alunoId: "aluno-010",
     alunoNome: "Shakespeare",
@@ -153,7 +153,7 @@ export let mockDuvidas: Duvida[] = [
     id: "7b9c0d1e-d142-11e1-b3e4-080027620cdd",
     titulo: "Figuras de Linguagem",
     materia: "Literatura",
-    status: "aberta",
+    status: "em_andamento",
     descricao: "Qual a diferença entre metáfora e metonímia? Poderiam dar exemplos?",
     alunoId: "aluno-012",
     alunoNome: "Cecília M.",
@@ -165,7 +165,7 @@ export let mockDuvidas: Duvida[] = [
     id: "8c0d1e2f-d142-11e1-b3e4-080027620cdd",
     titulo: "Instalação do Python",
     materia: "Programação",
-    status: "concluida",
+    status: "em_andamento",
     descricao: "Não estava conseguindo adicionar o Python ao PATH do Windows, mas consegui resolver reinstalando.",
     alunoId: "aluno-013",
     alunoNome: "Guido Van Rossum",
@@ -261,8 +261,13 @@ export let mockDuvidas: Duvida[] = [
 // Métodos que simulam o Firestore
 export const mockDB = {
   // Buscar todas as dúvidas abertas (para o Tutor)
+  getmockAllDuvidas: async (): Promise<Duvida[]> => {
+    await new Promise(res => setTimeout(res, 500));
+    return mockDuvidas;
+  },
+
   getmockDuvidasAbertas: async (): Promise<Duvida[]> => {
-    await new Promise(res => setTimeout(res, 500)); // Simula delay
+    await new Promise(res => setTimeout(res, 500));
     return mockDuvidas.filter(d => d.status === 'aberta');
   },
 

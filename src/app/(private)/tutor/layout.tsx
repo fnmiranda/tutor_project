@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ProtectedRoute from "@/components/ProtectedRoute";
-import TopBar from '@/components/professorDashboard/TopBar';
+import TopBar from '@/components/TabBar';
 
 export default function TeacherLayout({
   children,
@@ -19,7 +19,7 @@ export default function TeacherLayout({
       <div className="flex flex-col w-full h-full bg-gray-50" >
 
         {/* Navbar do Professor */}
-        <TopBar saldo={saldo} nomeProfessor="Lucas Quiuqui" />
+        <TopBar saldo={saldo} />
 
         {/* Conteúdo Principal */}
         <main className="flex-1 p-2 mt-10">

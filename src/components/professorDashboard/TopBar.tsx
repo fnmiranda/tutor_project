@@ -46,12 +46,12 @@ export default function TopBar({ saldo, nomeProfessor }: TopBarProps) {
           {/* Área do Usuário */}
           <div className="user-profile">
             <div className="user-info">
-              <span className="user-name">{nomeProfessor}</span>
+              <span className="user-name">{userData.name}</span>
               <Link href="/tutor/perfil" className="user-settings-link">Configurações</Link>
             </div>
             {/* Avatar (Círculo com inicial) */}
             <div className="user-avatar" onClick={handleLogout}>
-              {nomeProfessor.charAt(0)}
+              {userData.name.charAt(0)}
             </div>
           </div>
         </div>

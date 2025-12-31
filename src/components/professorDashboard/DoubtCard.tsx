@@ -1,32 +1,36 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import "./professorCSS.css";
 import { useRouter } from "next/navigation";
 
-type Doubt = {
-  id: string;
-  title: string;
-  studentName: string;
-  subject: string;
-  date: string;
-  // ATUALIZADO: Inclui 'em_proposta'
-  status: "new" | "em_proposta" | "in_progress" | "answered";
-  price: number;
-};
+import { Duvida } from "@/database/mockDatabase";
+import { formatDateBrazil } from "@/helpers/converterData";
+
+type StatusType = 'aberta' | 'em_andamento' | 'concluida';
+type Doubt =
+  {
+    id: string;
+    title: string;
+    studentName: string;
+    subject: string;
+    date: string;
+    // ATUALIZADO: Inclui 'em_proposta'
+    status: "new" | "em_proposta" | "in_progress" | "answered";
+    price: number;
+  };
 
 interface DoubtCardProps {
   doubt: Doubt;
 }
 
-export default function DoubtCard({ doubt }: DoubtCardProps) {
+export default function DoubtCard(doubt: Duvida) {
   const router = useRouter();
 
   // ATUALIZADO: Inclui 'em_proposta'
   const statusMap = {
-    new: { text: "Nova", className: "new" },
-    em_proposta: { text: "Em Proposta", className: "em_proposta" }, // <-- LINHA ADICIONADA
-    in_progress: { text: "Em Progresso", className: "in_progress" },
-    answered: { text: "Respondida", className: "answered" },
+    aberta: { text: "Aberta", className: "em_proposta" }, // <-- LINHA ADICIONADA
+    em_andamento: { text: "Em Progresso", className: "in_progress" },
+    concluida: { text: "Respondida", className: "answered" },
   };
 
   const handleVerDetalhes = () => {
@@ -40,7 +44,7 @@ export default function DoubtCard({ doubt }: DoubtCardProps) {
     <div className="card">
       {/* CRIAMOS UM CABEÇALHO FLEXÍVEL PARA TÍTULO E PREÇO */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-        <h3 className="card-title" style={{ margin: 0, flex: 1 }}>{doubt.title}</h3>
+        <h3 className="card-title" style={{ margin: 0, flex: 1 }}>{doubt.titulo}</h3>
 
         {/* AQUI ESTÁ O PREÇO */}
         <span style={{
@@ -53,15 +57,15 @@ export default function DoubtCard({ doubt }: DoubtCardProps) {
           whiteSpace: 'nowrap',       // Não deixa quebrar linha
           marginLeft: '8px'
         }}>
-          R$ {doubt.price.toFixed(2).replace('.', ',')}
+          R$ 100,00 {/*doubt.price.toFixed(2).replace('.', ',')*/}
         </span>
       </div>
 
-      <p className="card-text">Aluno: {doubt.studentName}</p>
-      <p className="card-text">Matéria: {doubt.subject}</p>
+      <p className="card-text">Aluno: {doubt.alunoNome}</p>
+      <p className="card-text">Matéria: {doubt.materia}</p>
 
       <div className="card-footer">
-        <span className="card-date">{doubt.date}</span>
+        <span className="card-date">{formatDateBrazil(doubt.deadLine)}</span>
         <span className={`status ${statusInfo.className}`}>
           {statusInfo.text}
         </span>

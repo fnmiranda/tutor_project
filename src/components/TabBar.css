@@ -1,0 +1,200 @@
+.topbar {
+  width: 100%;
+  min-height: 70px;
+  color: white;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.topbar-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- LADO ESQUERDO --- */
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-box {
+  background: rgba(255, 255, 255, 0.15);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.brand-sub {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* --- NAVEGAÇÃO CENTRAL --- */
+.topbar-center {
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  border-radius: 14px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- LADO DIREITO --- */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.balance-pill {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notification-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.profile-pill {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 16px 6px 6px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.profile-pill:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-avatar {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.profile-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Tema Tutor (Azul) */
+.topbar.tutor-theme {
+  background: linear-gradient(90deg, #1e5bff 0%, #1140c5 100%);
+}
+
+.tutor-theme .nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Tema Aluno (Roxo) */
+.topbar.aluno-theme {
+  background: linear-gradient(90deg, #8b2cf5 0%, #611bb3 100%);
+}
+
+.aluno-theme .nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ajuste dos ícones */
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: #ff4d4d;
+  border-radius: 50%;
+  border: 2px solid #1140c5; /* Cor de borda deve seguir o tema se quiser perfeição */
+}
+
+.aluno-theme .notification-dot {
+  border-color: #611bb3;
+}
+
+/* Estilo para garantir que o texto não quebre em telas menores */
+.profile-info {
+  max-width: 120px;
+  overflow: hidden;
+}
+
+.profile-email {
+  font-size:10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}

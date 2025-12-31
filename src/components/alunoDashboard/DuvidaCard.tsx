@@ -2,6 +2,7 @@ import './duvidaCard.css';
 import { HiUserCircle } from "react-icons/hi";
 
 import { Duvida } from "../../database/mockDatabase"
+import { formatDateBrazil } from '@/helpers/converterData';
 
 type DuvidaCardProps = {
     duvida: Duvida;
@@ -50,7 +51,7 @@ const DuvidaCard = ({ duvida }: DuvidaCardProps) => {
                 </div>
 
                 <div className="footer-acoes">
-                    <span className="duvida-tempo">{duvida.deadLine}</span>
+                    <span className="duvida-tempo">{formatDateBrazil(duvida.deadLine)}</span>
                     <button className="btn-ver-conversa">Ver Conversa</button>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 import CabecalhoAluno from '@/components/alunoDashboard/CabecalhoAluno';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import TopBar from '@/components/TabBar';
 import { useAuth } from '@/context/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -16,9 +17,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
     <ProtectedRoute requiredUserType='aluno'>
       <div className="h-full w-full flex flex-col bg-gray-50">
         {/* Navbar do Aluno */}
-        <header>
-          <CabecalhoAluno quantidade={quant} nomeAluno="Lucas Quiuqui" />
-        </header>
+        <TopBar saldo={quant} />
 
         {/* Conteúdo Principal */}
         <main className="flex-1 px-10">
