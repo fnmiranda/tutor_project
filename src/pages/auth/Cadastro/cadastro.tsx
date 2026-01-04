@@ -51,7 +51,11 @@ const Cadastro: React.FC = () => {
   };
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={styles.pageContainer}
+      style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1655800466797-8ab2598b4274?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbGFzc3Jvb20lMjBlZHVjYXRpb258ZW58MXx8fHwxNzY2NDMwMzQxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral')"
+      }}
+    >
       <Card title="Criar Conta">
         <form onSubmit={aoEnviar} noValidate>
           <Input

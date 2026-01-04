@@ -16,7 +16,6 @@ interface DuvidaDetalheProps {
 
 export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
   const router = useRouter();
-  const [saldo, setSaldo] = useState(150.00);
   const [contraProposta, setContraProposta] = useState("");
 
   const [duvida, setDuvida] = useState<Duvida>();
@@ -51,7 +50,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
   };
 
   return (
-    <main style={{ padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
+    <main style={{ minWidth: 1200, padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
 
       <div className="page" style={{ paddingTop: '10px' }}>
         <div className="container">

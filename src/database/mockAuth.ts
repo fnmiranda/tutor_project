@@ -11,7 +11,9 @@ export async function registrar(email: string, type: 'aluno' | 'tutor') {
     uid: type === "aluno" ? "user-0tt0sipbb" : "tutor-0tt0sipbb",
     name: type === "aluno" ? "aluno-001" : "tutor-001",
     email,
-    type
+    type,
+    instituition: "Escola Estadual",
+    bio: "Estudante em busca de conhecimento.",
   }
 
   localStorage.setItem('userData', JSON.stringify(userData));
@@ -29,7 +31,12 @@ export async function signIn(email: string, type: 'aluno' | 'tutor') {
     uid: type === "aluno" ? "user-0tt0sipbb" : "tutor-0tt0sipbb",
     name: type === "aluno" ? "aluno-001" : "tutor-001",
     email,
-    type
+    type,
+    instituition: "Escola Estadual",
+    course: "",
+    state: "RJ",
+    city: "",
+    bio: "Estudante em busca de conhecimento.",
   }
 
   localStorage.setItem('isAuthenticated', 'true');

@@ -14,7 +14,7 @@ import SecurityPrefs from "@/components/settings/SecurityPrefs";
 
 export default function PagePerfilAluno() {
   // estados dos modais (aluno)  
-  const { logout } = useAuth();
+  const { logout, userData } = useAuth();
   //
   const [editOpen, setEditOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
@@ -69,16 +69,16 @@ export default function PagePerfilAluno() {
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-4 min-w-0">
               <div className="size-14 rounded-full bg-gray-200 flex items-center justify-center text-lg font-semibold">
-                {aluno.nome[0]}
+                {(userData.name)[0]}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-lg font-semibold truncate">{aluno.nome}</h1>
+                  <h1 className="text-lg font-semibold truncate">{userData.name}</h1>
                   <span className="rounded-full bg-blue-100 text-blue-700 text-xs px-2 py-0.5">
                     Aluno
                   </span>
                 </div>
-                <p className="text-sm text-gray-500 truncate">{aluno.email}</p>
+                <p className="text-sm text-gray-500 truncate">{userData.email}</p>
               </div>
             </div>
 
@@ -106,11 +106,11 @@ export default function PagePerfilAluno() {
             <div className="space-y-3 text-sm">
               <div>
                 <div className="text-gray-500">Instituição</div>
-                <div>{aluno.instituicao}</div>
+                <div>{userData.instituition}</div>
               </div>
               <div>
                 <div className="text-gray-500">Biografia</div>
-                <div>{aluno.bio}</div>
+                <div>{userData.bio}</div>
               </div>
             </div>
           </Card>

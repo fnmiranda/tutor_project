@@ -4,6 +4,7 @@ import { useState } from "react";
 import Card from "@/components/cards/cards";
 import Input from "@/components/input/input";
 import Button from "@/components/botao/botao";
+import { useAuth } from "@/context/authContext";
 
 type FormState = {
   nome: string;
@@ -15,11 +16,7 @@ type FormState = {
   bio: string;
 };
 
-export default function AlunoProfileForm({
-  onSaved,
-}: {
-  onSaved?: () => void;
-}) {
+export default function AlunoProfileForm({ onSaved, }: { onSaved?: () => void; }) {
   const [form, setForm] = useState<FormState>({
     nome: "João Santos",
     email: "aluno@email.com",
@@ -33,16 +30,17 @@ export default function AlunoProfileForm({
   const [ok, setOk] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
 
+  const { userData } = useAuth();
   const onChange =
     (k: keyof FormState) =>
-    (
-      e: React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      >
-    ) => {
-      const v = e.currentTarget.value;
-      setForm((s) => ({ ...s, [k]: v }));
-    };
+      (
+        e: React.ChangeEvent<
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >
+      ) => {
+        const v = e.currentTarget.value;
+        setForm((s) => ({ ...s, [k]: v }));
+      };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,24 +63,24 @@ export default function AlunoProfileForm({
     <form onSubmit={onSubmit} className="space-y-6">
       <Card title="Dados acadêmicos">
         <div className="grid gap-4 sm:grid-cols-2">
-          <Input label="Nome" value={form.nome} onChange={onChange("nome")} />
+          <Input label="Nome" value={userData.name} onChange={onChange("nome")} />
           <Input
             label="E-mail"
             type="email"
-            value={form.email}
+            value={userData.email}
             onChange={onChange("email")}
             disabled
           />
 
           <Input
             label="Instituição"
-            value={form.instituicao}
+            value={userData.instituition}
             onChange={onChange("instituicao")}
             placeholder="Ex.: IME - Instituto Militar de Engenharia"
           />
           <Input
             label="Curso"
-            value={form.curso}
+            value={userData.course}
             onChange={onChange("curso")}
             placeholder="Ex.: Engenharia de Computação"
           />
@@ -90,7 +88,7 @@ export default function AlunoProfileForm({
           <div>
             <label className="block text-sm font-medium mb-1">Estado</label>
             <select
-              value={form.estado}
+              value={userData.state}
               onChange={onChange("estado")}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black/10"
             >
@@ -104,7 +102,7 @@ export default function AlunoProfileForm({
           <div>
             <label className="block text-sm font-medium mb-1">Cidade</label>
             <select
-              value={form.cidade}
+              value={userData.city}
               onChange={onChange("cidade")}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black/10"
             >
@@ -119,7 +117,7 @@ export default function AlunoProfileForm({
           <div className="sm:col-span-2">
             <label className="block text-sm font-medium mb-1">Bio</label>
             <textarea
-              value={form.bio}
+              value={userData.bio}
               onChange={onChange("bio")}
               placeholder="Fale brevemente sobre você..."
               rows={3}

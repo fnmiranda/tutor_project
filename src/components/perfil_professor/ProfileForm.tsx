@@ -7,6 +7,7 @@ import Button from "@/components/botao/botao";
 import MateriasField, {
   DEFAULT_SUBJECTS,
 } from "@/components/materiais/MateriasField";
+import { useAuth } from "@/context/authContext";
 
 type FormState = {
   nome: string;
@@ -19,6 +20,9 @@ type FormState = {
 };
 
 export default function ProfileForm({ onSaved }: { onSaved?: () => void }) {
+
+
+  const { userData } = useAuth();
   const [form, setForm] = useState<FormState>({
     nome: "Silva",
     email: "prof.silva@escola.com",
@@ -41,13 +45,13 @@ export default function ProfileForm({ onSaved }: { onSaved?: () => void }) {
 
   const onChange =
     (k: keyof FormState) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const v =
-        e.currentTarget.type === "checkbox"
-          ? (e.currentTarget as HTMLInputElement).checked
-          : e.currentTarget.value;
-      setForm((s) => ({ ...s, [k]: v as never }));
-    };
+      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const v =
+          e.currentTarget.type === "checkbox"
+            ? (e.currentTarget as HTMLInputElement).checked
+            : e.currentTarget.value;
+        setForm((s) => ({ ...s, [k]: v as never }));
+      };
 
   // mantem form.materias como CSV a partir do array selecionado
   useEffect(() => {
@@ -77,7 +81,7 @@ export default function ProfileForm({ onSaved }: { onSaved?: () => void }) {
         <div className="grid gap-4 sm:grid-cols-2">
           <Input
             label="Nome"
-            value={form.nome}
+            value={userData.name}
             onChange={onChange("nome")}
             autoComplete="name"
           />
@@ -85,7 +89,7 @@ export default function ProfileForm({ onSaved }: { onSaved?: () => void }) {
           <Input
             label="Email"
             type="email"
-            value={form.email}
+            value={userData.email}
             onChange={onChange("email")}
             autoComplete="email"
             disabled
@@ -97,7 +101,7 @@ export default function ProfileForm({ onSaved }: { onSaved?: () => void }) {
             </label>
             <textarea
               id="bio"
-              value={form.bio}
+              value={userData.bio}
               onChange={onChange("bio")}
               placeholder="Fale brevemente sobre voce..."
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black/10"
@@ -113,7 +117,7 @@ export default function ProfileForm({ onSaved }: { onSaved?: () => void }) {
               className="text-xs text-gray-500"
               aria-live="polite"
             >
-              {form.bio.length}/280
+              {userData.bio.length}/280
             </p>
           </div>
 

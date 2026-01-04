@@ -11,6 +11,7 @@ import SecurityPrefs from "@/components/settings/SecurityPrefs";
 
 import "../../components/professorDashboard/professorCSS.css";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useAuth } from "@/context/authContext";
 
 export default function PageProfessorPerfil() {
   // Estado dos modais
@@ -20,6 +21,8 @@ export default function PageProfessorPerfil() {
   // Refs para foco inicial nos modais (sem ref no <Button>)
   const editRef = useRef<HTMLElement | null>(null);
   const prefsRef = useRef<HTMLElement | null>(null);
+
+  const { userData } = useAuth();
 
   // ESC fecha, bloqueia scroll e foca primeiro elemento focável
   useEffect(() => {
@@ -67,16 +70,16 @@ export default function PageProfessorPerfil() {
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-4 min-w-0">
               <div className="size-14 rounded-full bg-gray-200 flex items-center justify-center text-lg font-semibold">
-                {prof.nome[0]}
+                {(userData.name)[0]}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-lg font-semibold truncate">{prof.nome}</h1>
+                  <h1 className="text-lg font-semibold truncate">{userData.name}</h1>
                   <span className="rounded-full bg-amber-100 text-amber-700 text-xs px-2 py-0.5">
                     Professor
                   </span>
                 </div>
-                <p className="text-sm text-gray-500 truncate">{prof.email}</p>
+                <p className="text-sm text-gray-500 truncate">{userData.email}</p>
               </div>
             </div>
 
@@ -103,11 +106,11 @@ export default function PageProfessorPerfil() {
             <div className="space-y-3 text-sm">
               <div>
                 <div className="text-gray-500">Instituição</div>
-                <div>{prof.instituicao}</div>
+                <div>{userData.instituition}</div>
               </div>
               <div>
                 <div className="text-gray-500">Biografia</div>
-                <div>{prof.bio}</div>
+                <div>{userData.bio}</div>
               </div>
             </div>
           </Card>

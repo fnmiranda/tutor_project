@@ -1,7 +1,11 @@
+
 .loadingContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1523050853063-bd751f004ce6?q=80&w=2070');
+  background-size: cover;
+  background-position: center;
   align-items: center;
   height: 100vh;
   min-width: 100vh;
