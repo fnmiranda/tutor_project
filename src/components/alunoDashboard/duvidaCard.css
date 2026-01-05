@@ -155,3 +155,19 @@
 .btn-ver-conversa:hover {
     color: #1e40af; /* hover:text-blue-800 */
 }
+.chat-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px; /* Largura fixa para parecer uma barra lateral */
+  height: 100vh;
+  z-index: 2000;
+  background: white;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}

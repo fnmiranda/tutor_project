@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ProtectedRoute from "@/components/ProtectedRoute";
-import TopBar from '@/components/TabBar';
+import TopBar from '@/components/TopBar/TabBar';
 
 export default function TeacherLayout({
   children,
@@ -27,7 +27,7 @@ export default function TeacherLayout({
         </main>
 
         {/* Footer */}
-        <footer className="bg-gray-800 text-white p-4 text-center">
+        <footer className="bg-gradient-to-r from-[#1e5bff] to-[#1140c5] text-white p-4 text-center">
           <p>Área do Professor - Sistema Educacional Tunno © 2024</p>
         </footer>
       </div>

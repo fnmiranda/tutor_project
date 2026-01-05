@@ -14,6 +14,9 @@ export async function registrar(email: string, type: 'aluno' | 'tutor') {
     type,
     instituition: "",
     bio: "",
+    course: "",
+    state: "",
+    city: "",
   }
 
   localStorage.setItem('userData', JSON.stringify(userData));
@@ -29,7 +32,7 @@ export async function signIn(email: string, type: 'aluno' | 'tutor') {
 
   const userData = {
     uid: type === "aluno" ? "user-0tt0sipbb" : "tutor-0tt0sipbb",
-    name: type === "aluno" ? "aluno-001" : "tutor-001",
+    name: type === "aluno" ? "Aluno Pedro" : "Tutor Domingos",
     email,
     type,
     instituition: "Escola Estadual",

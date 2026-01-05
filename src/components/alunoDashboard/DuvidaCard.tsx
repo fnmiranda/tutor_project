@@ -3,6 +3,8 @@ import { HiUserCircle } from "react-icons/hi";
 
 import { Duvida } from "../../database/mockDatabase"
 import { formatDateBrazil } from '@/helpers/converterData';
+import { useState } from 'react';
+import ChatConversa from './Chat/Chat';
 
 type DuvidaCardProps = {
     duvida: Duvida;
@@ -23,7 +25,10 @@ const DuvidaCard = ({ duvida }: DuvidaCardProps) => {
     if (!duvida) {
         return null;
     }
-
+    const [duvidaSelecionada, setDuvidaSelecionada] = useState<Duvida | null>(null);
+    const abrirChat = (duvida: any) => {
+        setDuvidaSelecionada(duvida);
+    };
     return (
         <div className="duvida-card">
             <div className="duvida-card-header">
@@ -52,9 +57,25 @@ const DuvidaCard = ({ duvida }: DuvidaCardProps) => {
 
                 <div className="footer-acoes">
                     <span className="duvida-tempo">{formatDateBrazil(duvida.deadLine)}</span>
-                    <button className="btn-ver-conversa">Ver Conversa</button>
+                    <button
+                        className="btn-ver-conversa"
+                        onClick={() => setDuvidaSelecionada(duvida)} // Agora o TS aceita a chamada
+                    >
+                        Ver Conversa
+                    </button>
+
                 </div>
             </div>
+
+            {/* Lógica do Chat */}
+            {duvidaSelecionada && (
+                <div className="chat-overlay">
+                    <ChatConversa
+                        professorNome={duvidaSelecionada.tutorId || "Professor"}
+                        onClose={() => setDuvidaSelecionada(null)}
+                    />
+                </div>
+            )}
         </div>
     );
 };

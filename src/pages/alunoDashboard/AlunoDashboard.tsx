@@ -71,12 +71,20 @@ const AlunoDashboard = () => {
 
   if (authLoading || loadingDados) {
     return <div className={styles.loading}>Carregando painel...</div>;
+
   }
+
 
   return (
     <div style={{ flex: 1, padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
       <div className={styles.dashboardContainer}>
         <div className={styles.mainContent}>
+          <div className="header-content">
+            <h1 className="page-title">Visão Geral</h1>
+            <p className="page-subtitle">
+              Bem-vindo de volta, {userData.name}!
+            </p>
+          </div>
           {activeTab === "duvidas" && (
             <>
               <div className={styles.statsGrid}>

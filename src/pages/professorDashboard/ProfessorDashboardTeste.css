@@ -12,10 +12,11 @@
 
 .container {
   padding: 40px;
-  max-width: 1400px;
+  max-width: 1500px;
   margin: 0 auto;
   background-color: var(--bg-light);
   min-height: 100vh;
+  width:1200px;
   font-family: 'Inter', sans-serif;
   align-items:center;
 }

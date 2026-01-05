@@ -1,219 +1,234 @@
-/* ============================================= */
-/* LAYOUT DE 2 COLUNAS (Página de Detalhe)       */
-/* ============================================= */
 
+/* Container Principal */
+.page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Cabeçalho */
+.header-styled {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.btn-back-styled {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-back-styled:hover {
+  background-color: #f1f5f9;
+  color: #2b6cff;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* Status Tags */
+.status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.status.aberta { background: #e0e7ff; color: #4338ca; }
+.status.em_andamento { background: #fef3c7; color: #92400e; }
+.status.concluida { background: #dcfce7; color: #166534; }
+
+/* Layout de Colunas */
 .detalhe-layout {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Esquerda larga, Direita estreita */
-  gap: var(--space-8);
-  align-items: flex-start;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 24px;
 }
 
-/* Responsividade: Em telas menores, volta para 1 coluna */
-@media (max-width: 1024px) {
-  .detalhe-layout {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-  }
+/* Cards */
+.duvida-card, .proposta-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-/* ============================================= */
-/* ESTILO BASE DOS CARDS (REMOVIDA REDUNDÂNCIA)  */
-/* ============================================= */
-
-/* Este estilo se aplica a AMBOS os cards */
-.duvida-card,
-.proposta-card {
-  background: var(--color-surface);
-  border-radius: var(--border-radius-lg);
-  padding: var(--space-6);
-  box-shadow: var(--shadow-md);
+.duvida-title, .proposta-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
 }
 
-/* ============================================= */
-/* CARD DE DETALHE DA DÚVIDA (Esquerda)          */
-/* ============================================= */
-
-.duvida-header {
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--space-4);
-  margin-bottom: var(--space-4);
-}
-
-.duvida-title {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-3);
-  margin-top: 0;
-}
-
+/* Meta Infos (Tags cinzas) */
 .duvida-meta {
   display: flex;
-  gap: var(--space-4);
   flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
-.duvida-aluno,
-.duvida-materia,
-.duvida-data {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
-  background: var(--color-background-secondary);
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--border-radius-md);
+.duvida-meta span {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .duvida-content h3 {
-  font-size: 1.125rem;
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-3);
-  color: var(--color-text-primary);
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 12px;
 }
 
 .duvida-description {
+  color: #475569;
   line-height: 1.6;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-4);
-  white-space: pre-wrap;
+  font-size: 15px;
 }
 
-.duvida-anexos h4 {
-  font-size: 1rem;
-  font-weight: var(--font-weight-medium);
-  margin-bottom: var(--space-2);
-  color: var(--color-text-primary);
-}
-
-.anexos-list {
-  display: flex;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-/* ============================================= */
-/* CARD DE PROPOSTA (Direita)                    */
-/* ============================================= */
-.proposta-section-col {
-  /* Sticky: Faz o card acompanhar a rolagem da página */
-  position: sticky;
-  top: calc(70px + 24px); /* Altura da TopBar + Padding da Página */
-}
-
-/* MELHORIA: Desativa o "sticky" em telas mobile */
-@media (max-width: 1024px) {
-  .proposta-section-col {
-    position: static;
-  }
-}
-
-.proposta-title {
-  font-size: 1.1rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+/* Seção de Proposta (Coluna Direita) */
+.proposta-card {
   text-align: center;
-  margin-top: 0;
-  margin-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--space-4);
 }
 
 .proposta-aluno {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-3);
-  background: var(--color-background-secondary);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--space-4);
 }
 
 .proposta-label {
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
+  color: #64748b;
+  font-size: 14px;
 }
 
 .proposta-valor-aluno {
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
+  color: #2b6cff;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .btn-aceitar {
   width: 100%;
-  padding: var(--space-3);
-  font-size: 1rem;
-}
-
-.proposta-divisor {
-  text-align: center;
-  margin: var(--space-4) 0;
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-medium);
+  background-color: #22c55e;
+  color: white;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s;
 }
 
-.proposta-divisor::before,
-.proposta-divisor::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background-color: var(--color-border);
+.btn-aceitar:hover { opacity: 0.9; }
+
+.proposta-divisor {
+  margin: 24px 0;
+  position: relative;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.proposta-divisor span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 0 10px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .proposta-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  text-align: left;
 }
 
 .proposta-form label {
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 8px;
+  display: block;
 }
 
 .input-group {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  background: white;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  padding-left: var(--space-3);
+  gap: 10px;
+  background: #f8fafc;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
 }
 
 .input-group span {
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-muted);
+  padding-left: 10px;
+  color: #94a3b8;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 
 .input-valor {
   flex: 1;
+  background: transparent;
   border: none;
   outline: none;
-  padding: var(--space-3);
-  font-size: 0.9rem;
-  width: 100%;
+  font-size: 14px;
+  color: #1e293b;
 }
 
-/* Remove setas do input number */
-.input-valor::-webkit-outer-spin-button,
-.input-valor::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.input-valor[type=number] {
-  -moz-appearance: textfield;
+.btn-enviar-contra {
+  background-color: #2b6cff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.input-group .btn-primary {
-  margin-left: auto;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  font-size: 0.875rem;
-  padding: var(--space-3);
+.btn-enviar-contra:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .detalhe-layout {
+    grid-template-columns: 1fr;
+  }
 }

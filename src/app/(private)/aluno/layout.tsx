@@ -2,7 +2,7 @@
 
 import CabecalhoAluno from '@/components/alunoDashboard/CabecalhoAluno';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import TopBar from '@/components/TabBar';
+import TopBar from '@/components/TopBar/TabBar';
 import { useAuth } from '@/context/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -25,7 +25,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
         </main>
 
         {/* Footer */}
-        <footer className="bg-gray-800 text-white p-4 text-center">
+        <footer className="bg-gradient-to-r from-[#8b2cf5] to-[#611bb3] text-white p-4 text-center">
           <p>Área do Aluno - Sistema Educacional Tunno © 2024</p>
         </footer>
       </div>

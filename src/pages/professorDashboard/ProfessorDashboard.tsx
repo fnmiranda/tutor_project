@@ -72,13 +72,12 @@ export default function ProfessorDashboardPage() {
   return (
     <div className="container">
 
-
       {/* === SEÇÃO DO CABEÇALHO === */}
       <header className="page-header">
         <div className="header-content">
           <h1 className="page-title">Visão Geral</h1>
           <p className="page-subtitle">
-            Bem-vindo de volta, Professor!
+            Bem-vindo de volta, {userData.name}!
           </p>
         </div>
         <div className="header-actions">

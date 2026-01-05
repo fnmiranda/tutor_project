@@ -8,7 +8,7 @@ import { useAuth } from '@/context/authContext';
 import { VscDashboard, VscSettingsGear } from "react-icons/vsc";
 import { HiOutlineUserCircle, HiOutlineAcademicCap } from "react-icons/hi";
 import { MdOutlineNotificationsNone, MdOutlineAccountBalanceWallet, MdOutlineClass } from "react-icons/md";
-import NotificationModal from "./TopBar/NotificationModal";
+import NotificationModal from "./NotificationModal/NotificationModal";
 
 interface TopBarProps {
   saldo: number;
