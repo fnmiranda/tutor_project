@@ -26,7 +26,6 @@ export default function LoginLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       {children}
-
     </div>
   );
 }

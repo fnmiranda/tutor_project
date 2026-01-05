@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import Card from '../../../components/cards/cards';
-import Input from '../../../components/input/input';
-import Button from '../../../components/botao/botao';
 import styles from './cadastro.module.css';
-import Link from 'next/link';
+import { MdOutlineArrowBack, MdPersonOutline, MdOutlineMail, MdLockOutline, MdShieldMoon } from 'react-icons/md';
 
 interface ErrosCadastro {
   nome?: string;
@@ -31,8 +28,8 @@ const Cadastro: React.FC = () => {
     }
     if (!senha) {
       novosErros.senha = 'A senha é obrigatória.';
-    } else if (senha.length < 6) {
-      novosErros.senha = 'A senha deve ter no mínimo 6 caracteres.';
+    } else if (senha.length < 8) {
+      novosErros.senha = 'A senha deve ter no mínimo 8 caracteres.';
     }
     if (senha !== confirmarSenha) {
       novosErros.confirmarSenha = 'As senhas não coincidem.';
@@ -46,59 +43,105 @@ const Cadastro: React.FC = () => {
     setErros(errosDeValidacao);
     if (Object.keys(errosDeValidacao).length === 0) {
       console.log('Dados do Cadastro:', { nome, email, senha });
-      alert('Cadastro efetuado com sucesso! (Simulação)');
+      alert('Cadastro efetuado com sucesso!');
     }
   };
 
   return (
-    <div className={styles.pageContainer}
-      style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1655800466797-8ab2598b4274?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbGFzc3Jvb20lMjBlZHVjYXRpb258ZW58MXx8fHwxNzY2NDMwMzQxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral')"
-      }}
-    >
-      <Card title="Criar Conta">
-        <form onSubmit={aoEnviar} noValidate>
-          <Input
-            label="Nome Completo"
-            type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-          {erros.nome && <p className={styles.errorText}>{erros.nome}</p>}
-          <Input
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {erros.email && <p className={styles.errorText}>{erros.email}</p>}
-          <Input
-            label="Senha"
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-          {erros.senha && <p className={styles.errorText}>{erros.senha}</p>}
-          <Input
-            label="Confirmar Senha"
-            type="password"
-            value={confirmarSenha}
-            onChange={(e) => setConfirmarSenha(e.target.value)}
-          />
-          <div className={styles.passwordInt}>
-            <div className="item"> 1 letra maiúscula</div>
-            <div className="item"> 1 letra minúscula</div>
-            <div className="item">8 caracteres</div>
-            <div className="item">1 número</div>
+    <div className={styles.pageContainer}>
+      <div className={styles.loginCard}>
+        {/* Botão Voltar conforme imagem de login */}
+        {/*
+        <Link href="/" className={styles.backLink}>
+          <MdOutlineArrowBack size={20} />
+          <span>Voltar</span>
+        </Link>
+        <div className={styles.iconHeader}>
+          <MdShieldMoon size={32} color="white" />
+        </div>
+
+      */}
+        <h1 className={styles.title}>Criar Conta</h1>
+        <p className={styles.subtitle}>Preencha os dados abaixo para se cadastrar no Tunno</p>
+
+        <form onSubmit={aoEnviar} noValidate className={styles.form}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Nome Completo</label>
+            <div className={styles.inputWrapper}>
+              <MdPersonOutline className={styles.inputIcon} />
+              <input
+                type="text"
+                className={styles.customInput}
+                placeholder="Seu nome completo"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </div>
+            {erros.nome && <p className={styles.errorText}>{erros.nome}</p>}
           </div>
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Email</label>
+            <div className={styles.inputWrapper}>
+              <MdOutlineMail className={styles.inputIcon} />
+              <input
+                type="email"
+                className={styles.customInput}
+                placeholder="seu.email@exemplo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            {erros.email && <p className={styles.errorText}>{erros.email}</p>}
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Senha</label>
+            <div className={styles.inputWrapper}>
+              <MdLockOutline className={styles.inputIcon} />
+              <input
+                type="password"
+                className={styles.customInput}
+                placeholder="........"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+              />
+            </div>
+            {erros.senha && <p className={styles.errorText}>{erros.senha}</p>}
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Confirmar Senha</label>
+            <div className={styles.inputWrapper}>
+              <MdLockOutline className={styles.inputIcon} />
+              <input
+                type="password"
+                className={styles.customInput}
+                placeholder="........"
+                value={confirmarSenha}
+                onChange={(e) => setConfirmarSenha(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className={styles.passwordRequirements}>
+            <div className={styles.reqItem}>• 1 letra maiúscula</div>
+            <div className={styles.reqItem}>• 1 letra minúscula</div>
+            <div className={styles.reqItem}>• 8 caracteres</div>
+            <div className={styles.reqItem}>• 1 número</div>
+          </div>
+
           {erros.confirmarSenha && <p className={styles.errorText}>{erros.confirmarSenha}</p>}
 
-          <Button type="submit">Cadastrar</Button>
-          <div className='mt-2 text-center'>
-            <Link href='#'>Já possui uma conta</Link>
+          <button type="submit" className={styles.submitButton}>Cadastrar</button>
+          {/*
+          <div className={styles.footerLink}>
+            <span>Já possui uma conta?</span>
+            <Link href="/login" className={styles.blueLink}>Entrar</Link>
           </div>
+*/}
         </form>
-      </Card>
+      </div>
     </div>
   );
 };

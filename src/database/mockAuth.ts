@@ -12,8 +12,8 @@ export async function registrar(email: string, type: 'aluno' | 'tutor') {
     name: type === "aluno" ? "aluno-001" : "tutor-001",
     email,
     type,
-    instituition: "Escola Estadual",
-    bio: "Estudante em busca de conhecimento.",
+    instituition: "",
+    bio: "",
   }
 
   localStorage.setItem('userData', JSON.stringify(userData));

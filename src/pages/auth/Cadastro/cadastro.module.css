@@ -1,43 +1,164 @@
-
-.loadingContainer {
+.pageContainer {
+  min-height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  background-image: url('https://images.unsplash.com/photo-1523050853063-bd751f004ce6?q=80&w=2070');
+  padding: 20px;
+  
+  /* Imagem de fundo com Overlay Roxo */
+  background: linear-gradient(
+      135deg, 
+      rgba(80, 20, 140, 0.85) 0%, 
+      rgba(140, 40, 220, 0.9) 100%
+    ),
+    /* Substitua pelo caminho da sua imagem local ou URL */
+    url('https://images.unsplash.com/photo-1523050853063-bd751f004ce6?q=80&w=2070');
+  
   background-size: cover;
   background-position: center;
+  background-attachment: fixed; /* Mantém o fundo fixo ao rolar */
+}
+
+.loginCard {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 480px;
+  /* Shadow um pouco mais forte para destacar do fundo escuro */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 10;
+}
+
+/* O restante do CSS permanece o mesmo do passo anterior */
+
+.backLink {
+  display: flex;
   align-items: center;
-  height: 100vh;
-  min-width: 100vh;
+  gap: 8px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 30px;
+  transition: color 0.2s;
 }
 
-.spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border-left-color: #007bff;
-  animation: spin 1s ease infinite;
-}
-.pageContainer{
-  width:40%;
+.backLink:hover {
+  color: #1e5bff;
 }
 
-.passwordInt{
+.iconHeader {
+  background: #1e5bff;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 32px;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #334155;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  color: #94a3b8;
+}
+
+.customInput {
+  width: 100%;
+  padding: 14px 14px 14px 45px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  background-color: #f8fafc; /* Cor de fundo dos inputs da imagem */
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.customInput:focus {
+  border-color: #1e5bff;
+  background-color: #fff;
+}
+
+.passwordRequirements {
   display: grid;
-  font-size:12px;
-  margin-left:10px;
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr 1fr;    
-  height: 60px;     
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 24px;
 }
 
+.reqItem {
+  font-size: 11px;
+  color: #94a3b8;
+}
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.errorText {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.submitButton {
+  width: 100%;
+  background-color: #1e5bff;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+.footerLink {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.blueLink {
+  color: #1e5bff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
 }
