@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { createClient } from "../lib/supabase/server";
+import { parseStringForDate } from "@/utils/converterData";
 
 /**
  * GET: Busca apenas as dúvidas do usuário logado
@@ -25,11 +26,30 @@ export async function getMinhasDuvidas() {
     orderBy: { createdAt: 'desc' }
   });
 
-  // Convertemos para garantir que o cliente receba tipos compatíveis
   return dados.map(item => ({
     ...item,
     status: item.status as 'aberta' | 'em_andamento' | 'concluida',
   }));
+}
+
+export async function getDuvidaById(id: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("Não autorizado");
+
+  const dados = await prisma.duvida.findUnique({
+    where: {id},
+    include: {
+        aluno: {
+          select: {
+            nome: true,
+            email: true
+          }
+        }
+      },
+  });
+
+ return dados;   
 }
 
 
@@ -97,15 +117,13 @@ export async function criarNovaDuvida(formData: {
 
     if (!user) throw new Error("Usuário não autenticado");
 
-    const [dia, mes, ano] = formData.deadLine.split('/').map(Number);
-    const dataFormatada = new Date(2000 + ano, mes - 1, dia);
 
     const novaDuvida = await prisma.duvida.create({
       data: {
         titulo: formData.titulo,
         materia: formData.materia,
         descricao: formData.descricao,
-        deadLine: dataFormatada,
+        deadLine: parseStringForDate(formData.deadLine),
         alunoId: user.id, 
         status: "aberta"
       }

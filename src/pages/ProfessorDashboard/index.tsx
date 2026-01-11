@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./styles.css";
-import {DoubtCard, StatsCard, StatusFilter} from "@/components/ProfessorDashboard";
-
+import styles from "./styles.module.css"; // Alterado para CSS Modules
+import { DoubtCard, StatsCard, StatusFilter } from "@/components/ProfessorDashboard";
 import { Duvida } from "@/@types/index"; 
 import { getAllDuvidas } from "@/services/duvidas";
 import { useAuth } from "@/context/authContext";
@@ -13,16 +12,12 @@ const statusPriority = {
   'concluida': 4
 };
 
-
-
 export default function ProfessorDashboardPage() {
-
   const [duvidas, setDuvidas] = useState<Duvida[]>([]);
   const { userData, isLoading: authLoading } = useAuth();
   const [loadingDados, setLoadingDados] = useState(true);
   const [saldo, setSaldo] = useState<number>(150.00);
   const [statusFilter, setStatusFilter] = useState<'aberta' | 'em_andamento' | 'concluida'>('aberta');
-
 
   useEffect(() => {
     async function carregarDuvidas() {
@@ -43,9 +38,6 @@ export default function ProfessorDashboardPage() {
   if (authLoading || loadingDados) {
     return <div>Carregando painel seguro...</div>;
   }
-
-  // 2. ESTADO PARA O SALDO (Começa com R$ 150,00)
-
 
   // Lógica de filtragem
   const duvidasFiltradas = duvidas.filter(duvida => {
@@ -76,20 +68,19 @@ export default function ProfessorDashboardPage() {
   // ---
 
   return (
-    <div className="container">
-
+    <div className={styles.container}>
       {/* === SEÇÃO DO CABEÇALHO === */}
-      <header className="page-header">
-        <div className="header-content">
-          <h1 className="page-title">Visão Geral</h1>
-          <p className="page-subtitle">
+      <header className={styles.pageHeader}>
+        <div className={styles.headerContent}>
+          <h1 className={styles.pageTitle}>Visão Geral</h1>
+          <p className={styles.pageSubtitle}>
             Bem-vindo de volta, {userData.nome}!
           </p>
         </div>
-        <div className="header-actions">
+        <div className={styles.headerActions}>
           {/* Botão para testar o aumento do saldo na TopBar */}
           <button
-            className="btn-primary"
+            className={styles.btnPrimary}
             onClick={() => setSaldo(saldo + 50)}
           >
             + Simular Depósito (R$ 50)
@@ -98,15 +89,34 @@ export default function ProfessorDashboardPage() {
       </header>
 
       {/* === SEÇÃO DE ESTATÍSTICAS === */}
-      <section className="stats-grid">
-        <StatsCard title="Dúvidas Totais" value={totalDoubts} description="Este mês" trend={{ value: 12, isPositive: true }} />
-        <StatsCard title="Taxa de Resposta" value={`${responseRate}%`} description="Dúvidas respondidas" trend={{ value: 5, isPositive: true }} />
-        <StatsCard title="Matéria com Mais Dúvidas" value={materiaComMaisDuvidas} description={`${totalDuvidasMateria} dúvidas`} trend={{ value: 15, isPositive: false }} />
-        <StatsCard title="Alunos Atendidos" value={totalAlunos} description="Este mês" />
+      <section className={styles.statsGrid}>
+        <StatsCard 
+          title="Dúvidas Totais" 
+          value={totalDoubts} 
+          description="Este mês" 
+          trend={{ value: 12, isPositive: true }} 
+        />
+        <StatsCard 
+          title="Taxa de Resposta" 
+          value={`${responseRate}%`} 
+          description="Dúvidas respondidas" 
+          trend={{ value: 5, isPositive: true }} 
+        />
+        <StatsCard 
+          title="Matéria com Mais Dúvidas" 
+          value={materiaComMaisDuvidas} 
+          description={`${totalDuvidasMateria} dúvidas`} 
+          trend={{ value: 15, isPositive: false }} 
+        />
+        <StatsCard 
+          title="Alunos Atendidos" 
+          value={totalAlunos} 
+          description="Este mês" 
+        />
       </section>
 
       {/* === SEÇÃO DE FILTROS === */}
-      <section className="filter-section">
+      <section className={styles.filterSection}>
         <StatusFilter
           activeStatus={statusFilter}
           onChange={setStatusFilter}
@@ -114,10 +124,9 @@ export default function ProfessorDashboardPage() {
       </section>
 
       {/* === SEÇÃO DO DASHBOARD === */}
-      <section className="dashboard-section">
-        <h2 className="section-title">Gerenciamento de Dúvidas</h2>
-
-        <div className="cards-grid-layout">
+      <section className={styles.dashboardSection}>
+        <h2 className={styles.sectionTitle}>Gerenciamento de Dúvidas</h2>
+        <div className={styles.cardsGridLayout}>
           {duvidasOrdenadas.map((doubt) => (
             <DoubtCard key={doubt.id} doubt={doubt} />
           ))}

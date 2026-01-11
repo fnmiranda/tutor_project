@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from "react";
 import "./DuvidaDetalhe.css";
 import { FaAngleLeft, FaCheck } from 'react-icons/fa';
+
 import { useRouter } from "next/navigation";
-import { Duvida, mockDB } from "@/services/mockDatabase";
 import { useAuth } from "@/context/authContext";
 
 import { formatDateBrazil } from "@/utils/converterData";
+import { getDuvidaById } from "@/services/duvidas";
+import { Duvida } from "@/@types";
 
 interface DuvidaDetalheProps {
   duvidaId: string;
@@ -22,8 +24,8 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
   useEffect(() => {
     async function carregarDuvidas() {
       try {
-        const dados = await mockDB.getDuvidaById(duvidaId);
-        setDuvida(dados);
+        const dados = await getDuvidaById(duvidaId);
+        setDuvida(dados as Duvida);
       } catch (error) {
         console.error("Erro ao carregar dúvidas:", error);
       }
@@ -76,7 +78,7 @@ export default function DuvidaDetalhe({ duvidaId }: DuvidaDetalheProps) {
               <div className="duvida-header">
                 <h2 className="duvida-title">{duvida?.titulo || "Revolução Francesa - Causas"}</h2>
                 <div className="duvida-meta">
-                  <span className="duvida-aluno">Aluno: {duvida?.alunoNome || "Napoleão B."}</span>
+                  <span className="duvida-aluno">Aluno: {duvida?.aluno.nome || "Napoleão B."}</span>
                   <span className="duvida-materia">Matéria: {duvida?.materia || "História"}</span>
                   <span className="duvida-data">29/10/2023</span>
                 </div>

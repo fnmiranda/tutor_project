@@ -297,7 +297,7 @@ body {
   flex-direction: column;
   height: 280px;
   transition: transform 0.2s, box-shadow 0.2s;
-  width: 400px;
+  width: 300px;
 }
 .card:hover {
   transform: translateY(-2px);

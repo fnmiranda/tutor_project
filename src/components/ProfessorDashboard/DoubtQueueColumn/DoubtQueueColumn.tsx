@@ -2,7 +2,7 @@
 import React from "react";
 import "../professorCSS.css";
 import DoubtCard from "../DoubtCard/DoubtCard";
-import { Duvida } from "@/services/mockDatabase";
+import { Duvida } from "@/@types";
 
 
 interface DoubtQueueColumnProps {

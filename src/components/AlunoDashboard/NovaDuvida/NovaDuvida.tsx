@@ -1,27 +1,24 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import './novaDuvida.css';
 import FileUpload from "../FileUpload/FileUpload";
-import { criarNovaDuvida } from "@/services/duvidas"; // Importe a função
+import { criarNovaDuvida } from "@/services/duvidas";
 import { useRouter } from "next/navigation";
+import InputDate from "@/components/InputDate";
+import Select from "@/components/Select";
+import { DISCIPLINAS } from "@/lib/constants/duvidas";
+import { MdOutlineClose, MdHelpOutline, MdOutlineTitle, MdOutlineDescription, MdSend } from "react-icons/md";
 
-const NovaDuvida = ({onSucesso} : {onSucesso:() => void}) => {
+const NovaDuvida = ({ onSucesso }: { onSucesso: () => void }) => {
     const router = useRouter();
     const [modalAberto, setModalAberto] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
     const [enviando, setEnviando] = useState(false);
 
-    // Estados para os inputs
     const [titulo, setTitulo] = useState("");
     const [materia, setMateria] = useState("");
     const [prazo, setPrazo] = useState("");
     const [descricao, setDescricao] = useState("");
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
 
     const fecharModal = () => {
         setModalAberto(false);
@@ -31,113 +28,111 @@ const NovaDuvida = ({onSucesso} : {onSucesso:() => void}) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setEnviando(true);
-
-        const resultado = await criarNovaDuvida({
-            titulo,
-            materia,
-            descricao,
-            deadLine: prazo
-        });
+        const resultado = await criarNovaDuvida({ titulo, materia, descricao, deadLine: prazo });
 
         if (resultado.success) {
-            alert("Dúvida publicada com sucesso!");
             if (onSucesso) await onSucesso();
             fecharModal();
             router.refresh();
-            // Limpar campos
-            setTitulo("");
-            setMateria("");
-            setPrazo("");
-            setDescricao("");
+            setTitulo(""); setMateria(""); setPrazo(""); setDescricao("");
         } else {
             alert(resultado.error);
             setEnviando(false);
         }
     };
 
-    const AdicionarNovaDuvidaModal = () => {
-        if (!isMounted) return null;
-
-        return ReactDOM.createPortal(
-            <div className="modal">
-                <div className="modal-content">
-                    <span className="close-btn" onClick={fecharModal}>&times;</span>
-                    <h2>Adicionar Uma Duvida</h2>
-                    <FileUpload />
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-grid">
-                            <div className="form-group full-width">
-                                <label htmlFor="name">Título da Atividade *</label>
-                                <input 
-                                    className="w-full" 
-                                    type="text" 
-                                    value={titulo}
-                                    onChange={(e) => setTitulo(e.target.value)}
-                                    placeholder="Ex: Exercícios de Derivadas" 
-                                    required 
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="course">Disciplina *</label>
-                                <select 
-                                    className="w-full px-4 py-2 border rounded" 
-                                    value={materia}
-                                    onChange={(e) => setMateria(e.target.value)}
-                                    required
-                                >
-                                    <option value="" disabled>Selecione</option>
-                                    <option value="Matemática">Matemática</option>
-                                    <option value="Português">Português</option>
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="year">Prazo *</label>
-                                <input 
-                                    type="text" 
-                                    value={prazo}
-                                    onChange={(e) => setPrazo(e.target.value)}
-                                    placeholder="ex: 20/11/25" 
-                                    required 
-                                />
-                            </div>
-                        </div>
-
-                        <div className="form-group full-width">
-                            <label htmlFor="bio">Explicação</label>
-                            <textarea 
-                                className="w-full" 
-                                rows={3} 
-                                value={descricao}
-                                onChange={(e) => setDescricao(e.target.value)}
-                                placeholder="Descreva os detalhes da sua dúvida..."
-                            ></textarea>
-                        </div>
-
-                        <div className="form-buttons">
-                            <button type="button" className="cancel-btn" onClick={fecharModal} disabled={enviando}>
-                                Cancelar
-                            </button>
-                            <button type="submit" className="submit-btn" disabled={enviando}>
-                                {enviando ? "Enviando..." : "Adicionar Dúvida"}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>,
-            document.body
-        );
-    }
-
     return (
-        <div>
-            <button className='primaryButton' onClick={() => setModalAberto(true)}>
+        <>
+            <button className="open-modal-btn" onClick={() => setModalAberto(true)}>
                 + Nova Dúvida
             </button>
-            {modalAberto && <AdicionarNovaDuvidaModal />}
-        </div>
-    )
-}
+
+            {modalAberto && (
+                <div className="modal-overlay">
+                    <div className="modal-card">
+                        <header className="modal-header">
+                            <div className="header-brand">
+                                <div className="icon-box">
+                                    <MdHelpOutline size={28} />
+                                </div>
+                                <div className="text-box">
+                                    <h2>Enviar Nova Dúvida</h2>
+                                    <p>Nossos professores estão prontos para te ajudar</p>
+                                </div>
+                            </div>
+                            <button className="close-x" onClick={fecharModal}>
+                                <MdOutlineClose size={24} />
+                            </button>
+                        </header>
+
+                        <div className="modal-scroll-area">
+                            <form onSubmit={handleSubmit} className="styled-form">
+                                <div className="input-row">
+                                    <div className="field flex-2">
+                                        <label><MdOutlineTitle /> Título da Atividade</label>
+                                        <input 
+                                            type="text" 
+                                            placeholder="Ex: Exercícios de Cálculo II"
+                                            value={titulo}
+                                            onChange={(e) => setTitulo(e.target.value)}
+                                            required 
+                                        />
+                                    </div>
+                                    <div className="field flex-1">
+                                        <label><MdOutlineTitle /> Materia</label>
+                                        <Select 
+                                            label="Disciplina"
+                                            value={materia}
+                                            onChange={setMateria}
+                                            options={DISCIPLINAS}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="input-row">
+                                    <div className="field flex-1">
+                                        <label><MdOutlineTitle /> Data</label>
+                                        <InputDate 
+                                            label="Prazo Final" 
+                                            value={prazo}
+                                            onChange={setPrazo}
+                                            required 
+                                        />
+                                    </div>
+                                    <div className="field flex-1 empty-mobile"></div>
+                                </div>
+
+                                <div className="field">
+                                    <label><MdOutlineDescription /> Explicação Detalhada</label>
+                                    <textarea 
+                                        rows={4} 
+                                        value={descricao}
+                                        onChange={(e) => setDescricao(e.target.value)}
+                                        placeholder="Descreva aqui o que você precisa que o professor faça..."
+                                    ></textarea>
+                                </div>
+
+                                <div className="upload-container">
+                                    <label>Anexar material de apoio (opcional)</label>
+                                    <FileUpload />
+                                </div>
+
+                                <footer className="form-footer">
+                                    <button type="button" className="btn-secondary" onClick={fecharModal}>
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" className="btn-primary" disabled={enviando}>
+                                        <MdSend /> {enviando ? "Enviando..." : "Enviar Dúvida"}
+                                    </button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+    );
+};
 
 export default NovaDuvida;

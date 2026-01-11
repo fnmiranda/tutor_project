@@ -1,6 +1,5 @@
 'use client';
 
-import CabecalhoAluno from '@/components/AlunoDashboard/CabecalhoAluno';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import TopBar from '@/components/TopBar/TabBar';
 import { useAuth } from '@/context/authContext';

@@ -127,3 +127,24 @@
   margin-bottom: 1.5rem;
   /* mb-6 */
 }
+
+.headerContent {
+  margin-bottom: 2rem; /* 32px */
+  padding-bottom: 1rem; /* 16px */
+  border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+}
+
+.pageTitle {
+  font-size: 1.25rem; /* 36px */
+  font-weight: 700; /* font-bold */
+  color: #111827; /* text-gray-900 */
+  line-height: 1.2;
+  margin: 0;
+}
+
+.pageSubtitle {
+  font-size: 1.125rem; /* 18px */
+  color: #6b7280; /* text-gray-500 */
+  margin-top: 0.5rem; /* 8px */
+  font-weight: 400;
+}

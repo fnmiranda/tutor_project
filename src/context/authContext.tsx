@@ -34,8 +34,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const res = await fetch('/api/auth/me');
           if (res.ok) {
             const profile = await res.json();
+
             setUserData(profile);
-            setUserType("tutor")
+            setUserType(profile.tipo)
           }
         } catch (error) {
           console.error("Erro ao buscar perfil:", error);

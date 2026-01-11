@@ -1,9 +1,9 @@
 'use client';
 
-import DuvidaDetalhe from '@/components/ProfessorDashboard/DuvidaDetalhe/DuvidaDetalhe';
+import {DuvidaDetalhe} from '@/components/ProfessorDashboard';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'; // Importe o React
+import React, { useEffect, useState } from 'react';
 
 export default function DuvidaDetalhePage() {
   const params = useParams();
@@ -12,10 +12,7 @@ export default function DuvidaDetalhePage() {
     // Verificamos se o params existe e qual o nome da chave
     // Dica: dê um console.log(params) para ver o nome exato da chave!
     if (params) {
-      console.log("Parâmetros da URL:", params);
-
-      // Se sua pasta for [id], use params.id
-      // Se sua pasta for [slug], use params.slug
+      // console.log("Parâmetros da URL:", params);
       const id = params.id || params.duvidaId;
       setDuvidaId(id as string);
     }
@@ -27,7 +24,6 @@ export default function DuvidaDetalhePage() {
 
   return (
     <ProtectedRoute requiredUserType="tutor">
-      {/*<div>Exibindo atividade: {duvidaId}</div>*/}
       <DuvidaDetalhe duvidaId={duvidaId} />
     </ProtectedRoute>
   );

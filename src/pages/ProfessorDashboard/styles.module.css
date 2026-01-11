@@ -1,0 +1,99 @@
+/* Configurações Gerais */
+.container {
+  padding: 40px;
+  max-width: 1500px;
+  margin: 0 auto;
+  background-color: var(--bg-light, #f8fafc);
+  min-height: 100vh;
+  width: 1400px;
+  font-family: 'Inter', sans-serif;
+  align-items: center;
+}
+
+/* === CABEÇALHO === */
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.pageSubtitle {
+  color: var(--text-muted, #64748b);
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.btnPrimary {
+  background-color: var(--primary-blue, #2b6cff);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+}
+
+/* === GRID DE ESTATÍSTICAS === */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* === FILTROS === */
+.filterSection {
+  margin-bottom: 32px;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 12px;
+  display: inline-flex;
+  gap: 8px;
+}
+
+/* === DASHBOARD E CARDS DE DÚVIDA === */
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-main, #1e293b);
+}
+
+.cardsGridLayout {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+}
+
+.cardWrapper {
+  flex: 1 1 calc(33.333% - 24px); /* 3 cards por linha */
+  min-width: 300px; /* Largura mínima */
+  max-width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .cardWrapper {
+    flex: 1 1 calc(50% - 24px); /* 2 cards por linha */
+  }
+}
+
+@media (max-width: 768px) {
+  .cardWrapper {
+    flex: 1 1 100%; /* 1 card por linha */
+  }
+}

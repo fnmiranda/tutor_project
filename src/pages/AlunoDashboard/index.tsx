@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import styles from "./aluno.module.css";
 import { NovaDuvida, FiltroCards, DuvidaCard } from "@/components/AlunoDashboard";
 
@@ -10,16 +9,10 @@ import { getMinhasDuvidas } from "@/services/duvidas";
 
 import { Duvida } from "@/@types/index"; 
 
-const ProfileForm = dynamic(
-  () => import("../../components/ProfileForm"),
-  { ssr: false }
-);
-
 const AlunoDashboard = () => {
-  const [activeTab, setActiveTab] = useState<"duvidas" | "perfil">("duvidas");
-  const [filtro, setFiltro] = useState("Todas");
-
   const { userData, isLoading: authLoading } = useAuth();
+
+  const [filtro, setFiltro] = useState("Todas");
   const [minhasDuvidas, setMinhasDuvidas] = useState<Duvida[]>([]);
   const [loadingDados, setLoadingDados] = useState(true);
 
@@ -66,14 +59,13 @@ const AlunoDashboard = () => {
     <div style={{ flex: 1, padding: 0, minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
       <div className={styles.dashboardContainer}>
         <div className={styles.mainContent}>
-          <div className="header-content">
-            <h1 className="page-title">Visão Geral</h1>
-            <p className="page-subtitle">
+          <div className={styles.pageHeader}>
+            <h1 className={styles.pageTitle}>Visão Geral</h1>
+            <p className={styles.pageSubtitle}>
               Bem-vindo de volta, {userData?.nome || 'Estudante'}!
             </p>
           </div>
 
-          {activeTab === "duvidas" && (
             <>
               <div className={styles.statsGrid}>
                 {stats.map((stat) => (
@@ -113,18 +105,6 @@ const AlunoDashboard = () => {
                 )}
               </div>
             </>
-          )}
-
-          {activeTab === "perfil" && (
-            <div className={styles.perfilContainer}>
-              <div className={styles.card}>
-                <h2 className={`${styles.sectionTitle} ${styles.sectionTitleMargin}`}>
-                  Informações do Perfil
-                </h2>
-                <ProfileForm />
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

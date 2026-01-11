@@ -83,6 +83,7 @@
 /* Grupo de botões (flex items-center gap-2) */
 .button-group {
   display: flex;
+  flex: 1;
   align-items: center;
   gap: 0.5rem; /* 8px */
 }
@@ -96,11 +97,16 @@
 
 /* Estilo base (rounded-md px-3 py-2 text-sm font-medium) */
 .btn {
+  display: flex;
+  flex: 1;
+  justify-content: center;
   border-radius: 0.375rem; /* rounded-md */
   padding: 0.5rem 0.75rem; /* py-2 px-3 */
   font-size: 0.875rem; /* text-sm */
   font-weight: 500; /* font-medium */
   cursor: pointer;
+  width: 100%;
+
   border: 1px solid transparent; /* Para manter o alinhamento entre botões */
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }

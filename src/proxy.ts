@@ -29,21 +29,41 @@ export async function proxy(request: NextRequest) {
   );
 
   // Verifica se existe uma sessão ativa
-  const { data: { user } } = await supabase.auth.getUser();
+const { data: { user } } = await supabase.auth.getUser();
 
-  // Lógica de Redirecionamento
-  const isAuthPage = request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/register');
-  const isProtectedRoute = request.nextUrl.pathname.startsWith('/aluno') || request.nextUrl.pathname.startsWith('/tutor');
+// 1. Defina as rotas de forma específica
+const pathname = request.nextUrl.pathname;
+const isTutorRoute = pathname.startsWith('/tutor');
+const isAlunoRoute = pathname.startsWith('/aluno');
+const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/register');
 
-  if (!user && isProtectedRoute) {
+if (user) {
+  // 2. BUSCA O TIPO DO USUÁRIO
+  // O ideal é que o 'user_type' esteja nos user_metadata do Supabase Auth para performance
+  const userType = user.user_metadata?.user_type; // 'aluno' ou 'tutor'
+
+  // Redirecionamento se logado e tentar acessar login/register
+  if (isAuthPage) {
+    const dashboard = userType === 'tutor' ? '/tutor/dashboard' : '/aluno/dashboard';
+    return NextResponse.redirect(new URL(dashboard, request.url));
+  }
+
+  // 3. BLOQUEIO DE ACESSO CRUZADO
+  // Se o aluno tentar entrar em /tutor
+  if (isTutorRoute && userType !== 'tutor') {
+    return NextResponse.redirect(new URL('/aluno/dashboard', request.url));
+  }
+
+  // Se o tutor tentar entrar em /aluno
+  if (isAlunoRoute && userType !== 'aluno') {
+    return NextResponse.redirect(new URL('/tutor/dashboard', request.url));
+  }
+} else {
+  // Se não estiver logado e tentar acessar qualquer rota protegida
+  if (isTutorRoute || isAlunoRoute) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
-
-  if (user && isAuthPage) {
-    // Aqui você precisaria buscar o tipo do usuário no Prisma para decidir o destino
-    // Por enquanto, redireciona para uma rota neutra ou dashboard padrão
-    return NextResponse.redirect(new URL('/', request.url));
-  }
+}
 
   return response;
 }

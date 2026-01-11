@@ -15,7 +15,7 @@ export default function DoubtCard({doubt}: DoubtCardProps) {
 
   // ATUALIZADO: Inclui 'em_proposta'
   const statusMap = {
-    aberta: { text: "Aberta", className: "em_proposta" }, // <-- LINHA ADICIONADA
+    aberta: { text: "Aberta", className: "em_proposta" }, 
     em_andamento: { text: "Em Progresso", className: "in_progress" },
     concluida: { text: "Respondida", className: "answered" },
   };

@@ -14,6 +14,8 @@ export async function GET() {
   );
 
   const { data: { user } } = await supabase.auth.getUser();
+  console.log("Metadados do usuário:", user?.user_metadata);
+
 
   if (!user) return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
 

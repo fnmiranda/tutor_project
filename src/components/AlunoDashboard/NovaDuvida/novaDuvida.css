@@ -1,212 +1,227 @@
-.primaryButton {
-
-    background-color: var(--blue-600);
-
-    color: var(--white);
-
-    padding: 0.5rem 1rem;
-    /* px-4 py-2 */
-
-    border-radius: 0.5rem;
-    /* rounded-lg */
-
-    font-weight: 500;
-    /* font-medium */
-
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    /* shadow-sm */
-
-    transition: background-color 0.2s ease-in-out;
-    /* transition-colors */
-
-    border: none;
-
-    cursor: pointer;
-
-}
-
-.primaryButton:hover {
-    background-color: var(--blue-700);
-    /* hover:bg-blue-700 */
-}
-
-.modal {
+/* --- Overlay e Container --- */
+.modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4); /* Fundo escuro sutil */
+    backdrop-filter: blur(6px); /* Efeito de desfoque profissional */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 9999;
+    padding: 20px;
 }
 
-.modal-content {
-    position: relative;
-    background: #fff;
-    color: #000;
-    padding: 2rem;
+.modal-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 680px;
+    border-radius: 24px; /* Arredondamento conforme login */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    max-height: 95vh;
+    animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- Cabeçalho Dinâmico --- */
+.modal-header {
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon-box {
+    background: #8b2cf5; /* Roxo Aluno */
+    color: white;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(139, 44, 245, 0.2);
+}
+
+.text-box h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.text-box p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 4px 0 0 0;
+}
+
+.close-x {
+    background: #f8fafc;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8px;
+    border: none;
+    color: #94a3b8;
+    width: 40px;
+    height: 40px;
     border-radius: 12px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 90vh;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-x:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+/* --- Formulário e Inputs --- */
+.modal-scroll-area {
+    padding: 32px;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-
-    overflow: hidden;
 }
 
-
-
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #666;
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
-.close-btn:hover {
-    color: #000;
+.input-row {
+    display: flex;
+    gap: 20px;
 }
 
-.modal-content h2 {
-    margin-bottom: 1.5rem;
-    color: #111;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight:  bold;
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
 }
 
-.photo-upload {
+.field label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 8px;
 }
 
-.photo-placeholder {
-    width: 80px;
-    height: 80px;
-    border: 2px dashed #ccc;
-    border-radius:50%;
+.field input, .field textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc; /* Cor oficial de inputs do Tunno */
+    font-size: 15px;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.2s;
+    box-sizing: border-box; /* Garante que o width 100% seja respeitado */
+}
+
+.field input:focus, .field textarea:focus {
+    border-color: #8b2cf5;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(139, 44, 245, 0.1);
+}
+
+/* --- Seção de Upload --- */
+.upload-container {
+    margin-top: 8px;
+    padding-top: 24px;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.upload-container label {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 12px;
+    display: block;
+}
+
+/* --- Rodapé e Botões --- */
+.form-footer {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #777;
-}
-
-.photo-actions button {
-    background: #f2f2f2;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 500;
-}
-
-.photo-actions button:hover {
-    background: #ddd;
-}
-.form-grid{
-    display:flex;
-    width:100%;
-    flex-direction:column;
-}
-.photo-actions p {
-    font-size: 0.8rem;
-    color: #777;
-    margin-top: 4px;
-}
-
-.form-group {
-    flex-direction: row;
-    gap: 4px;
-    align-items:center;
-    margin-bottom: 0.8rem;
-}
-
-/* CORREÇÃO: Seletor aninhado movido para CSS padrão */
-.form-group select {
-    padding: 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    background-color: #fff;
-    color: #333;
-    /* Remove seta padrão do dropdown */
-    cursor: pointer;
-}
-
-/* Modificador para campos que ocupam a largura total */
-.form-group.full-width {
-    width:100%;
-    margin-bottom: 1.2rem;
-}
-
-label {
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-input,
-textarea {
-    padding: 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 0.95rem;
-}
-
-textarea {
-    resize: vertical;
-}
-
-.form-buttons {
-    display: flex;
+    flex: 1;
     justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
 }
 
-.cancel-btn {
-    background: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 0.8rem 1.6rem;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.submit-btn {
-    background: #2563eb;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 0.8rem 1.6rem;
+.btn-secondary {
+    padding: 14px 24px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #64748b;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.25s ease;
+    transition: all 0.2s;
+    width: 100%;
+
 }
 
-.submit-btn:hover {
-    background: #1d4ed8;
+.btn-secondary:hover { background: #f8fafc; }
+
+.btn-primary {
+    padding: 14px 32px;
+    border-radius: 12px;
+    border: none;
+    background: #8b2cf5; /* Botão Roxo */
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(139, 44, 245, 0.3);
+    transition: all 0.2s;
+    width: 100%;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.95; }
+.btn-primary:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* --- Botão do Dashboard --- */
+.open-modal-btn {
+    background: #2b6cff; /* Azul de ação principal */
+    color: white;
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.open-modal-btn:hover { transform: scale(1.05); }
+
+/* --- Animações --- */
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Responsividade --- */
+@media (max-width: 640px) {
+    .input-row { flex-direction: column; gap: 24px; }
+    .empty-mobile { display: none; }
+    .modal-card { border-radius: 0; height: 100vh; max-height: 100vh; }
+    .form-footer { flex-direction: column-reverse; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
 }

@@ -1,19 +1,29 @@
 'use client';
 
 import { useAuth } from '@/context/authContext';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ProtectedRoute from "@/components/ProtectedRoute";
 import TopBar from '@/components/TopBar/TabBar';
 
-export default function TeacherLayout({
+export default function TutorLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
 
+  const {userType} = useAuth();
+
+  if(userType !=="tutor"){
+    return (     
+      <div className='flex flex-1 items-center text-black justify-center'> 
+        <>Redirecionando...</> 
+      </div>
+    );
+  }
+
   let saldo = 100;
+  
   return (
     <ProtectedRoute requiredUserType='tutor'>
       <div className="flex flex-col w-full h-full bg-gray-50" >
