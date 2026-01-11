@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
-import Card from '../../../components/cards/cards';
-import Input from '../../../components/input/input';
+import Card from '../../../components/Cards';
+import Input from '../../../components/Input';
 import Button from '../../../components/botao/botao';
 import styles from './login.module.css';
 import { useAuth } from '@/context/authContext';

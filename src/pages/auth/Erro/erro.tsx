@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import Card from '../../../components/cards/cards';
+import Card from '../../../components/Cards';
 import Button from '../../../components/botao/botao';
 import styles from './erro.module.css';
 

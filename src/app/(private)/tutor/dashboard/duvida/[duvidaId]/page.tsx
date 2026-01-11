@@ -1,6 +1,6 @@
 'use client';
 
-import DuvidaDetalhe from '@/components/professorDashboard/DuvidaDetalhe';
+import DuvidaDetalhe from '@/components/ProfessorDashboard/DuvidaDetalhe/DuvidaDetalhe';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'; // Importe o React

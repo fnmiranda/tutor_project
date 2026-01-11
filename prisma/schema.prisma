@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Usuario {
+  id           String   @id @default(uuid())
+  nome         String
+  email        String   @unique
+  tipo         String
+  createdAt    DateTime @default(now())
+  bio          String?  @default("\"\"")
+  duvidas      Duvida[] @relation("AlunoDuvidas")
+  atendimentos Duvida[] @relation("TutorDuvidas")
+}
+
+model Duvida {
+  id        String   @id @default(uuid())
+  titulo    String
+  materia   String
+  descricao String
+  status    String   @default("aberta")
+  alunoId   String
+  tutorId   String?
+  createdAt DateTime @default(now())
+  deadLine  DateTime
+  aluno     Usuario  @relation("AlunoDuvidas", fields: [alunoId], references: [id])
+  tutor     Usuario? @relation("TutorDuvidas", fields: [tutorId], references: [id])
+}

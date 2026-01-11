@@ -1,6 +1,6 @@
 'use client';
 
-import HomeScreen from "@/pages/home/home";
+import HomeScreen from "@/pages/Home/home";
 
 
 export default function HomePage() {

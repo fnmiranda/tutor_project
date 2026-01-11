@@ -1,4 +1,4 @@
-import PageProfessorPerfil from "@/pages/perfil_professor/perfil_professor";
+import PageProfessorPerfil from "@/pages/PerfilProfessor";
 
 
 export default function Perfil() {

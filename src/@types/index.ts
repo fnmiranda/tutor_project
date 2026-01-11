@@ -1,23 +1,25 @@
-export type UserRole = 'student' | 'teacher';
 
-export interface BaseUser {
+export interface Usuario {
   id: string;
+  nome: string;
   email: string;
-  name: string;
-  role: UserRole;
+  tipo: string;
+  createdAt: Date;
+  bio: string | null;
+
 }
 
-export interface Student extends BaseUser {
-  role: 'student';
-  enrollment: string;
-  course: string;
-  semester: number;
+export interface Duvida {
+  id: string;
+  titulo: string;
+  materia: string;
+  descricao: string;
+  status: 'aberta' | 'em_andamento' | 'concluida';
+  aluno:{
+    nome: string;
+    email: string;
+  };
+  tutorId: string | null;
+  createdAt: Date;
+  deadLine: Date;
 }
-
-export interface Teacher extends BaseUser {
-  role: 'teacher';
-  department: string;
-  employeeId: string;
-}
-
-export type User = Student | Teacher;

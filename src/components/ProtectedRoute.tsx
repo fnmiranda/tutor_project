@@ -22,10 +22,10 @@ export default function ProtectedRoute({ children, requiredUserType }: Protected
       return;
     }
 
-    if (requiredUserType && userType !== requiredUserType) {
-      const redirectPath = userType === 'aluno' ? routes.aluno.dashboard : routes.tutor.dashboard;
-      router.push(redirectPath);
-    }
+    // if (requiredUserType && userType !== requiredUserType) {
+    //   const redirectPath = userType === 'aluno' ? routes.aluno.dashboard : routes.tutor.dashboard;
+    //   router.push(redirectPath);
+    // }
   }, [isAuthenticated, userType, requiredUserType, isLoading, router]);
 
   if (isLoading || !isAuthenticated || (requiredUserType && userType !== requiredUserType)) {

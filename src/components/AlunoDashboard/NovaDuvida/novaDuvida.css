@@ -1,0 +1,212 @@
+.primaryButton {
+
+    background-color: var(--blue-600);
+
+    color: var(--white);
+
+    padding: 0.5rem 1rem;
+    /* px-4 py-2 */
+
+    border-radius: 0.5rem;
+    /* rounded-lg */
+
+    font-weight: 500;
+    /* font-medium */
+
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    /* shadow-sm */
+
+    transition: background-color 0.2s ease-in-out;
+    /* transition-colors */
+
+    border: none;
+
+    cursor: pointer;
+
+}
+
+.primaryButton:hover {
+    background-color: var(--blue-700);
+    /* hover:bg-blue-700 */
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background: #fff;
+    color: #000;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+
+    overflow: hidden;
+}
+
+
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+    color: #111;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight:  bold;
+}
+
+.photo-upload {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.photo-placeholder {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #ccc;
+    border-radius:50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+}
+
+.photo-actions button {
+    background: #f2f2f2;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.photo-actions button:hover {
+    background: #ddd;
+}
+.form-grid{
+    display:flex;
+    width:100%;
+    flex-direction:column;
+}
+.photo-actions p {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 4px;
+}
+
+.form-group {
+    flex-direction: row;
+    gap: 4px;
+    align-items:center;
+    margin-bottom: 0.8rem;
+}
+
+/* CORREÇÃO: Seletor aninhado movido para CSS padrão */
+.form-group select {
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    color: #333;
+    /* Remove seta padrão do dropdown */
+    cursor: pointer;
+}
+
+/* Modificador para campos que ocupam a largura total */
+.form-group.full-width {
+    width:100%;
+    margin-bottom: 1.2rem;
+}
+
+label {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+input,
+textarea {
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.cancel-btn {
+    background: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.8rem 1.6rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.submit-btn:hover {
+    background: #1d4ed8;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

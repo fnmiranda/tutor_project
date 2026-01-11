@@ -106,7 +106,7 @@ export default function TopBar({ saldo }: TopBarProps) {
             </div>
             <div className="profile-info">
               <span className="profile-name">
-                {isTutor ? `Prof. ${userData?.name?.split(' ')[0]}` : userData?.name?.split(' ')[0]}
+                {isTutor ? `Prof. ${userData?.nome?.split(' ')[0]}` : userData?.nome?.split(' ')[0]}
               </span>
               <span className="profile-email">{userData?.email}</span>
             </div>

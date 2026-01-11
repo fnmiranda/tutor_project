@@ -1,4 +1,4 @@
-import PagePerfilAluno from "@/pages/perfil_aluno/perfil_aluno";
+import PagePerfilAluno from "@/pages/PerfilAluno";
 
 
 export default function Perfil() {
