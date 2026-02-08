@@ -1,0 +1,141 @@
+.card {
+    background: #ffffff;
+    /* border: 1px solid #e2e8f0; */
+    border-radius: 20px; 
+    padding: 20px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    animation: slideUp 0.3s ease-out;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.avatarWrapper {
+    position: relative;
+}
+
+.avatar {
+    background: #1e5bff; 
+    color: white;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verifiedBadge {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: #22c55e;
+    color: white;
+    padding: 4px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.starIcon { color: #f59e0b; }
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.infoGroup label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.infoValue {
+    background: #f8fafc; /* Fundo acinzentado */
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+    border: 1px solid #e2e8f0;
+}
+
+.bioText {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.alertBox {
+    background: #eff6ff; /* Azul claro informativo */
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 4px solid #1e5bff;
+}
+
+.alertBox p {
+    font-size: 13px;
+    color: #1e40af;
+    font-weight: 500;
+    margin: 0;
+}
+
+.footer {
+    margin-top: 24px;
+}
+
+.chatBtn {
+    width: 100%;
+    background: #1e5bff; /* Botão azul Tutor */
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chatBtn:hover {
+    background: #1140c5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 91, 255, 0.2);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

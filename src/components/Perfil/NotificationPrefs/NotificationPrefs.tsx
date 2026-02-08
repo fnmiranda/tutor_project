@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Card from "@/components/Cards";
-import Button from "@/components/Button";
-import Switch from "@/components/Switch/Switch";
+import {Card} from "@/components/ui/Card";
+import {Button} from "@/components/ui/Button";
+import {Switch} from "@/components/ui/Switch/Switch";
 
 type Props = { onSaved?: () => void };
 

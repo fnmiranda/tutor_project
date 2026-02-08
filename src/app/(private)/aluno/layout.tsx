@@ -1,33 +1,36 @@
-'use client';
+// 'use server';
+import Sidebar from '@/components/Bar/Sidebar';
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 
-import ProtectedRoute from '@/components/ProtectedRoute';
-import TopBar from '@/components/TopBar/TabBar';
-import { useAuth } from '@/context/authContext';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+export default async function AlunoLayout({ children }: { children: React.ReactNode }) {
 
-export default function StudentLayout({ children }: { children: React.ReactNode }) {
-
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (user && user.user_metadata?.user_type !== 'aluno') {
+    redirect('/');
+  } 
+  if (!user) {
+    redirect('/');
+  } 
   let quant = 30
 
   return (
 
-    <ProtectedRoute requiredUserType='aluno'>
+    // <ProtectedRoute requiredUserType='aluno'>
       <div className="h-full w-full flex flex-col bg-gray-50">
         {/* Navbar do Aluno */}
-        <TopBar saldo={quant} />
+        <Sidebar saldo={quant} userType='aluno'/>
 
         {/* Conteúdo Principal */}
-        <main className="flex-1 px-10">
+        <main className="flex-1 ml-70 px-4">
           {children}
         </main>
 
         {/* Footer */}
-        <footer className="bg-gradient-to-r from-[#8b2cf5] to-[#611bb3] text-white p-4 text-center">
-          <p>Área do Aluno - Sistema Educacional Tunno © 2024</p>
-        </footer>
+        
       </div>
-    </ProtectedRoute>
+    // </ProtectedRoute>
   );
 }

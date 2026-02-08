@@ -152,7 +152,7 @@ function AvatarUpload({
               ${drag ? "bg-blue-50/60 ring-2 ring-blue-200" : ""}`}
         >
           {/* conteudo real por cima da marca d’agua */}
-          <p id="avatar-hint" className="relative z-[1]">
+          <p id="avatar-hint" className="relative z-1">
             Arraste sua foto aqui (tamanho max: {maxMB} MB)
           </p>
         </div>

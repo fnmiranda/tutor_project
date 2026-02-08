@@ -11,7 +11,7 @@ interface Message {
   timestamp: Date;
 }
 
-export default function ChatConversa({ professorNome, onClose }: { professorNome: string, onClose: () => void }) {
+export function ChatConversa({ professorNome, onClose }: { professorNome: string, onClose: () => void }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -77,7 +77,7 @@ export default function ChatConversa({ professorNome, onClose }: { professorNome
           placeholder="Digite sua dúvida aqui..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+          onKeyUp={(e) => e.key === 'Enter' && handleSendMessage()}
         />
         <button className={styles.sendBtn} onClick={handleSendMessage}>
           <MdSend size={22} />

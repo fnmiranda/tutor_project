@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Card from "@/components/Cards";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
-import Switch from "@/components/Switch/Switch";
+import {Card} from "@/components/ui/Card";
+import Input from "@/components/ui/Input";
+import {Button} from "@/components/ui/Button";
+import {Switch} from "@/components/ui/Switch/Switch";
 
 type Props = { onSaved?: () => void };
 
@@ -135,11 +135,14 @@ export default function SecurityPrefs({ onSaved }: Props) {
                       IP {s.ip} • Último acesso {s.last}
                     </div>
                   </div>
-                  <Button
-                    onClick={() => alert(`(mock) sessão ${s.id} revogada`)}
-                  >
-                    Revogar
-                  </Button>
+                  <div className="w-30">
+                      <Button
+                        onClick={() => alert(`(mock) sessão ${s.id} revogada`)}
+                      >
+                        Revogar
+                      </Button>
+                    
+                  </div>
                 </li>
               ))}
             </ul>
@@ -165,9 +168,12 @@ export default function SecurityPrefs({ onSaved }: Props) {
             <div className="font-medium">Excluir conta</div>
             <div className="text-gray-500">Esta ação é irreversível.</div>
           </div>
-          <Button disabled title="Desativado no mock">
-            Excluir conta
-          </Button>
+          <div className="w-46">
+            <Button disabled title="Desativado no mock">
+              Excluir conta
+            </Button>
+
+          </div>
         </div>
       </Card>
     </div>

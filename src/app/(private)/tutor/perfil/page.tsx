@@ -1,10 +1,10 @@
-import PageProfessorPerfil from "@/pages/PerfilProfessor";
+import PageProfessorPerfil from "@/templates/PerfilProfessor/PerfilProfessor";
 
 
 export default function Perfil() {
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="justify-center bg-gray-50">
       <PageProfessorPerfil />
     </div>
   );

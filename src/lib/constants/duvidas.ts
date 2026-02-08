@@ -34,6 +34,7 @@ export const DISCIPLINAS: string[] = [
   'Redação',
   'Literatura',
   'Gramática',
+  'Programação',
 ] as const;
 
 export type Disciplina = typeof DISCIPLINAS[number];

@@ -1,0 +1,293 @@
+.pageWrapper {
+  min-height: 80vh;
+  width: 100%;
+  background-color: #f8fafc; 
+  display: flex;
+  padding: 10px;
+  margin-left: 2px;
+  margin-right: 32px;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+  gap: 10px;
+}
+
+/* Cabeçalho */
+.headerTitleGroup{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 92%;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.backButton {
+  background-color: #ffffff;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backButton:hover {
+  background-color: #f1f5f9;
+  color: #1e5bff; /* Azul Tutor */
+  border-color: #1e5bff;
+}
+
+.pageTitle {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.aberta {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+.em_andamento {
+  background: #fef3c7;
+  color: #ad5f2e;
+}
+.aceita {
+  background: #fef3c7;
+  color: #92500e;
+}
+.concluida {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Layout Grid */
+.mainLayout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap:20px
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20px; /* Bordas arredondadas padrão */
+  padding: 24px;
+  border: 0.1px thick #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.detailsColumn{
+  min-width: none;
+  width: 56rem;
+}
+.duvidaTitle {
+  font-size: 20px;
+  font-weight: 550;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.metaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.metaBadge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.descriptionSection h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.descriptionSection p {
+  color: #475569;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* Coluna de Negociação */
+.negotiationColumn{
+  width: 30rem;
+}
+
+.cardSubtitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+.valueDisplay {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.valueLabel {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.valueAmount {
+  color: #1e5bff; /* Cor destaque Tutor */
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.acceptButton {
+  width: 100%;
+  background-color: #326aee;
+  color: white;
+  padding: 10px;
+  padding-left: 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.acceptButton:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+.divider {
+  margin: 32px 0;
+  position: relative;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.divider span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 0 15px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.formGroup{
+  align-items: center;
+  margin-top: 20px;
+  padding: 6px;
+}
+
+/* Formulário de Contra-proposta */
+.formGroup label {
+  font-size: 20px;
+  align-items: center;
+  font-weight: 700;
+  color: #1b1f26;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.inputWrapper {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  padding: 4px;
+  gap: 10px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  transition: border-color 0.2s;
+  overflow: hidden;
+}
+
+.inputWrapper:focus-within {
+  border-color: #1e5bff;
+}
+
+.currencyPrefix {
+  padding-left: 12px;
+  color: #94a3b8;
+  font-weight: 800;
+}
+
+.valueInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  min-width: 0;
+  font-size: 14px;
+  color: #1e293b;
+  font-weight: 600;
+  border-right: 1px;
+}
+
+.sendButton {
+  background-color: #1e5bff; /* Azul Professor */
+  color: white;
+  border: none;
+  padding: 6px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.sendButton:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 1fr;
+  }
+}
+

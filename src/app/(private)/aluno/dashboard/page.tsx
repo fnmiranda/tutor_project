@@ -1,4 +1,4 @@
-import AlunoDashboard from "@/pages/AlunoDashboard";
+import AlunoDashboard from "@/templates/AlunoDashboard/Aluno";
 
 
 export default function Dashboard() {

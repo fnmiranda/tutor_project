@@ -1,4 +1,4 @@
-import ProfessorDashboardPage from "@/pages/ProfessorDashboard";
+import ProfessorDashboardPage from "@/templates/ProfessorDashboard/ProfessorDashboard";
 
 
 export default function Dashboard() {

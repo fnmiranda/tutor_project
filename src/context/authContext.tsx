@@ -88,11 +88,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
-    setIsAuthenticated(false);
-    setUserType(null);
-    setUserData(null);
-    router.push(routes.login);
+    try {
+        await supabase.auth.signOut();
+        router.replace('/'); 
+        setIsAuthenticated(false);
+        setUserType(null);
+        setUserData(null);
+    } catch (error) {
+      console.error("Erro ao deslogar:", error);
+    }
   };
 
   return (

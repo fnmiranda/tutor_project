@@ -36,4 +36,7 @@ export const authService = {
     if (error) throw error;
     return true;
   }
+
+  
 };
+

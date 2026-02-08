@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import './fileUpload.css'; // Mesmo arquivo CSS (vamos modificá-lo)
+import './fileUpload.css'; 
 
-// MUDANÇA: Importar ícones para os placeholders
 import { FaFilePdf, FaUpload } from "react-icons/fa";
 
 type Props = {
@@ -11,8 +10,7 @@ type Props = {
     onChange?: (file: File | null, previewUrl: string | null) => void;
 };
 
-export default function FileUpload({ initialUrl = null, onChange }: Props) {
-    // MUDANÇA: Adicionar estado para guardar o *arquivo* (para sabermos o nome e tipo)
+export function FileUpload({ initialUrl = null, onChange }: Props) {
     const [file, setFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(initialUrl ?? null);
     const inputRef = useRef<HTMLInputElement | null>(null);

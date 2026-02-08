@@ -45,4 +45,4 @@ function FiltroCards({ valorSelecionado, aoMudarValor, stats }: FiltroCardsProps
   );
 }
 
-export default FiltroCards;
+export {FiltroCards};

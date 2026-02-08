@@ -1,46 +1,39 @@
-'use client';
+// 'use client';
 
-import { useAuth } from '@/context/authContext';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import ProtectedRoute from "@/components/ProtectedRoute";
-import TopBar from '@/components/TopBar/TabBar';
+import Sidebar from '@/components/Bar/Sidebar';
+import { createClient } from '@/lib/supabase/server'; 
+import { redirect } from 'next/navigation';
 
-export default function TutorLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function TutorLayout({children,}: {children: React.ReactNode;}) {
 
-  const {userType} = useAuth();
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  if(userType !=="tutor"){
-    return (     
-      <div className='flex flex-1 items-center text-black justify-center'> 
-        <>Redirecionando...</> 
-      </div>
-    );
-  }
+  if (user && user.user_metadata?.user_type !== 'tutor') {
+    redirect('/aluno/dashboard');
+  } 
+
+  if (!user) {
+    redirect('/');
+  } 
 
   let saldo = 100;
   
   return (
-    <ProtectedRoute requiredUserType='tutor'>
-      <div className="flex flex-col w-full h-full bg-gray-50" >
+    // <ProtectedRoute requiredUserType='tutor'>
+      <div className="w-full h-full flex flex-col  bg-gray-50" >
 
         {/* Navbar do Professor */}
-        <TopBar saldo={saldo} />
+        <Sidebar saldo={saldo} userType='tutor'/>
 
         {/* Conteúdo Principal */}
-        <main className="flex-1 p-2 mt-10">
+        <main className="flex-1 ml-70 px-4">
           {children}
         </main>
 
         {/* Footer */}
-        <footer className="bg-gradient-to-r from-[#1e5bff] to-[#1140c5] text-white p-4 text-center">
-          <p>Área do Professor - Sistema Educacional Tunno © 2024</p>
-        </footer>
+        
       </div>
-    </ProtectedRoute>
+    // </ProtectedRoute>
   );
 }

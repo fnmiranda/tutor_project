@@ -1,0 +1,185 @@
+.sidebar {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  bottom: 20px;
+  width: 260px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  z-index: 100;
+  border: 1px solid #f1f5f9;
+}
+
+/* Temas dinâmicos baseados no tipo de usuário */
+.tutorTheme .brandIcon {
+  width: 40px;
+  height: 30px;
+  font-size: 30px;
+  background: #1e5bff;
+  color: white;
+  border-radius: 10px;
+  padding: 4px;
+}
+.alunoTheme .brandIcon {
+  width: 40px;
+  height: 30px;
+  font-size: 30px;
+  background: #8b2cf5;
+  color: white;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.brandName {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e293b;
+  display: block;
+}
+.brandSub {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.balanceCard {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+
+.balanceLabel {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.balanceValue {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e5bff;
+}
+
+.navigation {
+  flex: 1;
+}
+.navLabel {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 15px;
+  padding-left: 10px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin-bottom: 5px;
+}
+
+.navItem:hover {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.navItem.active {
+  background: #f1f5f9;
+}
+
+.tutorTheme .navItem.active {
+  color: #1e5bff;
+}
+.alunoTheme .navItem.active {
+  color: #8b2cf5;
+}
+
+.sidebarFooter {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 20px;
+  position: relative;
+}
+
+.notificationBtn {
+  width: 100%;
+  background: #f8fafc;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 110px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+}
+
+.profileAvatar {
+  color: #cbd5e1;
+}
+.userName {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  display: block;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  margin-top: 2px;
+}
+
+.notifWrapper {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 300px;
+  z-index: 101;
+}

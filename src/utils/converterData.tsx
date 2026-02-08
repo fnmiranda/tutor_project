@@ -52,7 +52,9 @@ export function parseStringForDate(dataHoraString: string): Date {
   return data;
 }
 
-export function parseDate(data: Date): string {
+export function parseDate(data: Date | undefined): string {
+  if(!data) return "";
+
   const dia = String(data.getDate()).padStart(2, '0');
   const mes = String(data.getMonth() + 1).padStart(2, '0');
   const ano = data.getFullYear();
@@ -60,3 +62,57 @@ export function parseDate(data: Date): string {
   return `${dia}/${mes}/${ano}`;
 }
 
+export function parseTime(data: Date | undefined): string {
+  if  (!data) return "";
+
+  const hora = String(data.getHours())
+  const minuto = String(data.getMinutes())
+
+  return `${hora}:${minuto}`;
+}
+
+export function formatTimeDifference(createdAt: Date): string {
+  const now = new Date();
+  const createdDate = new Date(createdAt);
+  const diffInMs = now.getTime() - createdDate.getTime();
+  
+  // Converter para diferentes unidades
+  const diffInSeconds = Math.floor(diffInMs / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInDays = Math.floor(diffInHours / 24);
+  
+  // Regras de formatação
+  if (diffInSeconds < 60) {
+    return 'Agora mesmo';
+  } else if (diffInMinutes < 60) {
+    return `há ${diffInMinutes} ${diffInMinutes === 1 ? 'minuto' : 'minutos'}`;
+  } else if (diffInHours < 24) {
+    return `há ${diffInHours} ${diffInHours === 1 ? 'hora' : 'horas'}`;
+  } else if (diffInDays < 7) {
+    return `há ${diffInDays} ${diffInDays === 1 ? 'dia' : 'dias'}`;
+  } else {
+    // Mais de 7 dias, mostrar data completa
+    return createdDate.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  }
+}
+
+export function converterParaDataCompleta(dateStr: string, timeStr: string): Date {
+  const [time, period] = timeStr.split(' '); // ["02:30", "PM"]
+  let [hours, minutes] = time.split(':').map(Number);
+
+  if (period === 'PM' && hours < 12) {
+    hours += 12;
+  } else if (period === 'AM' && hours === 12) {
+    hours = 0;
+  }
+
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const isoString = `${dateStr}T${pad(hours)}:${pad(minutes)}:00`;
+
+  return new Date(isoString);
+}

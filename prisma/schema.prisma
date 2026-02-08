@@ -8,14 +8,26 @@ datasource db {
 }
 
 model Usuario {
+  //informações primarias do usuário
   id           String   @id @default(uuid())
   nome         String
   email        String   @unique
   tipo         String
+  //informações do Tutor/aluno
+  bio          String? 
+  instituicao  String?
+  curso        String?
+  formacao     String?
+  especialidades String[] @default([])
+  cidade       String?
+  estado       String?
+  //chaves estrangeirass
+  duvidasPropostas      Duvida[] @relation("AlunoDuvidas")
+  duvidasAssumidas  Duvida[] @relation("TutorDuvidas")
+  propostas Proposta[] 
+  //Data em que foi criado
   createdAt    DateTime @default(now())
-  bio          String?  @default("\"\"")
-  duvidas      Duvida[] @relation("AlunoDuvidas")
-  atendimentos Duvida[] @relation("TutorDuvidas")
+  updatedAt       DateTime @updatedAt @default(now())
 }
 
 model Duvida {
@@ -24,10 +36,33 @@ model Duvida {
   materia   String
   descricao String
   status    String   @default("aberta")
+  valorSugerido Float? 
+
   alunoId   String
-  tutorId   String?
-  createdAt DateTime @default(now())
-  deadLine  DateTime
   aluno     Usuario  @relation("AlunoDuvidas", fields: [alunoId], references: [id])
+
+  tutorId   String?
   tutor     Usuario? @relation("TutorDuvidas", fields: [tutorId], references: [id])
+
+  propostas Proposta[]
+
+  deadLine  DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
+model Proposta {
+  id         String   @id @default(uuid())
+  valor      Float 
+  mensagem   String?  
+  status     String   @default("pendente") 
+
+  duvidaId   String
+  duvida     Duvida   @relation(fields: [duvidaId], references: [id])
+
+  tutorId    String
+  tutor      Usuario  @relation(fields: [tutorId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
 }

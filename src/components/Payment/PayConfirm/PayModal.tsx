@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./PayModal.module.css";
 import { GoBook } from "react-icons/go";
 import { FaCalendarAlt } from "react-icons/fa";
-import Button from "@/components/botao/botao";
+import Button from "@/components/ui/Button";
 
 type Question = {
   id: string;

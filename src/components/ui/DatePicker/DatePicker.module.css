@@ -1,0 +1,145 @@
+.datePickerWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc; 
+    /* border: 1px solid #e2e8f0; */
+    border-radius: 12px;
+    padding: 1px 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.inputContainer:hover {
+    border-color: #8b2cf5; /* Roxo Aluno */
+}
+
+.input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #1e293b;
+    width: 100%;
+    cursor: pointer;
+}
+
+.icon {
+    color: #94a3b8;
+    font-size: 20px;
+}
+
+/* Popover do Calendário */
+.calendarPopover {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    animation: slideIn 0.2s ease-out;
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.calendarHeader button {
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    color: #64748b;
+}
+
+.currentMonth {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.weekDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
+
+.daysGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.day {
+    aspect-ratio: 1;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #475569;
+}
+
+.day:hover {
+    background: #f1f5f9;
+    color: #8b2cf5;
+}
+
+.selectedDay {
+    background: #8b2cf5 !important; /* Cor Roxo Aluno */
+    color: white !important;
+    font-weight: 700;
+}
+
+.emptyDay {
+    aspect-ratio: 1;
+}
+
+.calendarFooter {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+    text-align: right;
+}
+
+.calendarFooter button {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

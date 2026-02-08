@@ -1,9 +1,19 @@
 /* Tailwind v4 */
 @import "tailwindcss";
 
+/* Importação da fonte local .ttf */
+@font-face {
+  font-family: "BigBlue Terminal";
+  src: url("/fonts/bigbluetermial.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Otimização de performance */
+}
+
 /* Paleta via CSS vars (sem @theme) */
 :root {
   /* equivalente a bg-gray-50 e text-slate-900 */
+  --font-terminal: "BigBlue Terminal", "DejaVu Sans Mono", monospace;
   --background: #f9fafb;
   --foreground: #0f172a;
 }
@@ -25,6 +35,7 @@ body,
 body {
   background: var(--background);
   color: var(--foreground);
+  /* font-family: var(--font-terminal); */
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -78,8 +89,3 @@ h3 {
   border-color: #36485c; /* slate-300 */
   border-bottom-color: transparent;
 }
-
-
-
-
-
